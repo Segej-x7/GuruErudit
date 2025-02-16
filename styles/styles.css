@@ -1,0 +1,352 @@
+/* Общие стили */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+header {
+    background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+    padding: 20px 0;
+    color: white;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    position: relative;
+    display: inline-block;
+    transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out; /* Плавная анимация */
+    padding: 5px;
+}
+
+/* Шапка */
+header .logo img {
+    height: 80px; /* Увеличиваем размер логотипа */
+    border-radius: 15px; /* Округляем углы */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Размытие только вокруг углов */
+    transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out; /* Плавный переход */
+}
+
+/* При наведении логотипа в шапке */
+header .logo:hover img {
+    transform: scale(1.1); /* Логотип увеличивается */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); /* Увеличиваем размытие при наведении */
+}
+
+/* Меню */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Кнопки */
+.btn-login {
+    background: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.btn-primary {
+    background: black;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid black;
+    color: black;
+    padding: 15px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Герой */
+.hero {
+    background: linear-gradient(90deg, #3B82F6, #1E3A8A);
+    color: white;
+    padding: 70px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.hero .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.hero .btn-primary {
+    background: #FF6B6B;
+}
+
+.hero .btn-secondary {
+    border-color: white;
+    color: white;
+}
+
+.hero .illustration img {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 40px;
+}
+
+/* Преимущества */
+.benefits {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.benefits h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.benefit-card {
+    background: #F9FAFB;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.benefit-card img {
+    height: 50px;
+    margin-bottom: 20px;
+    -webkit-mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+    mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+}
+
+.benefit-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Популярные курсы */
+.courses {
+    padding: 80px 0;
+    text-align: center;
+}
+
+.courses h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.course-card {
+    background: #F9FAFB;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.course-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    -webkit-mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+    mask: linear-gradient(to bottom, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0));
+}
+
+.course-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.course-card .btn-course {
+    background: #3B82F6;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Подвал */
+footer {
+    background: #1E3A8A;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer .footer-logo img {
+    height: 80px; /* Увеличиваем размер логотипа */
+    border-radius: 15px; /* Округляем углы */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Размытие только вокруг углов */
+    transition: transform 0.6s ease-in-out, box-shadow 0.6s ease-in-out; /* Плавный переход */
+}
+
+/* При наведении логотипа в подвале */
+footer .footer-logo:hover img {
+    transform: scale(1.1); /* Логотип увеличивается */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); /* Увеличиваем размытие при наведении */
+}
+
+footer nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+footer nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .social {
+    margin-top: 20px;
+}
+
+footer .social img {
+    height: 24px;
+    margin: 0 10px;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background: #3B82F6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .benefits-grid, .courses-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .benefits-grid, .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+}

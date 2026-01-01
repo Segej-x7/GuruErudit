@@ -649,3 +649,57 @@ footer .social img {
 section, div, .container {
     scroll-margin-top: 80px;
 }
+
+
+/* Обновляем стили для hero-illustration */
+.hero .illustration {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0 15px; /* Добавляем отступы по бокам */
+}
+
+.hero .illustration img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 100%; /* Гарантируем, что изображение не превышает ширину контейнера */
+    display: block; /* Убираем лишние отступы */
+}
+
+/* Дополнительные медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    .hero .illustration {
+        padding: 0 10px; /* Уменьшаем отступы на мобильных */
+        margin-top: 30px; /* Добавляем отступ сверху */
+    }
+    
+    .hero .illustration img {
+        border-radius: 12px; /* Немного уменьшаем скругление на мобильных */
+    }
+}
+
+@media (max-width: 576px) {
+    .hero .illustration {
+        padding: 0; /* Убираем боковые отступы на очень маленьких экранах */
+    }
+    
+    .hero .illustration img {
+        border-radius: 10px;
+    }
+    
+    /* Дополнительная гарантия для мобильных */
+    .container {
+        overflow: hidden; /* Скрываем все, что выходит за пределы контейнера */
+    }
+}
+
+/* Альтернативный вариант - если проблема останется, можно добавить это */
+.hero {
+    overflow: hidden; /* Предотвращаем выход за пределы героя */
+}
+
+.hero .container {
+    position: relative; /* Создаем контекст для позиционирования */
+}

@@ -296,11 +296,11 @@
 
         /* ГЕРОЙ */
         .hero {
-            padding: 120px 0 160px;
+            padding: 140px 0 160px;
             position: relative;
             overflow: hidden;
             background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
-            margin-top: 80px;
+            margin-top: 100px;
         }
 
         .hero-circle {
@@ -1373,9 +1373,10 @@
                 font-size: 44px;
             }
             
+            /* ИСПРАВЛЕНИЕ: Увеличен отступ сверху для героя на мобильных */
             .hero {
-                padding: 160px 0 120px;
-                margin-top: 80px;
+                padding: 160px 0 100px;
+                margin-top: 120px;
             }
             
             .section-header h2 {
@@ -1414,8 +1415,10 @@
                 padding: 30px 20px;
             }
             
+            /* ИСПРАВЛЕНИЕ: Добавлен отступ сверху для контейнера с видео */
             .hero-image-container {
                 min-height: 400px;
+                margin-top: 40px;
             }
             
             .hero-content {
@@ -1481,8 +1484,10 @@
                 height: 400px;
             }
             
+            /* ИСПРАВЛЕНИЕ: Увеличен отступ для очень маленьких экранов */
             .hero-image-container {
                 min-height: 350px;
+                margin-top: 60px;
             }
             
             /* Уменьшаем кнопку воспроизведения */
@@ -1501,10 +1506,16 @@
         @media (max-width: 400px) {
             .hero-image-container {
                 min-height: 300px;
+                margin-top: 80px;
             }
             
             .courses-container {
                 grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 180px 0 80px;
+                margin-top: 140px;
             }
         }
     </style>
@@ -2008,8 +2019,33 @@
                     this.style.zIndex = '1';
                 });
             });
+            
+            // Динамическая регулировка отступов для мобильных устройств
+            function adjustHeroForMobile() {
+                const header = document.getElementById('header');
+                const hero = document.querySelector('.hero');
+                const heroImageContainer = document.querySelector('.hero-image-container');
+                
+                if (window.innerWidth <= 768) {
+                    // Получаем высоту хедера
+                    const headerHeight = header.offsetHeight;
+                    
+                    // Устанавливаем отступ для героя
+                    if (hero) {
+                        hero.style.marginTop = headerHeight + 40 + 'px';
+                    }
+                    
+                    // Добавляем дополнительный отступ для контейнера с видео
+                    if (heroImageContainer && window.innerWidth <= 576) {
+                        heroImageContainer.style.marginTop = '60px';
+                    }
+                }
+            }
+            
+            // Вызываем при загрузке и изменении размера окна
+            window.addEventListener('load', adjustHeroForMobile);
+            window.addEventListener('resize', adjustHeroForMobile);
         });
     </script>
 </body>
 </html>
-

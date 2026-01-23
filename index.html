@@ -1373,10 +1373,10 @@
                 font-size: 44px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Увеличен отступ сверху для героя на мобильных */
+            /* ИСПРАВЛЕНИЕ: Подняли блок с видео выше на мобильных */
             .hero {
-                padding: 160px 0 100px;
-                margin-top: 120px;
+                padding: 120px 0 100px;
+                margin-top: 80px;
             }
             
             .section-header h2 {
@@ -1415,33 +1415,49 @@
                 padding: 30px 20px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Добавлен отступ сверху для контейнера с видео */
+            /* ИСПРАВЛЕНИЕ: Подняли блок с видео выше и сделали прямоугольным */
             .hero-image-container {
-                min-height: 400px;
-                margin-top: 40px;
+                min-height: 350px;
+                margin-top: 20px;
+                border-radius: var(--border-radius-md); /* Меньший радиус для мобильных */
+                overflow: visible;
             }
             
             .hero-content {
                 display: flex;
                 flex-direction: column-reverse;
-                gap: 40px;
+                gap: 0; /* Убрали большой gap */
             }
             
             .hero-text {
-                margin-top: 40px;
+                margin-top: 0; /* Убрали большой отступ */
             }
             
-            /* Видео для мобильных */
+            /* Прямоугольное видео для мобильных */
             .hero-video {
                 object-fit: contain;
                 width: 100%;
                 height: auto;
                 max-height: 100%;
+                border-radius: var(--border-radius-md); /* Прямоугольный */
             }
             
             .hero-video-container,
             .hero-video {
-                border-radius: calc(var(--border-radius-xl) - 12px);
+                border-radius: var(--border-radius-md); /* Прямоугольный */
+            }
+            
+            /* Увеличиваем видео-контейнер, чтобы видео занимало больше места */
+            .hero-video-container {
+                position: relative;
+                height: auto;
+                min-height: 350px;
+                background-color: transparent;
+            }
+            
+            /* Делаем герой-изображение более компактным */
+            .hero-image {
+                margin-bottom: 0;
             }
         }
 
@@ -1484,10 +1500,29 @@
                 height: 400px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Увеличен отступ для очень маленьких экранов */
+            /* ИСПРАВЛЕНИЕ: Еще больше поднимаем видео и делаем его компактным */
             .hero-image-container {
-                min-height: 350px;
-                margin-top: 60px;
+                min-height: 300px;
+                margin-top: 10px;
+                margin-bottom: 30px;
+                border-radius: var(--border-radius-sm); /* Еще меньше радиус */
+                border: 8px solid var(--light); /* Тонкая рамка */
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Меньшая тень */
+            }
+            
+            .hero {
+                padding: 100px 0 80px;
+                margin-top: 80px;
+            }
+            
+            /* Еще более компактное видео для мобильных */
+            .hero-video {
+                border-radius: var(--border-radius-sm); /* Еще более прямоугольный */
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: var(--border-radius-sm); /* Еще более прямоугольный */
             }
             
             /* Уменьшаем кнопку воспроизведения */
@@ -1497,7 +1532,7 @@
                 font-size: 24px;
             }
             
-            /* Видео для очень маленьких экранов */
+            /* Видео для очень маленьких экранов - занимает всю ширину */
             .hero-video {
                 object-fit: contain;
             }
@@ -1505,8 +1540,11 @@
 
         @media (max-width: 400px) {
             .hero-image-container {
-                min-height: 300px;
-                margin-top: 80px;
+                min-height: 280px;
+                margin-top: 5px;
+                margin-bottom: 25px;
+                border-radius: var(--border-radius-sm);
+                border: 6px solid var(--light);
             }
             
             .courses-container {
@@ -1514,8 +1552,18 @@
             }
             
             .hero {
-                padding: 180px 0 80px;
-                margin-top: 140px;
+                padding: 90px 0 70px;
+                margin-top: 80px;
+            }
+            
+            /* Супер-компактное видео для очень маленьких экранов */
+            .hero-video {
+                border-radius: 8px; /* Практически прямоугольный */
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: 8px; /* Практически прямоугольный */
             }
         }
     </style>
@@ -1539,6 +1587,7 @@
                     </ul>
                 </nav>
                 <div class="header-buttons">
+
                     <a href="#courses" class="btn btn-primary">Начать обучение</a>
                 </div>
             </div>
@@ -2018,35 +2067,7 @@
                     this.style.zIndex = '1';
                 });
             });
-            
-            // Динамическая регулировка отступов для мобильных устройств
-            function adjustHeroForMobile() {
-                const header = document.getElementById('header');
-                const hero = document.querySelector('.hero');
-                const heroImageContainer = document.querySelector('.hero-image-container');
-                
-                if (window.innerWidth <= 768) {
-                    // Получаем высоту хедера
-                    const headerHeight = header.offsetHeight;
-                    
-                    // Устанавливаем отступ для героя
-                    if (hero) {
-                        hero.style.marginTop = headerHeight + 40 + 'px';
-                    }
-                    
-                    // Добавляем дополнительный отступ для контейнера с видео
-                    if (heroImageContainer && window.innerWidth <= 576) {
-                        heroImageContainer.style.marginTop = '60px';
-                    }
-                }
-            }
-            
-            // Вызываем при загрузке и изменении размера окна
-            window.addEventListener('load', adjustHeroForMobile);
-            window.addEventListener('resize', adjustHeroForMobile);
         });
     </script>
 </body>
 </html>
-
-

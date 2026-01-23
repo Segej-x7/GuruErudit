@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuruErudit - Образование будущего</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+<!-- Шапка -->
+<header>
+    <div class="container">
+        <div class="logo">
+            <img src="images/logo.png" alt="GuruErudit">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#courses">Курсы</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="contakt/contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+        <a href="#loginModal" class="btn-login">Войти</a> <!-- Добавлен якорь для модального окна -->
+    </div>
+</header>
+
+<!-- Герой -->
+<section class="hero">
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInDown">Образование будущего уже здесь!</h1>
+        <p class="animate__animated animate__fadeInUp">Освойте востребованные навыки и начните карьеру мечты.</p>
+        <div class="buttons">
+            <a href="#courses" class="btn-primary animate__animated animate__fadeInLeft">Выбрать курс</a> <!-- Добавлен якорь для секции с курсами -->
+            <a href="#about" class="btn-secondary animate__animated animate__fadeInRight">Узнать больше</a> <!-- Добавлен якорь для секции "О нас" -->
+        </div>
+        
+    </div>
+</section>
+
+<!-- Преимущества -->
+<section id="benefits" class="benefits">
+    <div class="container">
+
+        <div class="illustration animate__animated animate__fadeIn">
+            <img src="images/hero-illustration.png" alt="Образование">
+        </div>
+
+        <h2 class="animate__animated animate__fadeIn">Почему выбирают нас?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card animate__animated">
+                <img src="images/icon-calendar.png" alt="Гибкий график">
+                <h3>Гибкий график</h3>
+                <p>Учитесь в удобное время.</p>
+            </div>
+            <div class="benefit-card animate__animated">
+                <img src="images/icon-monitor.png" alt="Практика">
+                <h3>Практика</h3>
+                <p>Реальные проекты в портфолио.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Популярные курсы -->
+<section id="courses" class="courses">
+    <div class="container">
+        <h2 class="animate__animated animate__fadeIn">Популярные курсы</h2>
+        <div class="courses-grid">
+
+            <div class="course-card animate__animated">
+                <img src="courses/English/images/maxresdefault.png" alt="Английский язык">
+                <h3>Английский язык</h3>
+                <p>Выучи английский на фильмах.</p>
+                <a href="courses/English/index.html" class="btn-course">Подробнее</a>
+                </a> <!-- Ссылка на курс -->
+            </div>
+
+            <div class="course-card animate__animated">
+                <img src="images/course-kitai.png" alt="Профессиональные закупки в Китае">
+                <h3>Профессиональные закупки в Китае</h3>
+                <p>Полный практический курс по работе с поставщиками из Китая.</p>
+                <a href="https://zakupki.guruerudit.ru" class="btn-course">Подробнее</a> <!-- Ссылка на курс -->
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+<!-- Подвал -->
+<footer id="contacts">
+    <div class="container">
+        <div class="footer-logo">
+            <img src="images/logo.png" alt="GuruErudit">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#courses">Курсы</a></li>
+                <li><a href="#about">О нас</a></li>
+                <li><a href="contakt/contacts.html">Контакты</a></li>
+                <li><a href="#">Политика конфиденциальности</a></li>
+            </ul>
+        </nav>
+        <div class="social">
+            <a href="#"><img src="images/icon-instagram.png" alt="Instagram"></a>
+            <a href="#"><img src="images/icon-facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="images/icon-youtube.png" alt="YouTube"></a>
+        </div>
+    </div>
+</footer>
+
+ <!-- Модальное окно -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в систему</h2>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Ваш email" required>
+                <input type="password" id="password" placeholder="Ваш пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            <p id="error-message" class="error-message"></p>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
+
+

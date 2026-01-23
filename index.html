@@ -1294,6 +1294,13 @@
                 margin-left: -15%;
                 margin-top: -40px;
             }
+            
+            /* Исправляем видео для планшетов */
+            .hero-video {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+            }
         }
 
         @media (max-width: 992px) {
@@ -1335,15 +1342,19 @@
                 margin-top: 0;
             }
             
-            /* Видео для планшетов */
+            /* ВАЖНОЕ ИСПРАВЛЕНИЕ: Убираем темные области в видео на планшетах */
             .hero-video {
-                object-fit: contain;
+                object-fit: cover; /* Меняем с contain на cover для заполнения всего пространства */
                 background-color: var(--primary-dark);
             }
             
             .hero-video-container,
             .hero-video {
                 border-radius: calc(var(--border-radius-xl) - 8px);
+            }
+            
+            .hero-video-container {
+                background-color: #000; /* Черный фон для контейнера */
             }
         }
 
@@ -1373,7 +1384,7 @@
                 font-size: 44px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Подняли блок с видео выше на мобильных */
+            /* ИСПРАВЛЕНИЕ: Опустили блок с видео ниже на мобильных */
             .hero {
                 padding: 120px 0 100px;
                 margin-top: 80px;
@@ -1415,47 +1426,50 @@
                 padding: 30px 20px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Подняли блок с видео выше и сделали прямоугольным */
+            /* ИСПРАВЛЕНИЕ: Опустили блок с видео ниже и сделали прямоугольным БЕЗ РАМКИ */
             .hero-image-container {
                 min-height: 350px;
-                margin-top: 20px;
-                border-radius: var(--border-radius-md); /* Меньший радиус для мобильных */
-                overflow: visible;
+                margin-top: 40px; /* УВЕЛИЧЕНО с 20px до 40px */
+                margin-bottom: 40px; /* ДОБАВЛЕНО */
+                border-radius: var(--border-radius-md);
+                overflow: hidden;
+                border: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             }
             
             .hero-content {
                 display: flex;
                 flex-direction: column-reverse;
-                gap: 0; /* Убрали большой gap */
+                gap: 0;
             }
             
             .hero-text {
-                margin-top: 0; /* Убрали большой отступ */
+                margin-top: 0;
             }
             
-            /* Прямоугольное видео для мобильных */
+            /* ВАЖНОЕ ИСПРАВЛЕНИЕ: Убираем темные области и заполняем контейнер */
+            .hero-video-container {
+                position: relative;
+                top: 0; /* Убираем смещение, чтобы не было пустот */
+                height: 100%;
+                min-height: 350px;
+                background-color: #000; /* Черный фон */
+            }
+            
+            /* Заполняем все пространство без пустот */
             .hero-video {
-                object-fit: contain;
+                object-fit: cover; /* Заполняем весь контейнер */
                 width: 100%;
-                height: auto;
+                height: 100%;
                 max-height: 100%;
-                border-radius: var(--border-radius-md); /* Прямоугольный */
+                border-radius: var(--border-radius-md);
             }
             
             .hero-video-container,
             .hero-video {
-                border-radius: var(--border-radius-md); /* Прямоугольный */
+                border-radius: var(--border-radius-md);
             }
             
-            /* Увеличиваем видео-контейнер, чтобы видео занимало больше места */
-            .hero-video-container {
-                position: relative;
-                height: auto;
-                min-height: 350px;
-                background-color: transparent;
-            }
-            
-            /* Делаем герой-изображение более компактным */
             .hero-image {
                 margin-bottom: 0;
             }
@@ -1500,14 +1514,14 @@
                 height: 400px;
             }
             
-            /* ИСПРАВЛЕНИЕ: Еще больше поднимаем видео и делаем его компактным */
+            /* ИСПРАВЛЕНИЕ: Еще больше опускаем видео и делаем его компактным БЕЗ РАМКИ */
             .hero-image-container {
                 min-height: 300px;
-                margin-top: 10px;
-                margin-bottom: 30px;
-                border-radius: var(--border-radius-sm); /* Еще меньше радиус */
-                border: 8px solid var(--light); /* Тонкая рамка */
-                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Меньшая тень */
+                margin-top: 30px; /* УВЕЛИЧЕНО с 10px до 30px */
+                margin-bottom: 40px; /* ДОБАВЛЕНО */
+                border-radius: var(--border-radius-sm);
+                border: none;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             }
             
             .hero {
@@ -1515,14 +1529,21 @@
                 margin-top: 80px;
             }
             
-            /* Еще более компактное видео для мобильных */
+            /* Убираем смещение для телефонов */
+            .hero-video-container {
+                top: 0; /* Убираем смещение */
+                background-color: #000; /* Черный фон */
+            }
+            
+            /* Заполняем все пространство на телефонах */
             .hero-video {
-                border-radius: var(--border-radius-sm); /* Еще более прямоугольный */
+                object-fit: cover; /* Заполняем весь контейнер */
+                border-radius: var(--border-radius-sm);
             }
             
             .hero-video-container,
             .hero-video {
-                border-radius: var(--border-radius-sm); /* Еще более прямоугольный */
+                border-radius: var(--border-radius-sm);
             }
             
             /* Уменьшаем кнопку воспроизведения */
@@ -1531,20 +1552,15 @@
                 height: 60px;
                 font-size: 24px;
             }
-            
-            /* Видео для очень маленьких экранов - занимает всю ширину */
-            .hero-video {
-                object-fit: contain;
-            }
         }
 
         @media (max-width: 400px) {
             .hero-image-container {
                 min-height: 280px;
-                margin-top: 5px;
-                margin-bottom: 25px;
+                margin-top: 25px; /* УВЕЛИЧЕНО с 5px до 25px */
+                margin-bottom: 35px;
                 border-radius: var(--border-radius-sm);
-                border: 6px solid var(--light);
+                border: none;
             }
             
             .courses-container {
@@ -1556,16 +1572,502 @@
                 margin-top: 80px;
             }
             
-            /* Супер-компактное видео для очень маленьких экранов */
+            /* Супер-компактное видео для очень маленьких экранов БЕЗ РАМКИ */
             .hero-video {
-                border-radius: 8px; /* Практически прямоугольный */
+                border-radius: 8px;
+                object-fit: cover; /* Всегда заполняем контейнер */
             }
             
             .hero-video-container,
             .hero-video {
-                border-radius: 8px; /* Практически прямоугольный */
+                border-radius: 8px;
+            }
+            
+            .hero-video-container {
+                top: 0; /* Убираем смещение */
+                background-color: #000; /* Черный фон */
             }
         }
+        
+        /* ДОПОЛНИТЕЛЬНОЕ ИСПРАВЛЕНИЕ ДЛЯ ВСЕХ УСТРОЙСТВ */
+                /* АДАПТИВНОСТЬ */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 32px;
+            }
+            
+            h1 {
+                font-size: 58px;
+            }
+            
+            .section-header h2 {
+                font-size: 48px;
+            }
+            
+            .hero-content {
+                gap: 60px;
+            }
+            
+            .courses-container {
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+            
+            .hero-circle-1 {
+                width: 600px;
+                height: 600px;
+                top: -300px;
+                right: -150px;
+            }
+            
+            .hero-image-container {
+                width: 130%;
+                min-height: 550px;
+                margin-left: -15%;
+                margin-top: -40px;
+            }
+            
+            /* Для больших планшетов (ноутбуки в компактном режиме) */
+            .hero-video {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        /* ПЛАНШЕТЫ В ГОРИЗОНТАЛЬНОЙ ОРИЕНТАЦИИ (992px - 1200px) */
+        @media (max-width: 992px) and (min-width: 901px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 80px;
+            }
+            
+            .hero-text {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            nav ul {
+                gap: 25px;
+            }
+            
+            .hero-circle-2 {
+                width: 400px;
+                height: 400px;
+                bottom: -200px;
+                left: -100px;
+            }
+            
+            .hero-image-container {
+                width: 100%;
+                min-height: 450px; /* Оптимальная высота для горизонтальных планшетов */
+                margin-left: 0;
+                margin-top: 0;
+            }
+            
+            /* Оптимальные настройки видео для горизонтальных планшетов */
+            .hero-video {
+                object-fit: cover;
+                background-color: var(--primary-dark);
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: calc(var(--border-radius-xl) - 8px);
+            }
+            
+            .hero-video-container {
+                background-color: #000;
+            }
+        }
+
+        /* ПЛАНШЕТЫ В ВЕРТИКАЛЬНОЙ ОРИЕНТАЦИИ (768px - 900px) */
+        @media (max-width: 900px) and (min-width: 769px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 70px;
+            }
+            
+            .hero-text {
+                max-width: 700px;
+                margin: 0 auto;
+            }
+            
+            .hero-image-container {
+                width: 100%;
+                min-height: 400px; /* Немного меньше для вертикальных планшетов */
+                margin-left: 0;
+                margin-top: 0;
+            }
+            
+            .hero-circle-2 {
+                width: 350px;
+                height: 350px;
+                bottom: -175px;
+                left: -80px;
+            }
+            
+            /* Специальные настройки для вертикальных планшетов */
+            .hero-video {
+                object-fit: cover;
+            }
+            
+            .hero-video-container {
+                background-color: #000;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+        }
+
+        /* СРЕДНИЕ ПЛАНШЕТЫ И БОЛЬШИЕ ТЕЛЕФОНЫ (577px - 768px) */
+        @media (max-width: 768px) and (min-width: 577px) {
+            header {
+                padding: 20px 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            h1 {
+                font-size: 44px;
+            }
+            
+            /* Опускаем блок с видео ниже на средних планшетах */
+            .hero {
+                padding: 120px 0 100px;
+                margin-top: 80px;
+            }
+            
+            .section-header h2 {
+                font-size: 40px;
+            }
+            
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 40px;
+            }
+            
+            .stat-number {
+                font-size: 42px;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-filters {
+                padding: 0;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 20px;
+            }
+            
+            .filter-btn {
+                flex-shrink: 0;
+            }
+            
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+            
+            /* Опускаем блок с видео ниже и делаем прямоугольным БЕЗ РАМКИ */
+            .hero-image-container {
+                min-height: 350px; /* Идеальная высота для средних планшетов */
+                margin-top: 40px;
+                margin-bottom: 40px;
+                border-radius: var(--border-radius-md);
+                overflow: hidden;
+                border: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+            
+            .hero-content {
+                display: flex;
+                flex-direction: column-reverse;
+                gap: 0;
+            }
+            
+            .hero-text {
+                margin-top: 0;
+            }
+            
+            /* Убираем темные области и заполняем контейнер */
+            .hero-video-container {
+                position: relative;
+                top: 0;
+                height: 100%;
+                min-height: 350px;
+                background-color: #000;
+            }
+            
+            /* Заполняем все пространство без пустот */
+            .hero-video {
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: var(--border-radius-md);
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: var(--border-radius-md);
+            }
+            
+            .hero-image {
+                margin-bottom: 0;
+            }
+        }
+
+        /* СТАНДАРТНЫЕ ТЕЛЕФОНЫ (426px - 576px) */
+        @media (max-width: 576px) and (min-width: 427px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            h1 {
+                font-size: 38px;
+            }
+            
+            .section-header h2 {
+                font-size: 34px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .course-content {
+                padding: 30px;
+            }
+            
+            .feature-card {
+                padding: 40px 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+            }
+            
+            .features-circle-1,
+            .features-circle-2 {
+                width: 800px;
+                height: 400px;
+            }
+            
+            /* Опускаем видео для стандартных телефонов */
+            .hero-image-container {
+                min-height: 300px;
+                margin-top: 30px;
+                margin-bottom: 40px;
+                border-radius: var(--border-radius-sm);
+                border: none;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero {
+                padding: 100px 0 80px;
+                margin-top: 80px;
+            }
+            
+            /* Убираем смещение для телефонов */
+            .hero-video-container {
+                top: 0;
+                background-color: #000;
+            }
+            
+            /* Заполняем все пространство на телефонах */
+            .hero-video {
+                object-fit: cover;
+                border-radius: var(--border-radius-sm);
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: var(--border-radius-sm);
+            }
+            
+            /* Уменьшаем кнопку воспроизведения */
+            .video-play-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+
+        /* МАЛЕНЬКИЕ ТЕЛЕФОНЫ (376px - 426px) */
+        @media (max-width: 426px) and (min-width: 377px) {
+            .hero-image-container {
+                min-height: 280px;
+                margin-top: 25px;
+                margin-bottom: 35px;
+                border-radius: var(--border-radius-sm);
+                border: none;
+            }
+            
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 90px 0 70px;
+                margin-top: 80px;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .section-header h2 {
+                font-size: 32px;
+            }
+            
+            /* Видео для маленьких телефонов */
+            .hero-video {
+                border-radius: 10px;
+                object-fit: cover;
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: 10px;
+            }
+            
+            .hero-video-container {
+                top: 0;
+                background-color: #000;
+            }
+        }
+
+        /* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 376px) */
+        @media (max-width: 376px) {
+            .hero-image-container {
+                min-height: 250px;
+                margin-top: 20px;
+                margin-bottom: 30px;
+                border-radius: var(--border-radius-sm);
+                border: none;
+            }
+            
+            .hero {
+                padding: 80px 0 60px;
+                margin-top: 80px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            /* Видео для очень маленьких телефонов */
+            .hero-video {
+                border-radius: 8px;
+                object-fit: cover;
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: 8px;
+            }
+            
+            .hero-video-container {
+                top: 0;
+                background-color: #000;
+            }
+            
+            .video-play-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        /* ОСОБЫЙ СЛУЧАЙ: ТЕЛЕФОНЫ В ЛАНДШАФТНОЙ ОРИЕНТАЦИИ (высота меньше 500px) */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 100px 0 80px;
+                margin-top: 80px;
+            }
+            
+            .hero-image-container {
+                min-height: 250px; /* Меньшая высота для ландшафтного режима */
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+            
+            h1 {
+                font-size: 34px;
+                margin-bottom: 20px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            
+            .hero-stats {
+                margin-top: 30px;
+                padding-top: 20px;
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+            
+            /* Видео адаптируется под ландшафтный режим */
+            .hero-video {
+                object-fit: cover;
+            }
+            
+            .hero-video-container {
+                background-color: #000;
+            }
+        }
+       
+
+
     </style>
 </head>
 <body>
@@ -1587,7 +2089,6 @@
                     </ul>
                 </nav>
                 <div class="header-buttons">
-
                     <a href="#courses" class="btn btn-primary">Начать обучение</a>
                 </div>
             </div>
@@ -1690,7 +2191,7 @@
                                 <span class="course-price-old">54 900 ₽</span>
                             </div>
                         </div>
-                        <a href="https://zakupki.guruerudit.ru" class="btn btn-course">Записаться на курс</a>
+                        <a href="curse_chane.html" class="btn btn-course">Записаться на курс</a>
                     </div>
                 </div>
 

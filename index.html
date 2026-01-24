@@ -2065,6 +2065,432 @@
                 background-color: #000;
             }
         }
+
+
+                /* АДАПТИВНОСТЬ */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 32px;
+            }
+            
+            h1 {
+                font-size: 58px;
+            }
+            
+            .section-header h2 {
+                font-size: 48px;
+            }
+            
+            .hero-content {
+                gap: 60px;
+            }
+            
+            .courses-container {
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            }
+            
+            .hero-circle-1 {
+                width: 600px;
+                height: 600px;
+                top: -300px;
+                right: -150px;
+            }
+            
+            .hero-image-container {
+                width: 130%;
+                min-height: 550px;
+                margin-left: -15%;
+                margin-top: -40px;
+            }
+            
+            /* Для больших планшетов */
+            .hero-video {
+                object-fit: cover;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 80px;
+            }
+            
+            .hero-text {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            
+            .hero-stats {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            nav ul {
+                gap: 25px;
+            }
+            
+            .hero-circle-2 {
+                width: 400px;
+                height: 400px;
+                bottom: -200px;
+                left: -100px;
+            }
+            
+            .hero-image-container {
+                width: 100%;
+                min-height: 450px;
+                margin-left: 0;
+                margin-top: 0;
+            }
+            
+            /* Для планшетов - cover чтобы не было темных областей */
+            .hero-video {
+                object-fit: cover;
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: calc(var(--border-radius-xl) - 8px);
+            }
+            
+            .hero-video-container {
+                background-color: #000;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 0;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            h1 {
+                font-size: 44px;
+            }
+            
+            .hero {
+                padding: 120px 0 100px;
+                margin-top: 80px;
+            }
+            
+            .section-header h2 {
+                font-size: 40px;
+            }
+            
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-stats {
+                gap: 40px;
+            }
+            
+            .stat-number {
+                font-size: 42px;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-filters {
+                padding: 0;
+                justify-content: flex-start;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 20px;
+            }
+            
+            .filter-btn {
+                flex-shrink: 0;
+            }
+            
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+            
+            /* ИСПРАВЛЕНИЕ ДЛЯ СМАРТФОНОВ И ПЛАНШЕТОВ: опускаем видео */
+            .hero-image-container {
+                min-height: 350px;
+                margin-top: 40px;
+                margin-bottom: 40px;
+                border-radius: var(--border-radius-md);
+                overflow: hidden;
+                border: none;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            }
+            
+            .hero-content {
+                display: flex;
+                flex-direction: column-reverse;
+                gap: 0;
+            }
+            
+            .hero-text {
+                margin-top: 0;
+            }
+            
+            /* ВАЖНОЕ ИСПРАВЛЕНИЕ: Для смартфонов меняем на contain, чтобы видео было видно полностью */
+            .hero-video-container {
+                position: relative;
+                top: 0;
+                height: 100%;
+                min-height: 120px;
+                background-color: #000;
+            }
+            
+            /* Для смартфонов: object-fit: contain чтобы видео было видно полностью без обрезки */
+            .hero-video {
+                object-fit: contain; /* МЕНЯЕМ НА contain для смартфонов */
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                border-radius: var(--border-radius-md);
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: var(--border-radius-md);
+            }
+            
+            .hero-image {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            h1 {
+                font-size: 38px;
+            }
+            
+            .section-header h2 {
+                font-size: 34px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .course-content {
+                padding: 30px;
+            }
+            
+            .feature-card {
+                padding: 40px 30px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+            }
+            
+            .features-circle-1,
+            .features-circle-2 {
+                width: 800px;
+                height: 400px;
+            }
+            
+            /* ДЛЯ СМАРТФОНОВ: Уменьшаем высоту контейнера и оставляем contain */
+            .hero-image-container {
+                min-height: 280px; /* Меньше для смартфонов */
+                margin-top: 30px;
+                margin-bottom: 30px;
+                border-radius: var(--border-radius-sm);
+                border: none;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            .hero {
+                padding: 100px 0 80px;
+                margin-top: 80px;
+            }
+            
+            /* Для смартфонов: contain чтобы видео было видно полностью */
+            .hero-video-container {
+                top: 0;
+                background-color: #000;
+            }
+            
+            .hero-video {
+                object-fit: contain; /* Важно для смартфонов */
+                border-radius: var(--border-radius-sm);
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: var(--border-radius-sm);
+            }
+            
+            /* Уменьшаем кнопку воспроизведения */
+            .video-play-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Дополнительные настройки для очень маленьких смартфонов */
+            .hero-image-container {
+                min-height: 250px;
+                margin-top: 25px;
+                margin-bottom: 25px;
+            }
+            
+            h1 {
+                font-size: 34px;
+            }
+            
+            .section-header h2 {
+                font-size: 30px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            /* Для очень маленьких экранов можно сделать video еще более адаптивным */
+            .hero-video {
+                object-fit: contain;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero-image-container {
+                min-height: 220px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                border-radius: var(--border-radius-sm);
+                border: none;
+            }
+            
+            .courses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 90px 0 70px;
+                margin-top: 80px;
+            }
+            
+            h1 {
+                font-size: 30px;
+            }
+            
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            /* Для супер-компактных смартфонов */
+            .hero-video {
+                border-radius: 8px;
+                object-fit: contain;
+            }
+            
+            .hero-video-container,
+            .hero-video {
+                border-radius: 8px;
+            }
+            
+            .hero-video-container {
+                top: 0;
+                background-color: #000;
+            }
+            
+            .video-play-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+        
+        /* ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ ДЛЯ РАЗНЫХ УСТРОЙСТВ */
+        
+        /* Для планшетов (используем cover чтобы заполнить пространство) */
+        @media (min-width: 577px) and (max-width: 992px) {
+            .hero-video {
+                object-fit: cover; /* Для планшетов используем cover */
+            }
+        }
+        
+        /* Для смартфонов (используем contain чтобы видео было видно полностью) */
+        @media (max-width: 576px) {
+            .hero-video {
+                object-fit: contain; /* Для смартфонов используем contain */
+            }
+        }
+        
+        /* Для ландшафтной ориентации на мобильных */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 100px 0 80px;
+                margin-top: 80px;
+            }
+            
+            .hero-image-container {
+                min-height: 250px;
+                margin-top: 20px;
+                margin-bottom: 30px;
+            }
+            
+            h1 {
+                font-size: 34px;
+                margin-bottom: 20px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+            
+            .hero-stats {
+                margin-top: 30px;
+                padding-top: 20px;
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+            
+            /* Для ландшафтного режима можно использовать cover */
+            .hero-video {
+                object-fit: cover;
+            }
+            
+            .hero-video-container {
+                background-color: #000;
+            }
+        }
        
 
 
@@ -2088,9 +2514,7 @@
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
                 </nav>
-                <div class="header-buttons">
-                    <a href="#courses" class="btn btn-primary">Начать обучение</a>
-                </div>
+
             </div>
         </div>
     </header>

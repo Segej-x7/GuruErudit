@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript: Полный курс от основ к продвинутому с TypeScript</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            margin: 40px auto;
+            max-width: 980px;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { font-size: 2.2em; border-bottom: 3px solid #3498db; padding-bottom: 15px; }
+        h2 { font-size: 1.8em; margin-top: 40px; border-bottom: 2px solid #bdc3c7; padding-bottom: 8px; }
+        h3 { font-size: 1.4em; margin-top: 30px; color: #2980b9; }
+        p { margin-bottom: 16px; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 5px solid #3498db;
+            margin: 20px 0;
+        }
+        code {
+            font-family: 'Consolas', monospace;
+            background: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+        ul, ol { margin-left: 25px; margin-bottom: 18px; }
+        li { margin-bottom: 6px; }
+        strong { color: #2c3e50; }
+    </style>
+</head>
+<body>
+<a href="index_tren.html" class="btn btn-course">JS Тренажер</a>
+<h1>JavaScript: Полный курс от основ к продвинутому</h1>
+<p>Этот курс охватывает JavaScript от базовых концепций до продвинутых тем. Мы добавили дополнительные объяснения, особенно в разделах среднего и сложного уровня, включая детальный разбор конструкций, методов, примеров использования, потенциальных ошибок и лучших практик. Для средних тем (например, функции, асинхронность) мы углубимся в механизмы работы, а для сложных (ООП, паттерны) — в внутреннюю логику, альтернативы и реальные сценарии применения. Каждый раздел включает больше примеров кода с комментариями.</p>
+<p>По запросу добавлены новые разделы по TypeScript (Часть 11), поскольку TypeScript является надстройкой над JavaScript, добавляющей статическую типизацию. Это позволит перейти от динамического JS к типизированному коду, улучшая безопасность и масштабируемость проектов. Разделы по TypeScript построены аналогично структуре курса по JS, с акцентом на различия и преимущества.</p>
+<h2>Часть 1: Фундамент (Как строится код)</h2>
+<h3>1.1. Строительные блоки: Переменные и типы</h3>
+<p>Переменные — это именованные контейнеры для хранения данных в памяти. Они позволяют работать с данными динамически. В JavaScript есть три ключевых ключевых слова для объявления переменных: var, let и const. Важно понимать их различия в области видимости, переприсваивании и подъеме (hoisting).</p>
+<pre><code>// 1. var - устаревший способ объявления (ES5 и ранее). Область видимости: функциональная или глобальная. Поднимается (hoisting) в начало функции или скрипта, но инициализируется как undefined. Может вызывать ошибки из-за глобальной видимости и отсутствия блочной области.
+var oldWay = "устарело"; // Видна везде в функции, даже если объявлена в блоке if/for.
+console.log(oldWay); // "устарело"
+
+// Пример проблемы с var: в цикле
+for (var i = 0; i &lt; 3; i++) {} // i видна после цикла
+console.log(i); // 3 (неожиданно для новичков)
+
+// 2. let - для переменных, которые могут изменяться. Область видимости: блочная (внутри {} curly braces). Поднимается, но не инициализируется (Temporal Dead Zone - TDZ, ошибка при доступе до объявления).
+let counter = 0;
+counter = 1; // Можно переприсваивать
+counter = counter + 1; // Становится 2
+
+// Пример TDZ:
+console.log(counter2); // ReferenceError: Cannot access 'counter2' before initialization
+let counter2 = 5;
+
+// 3. const - для констант, которые нельзя переприсваивать. Область видимости: блочная, как у let. Однако, если значение — объект или массив, его содержимое можно изменять (const блокирует только переприсвоение ссылки).
+const PI = 3.14159;
+// PI = 3.14; // TypeError: Assignment to constant variable.
+
+const user = { name: "John" };
+user.name = "Jane"; // ✅ Разрешено, меняем свойство объекта (мутируем объект, но не переприсваиваем переменную)
+user.age = 30; // ✅ Добавляем новое свойство
+// user = { name: "Bob" }; // ❌ TypeError: Assignment to constant variable.
+</code></pre>
+<p>Почему три вида? JavaScript эволюционировал. До ES6 (2015) был только var, который приводил к ошибкам из-за отсутствия блочной видимости (например, утечки переменных из циклов). ES6 ввел let и const для строгой области видимости и безопасности. Лучшая практика: Используйте const по умолчанию (для иммутабельности), let только если нужно переприсваивать, избегайте var в современном коде. Это снижает ошибки и улучшает читаемость.</p>
+<h3>1.2. Простые типы данных (Примитивы)</h3>
+<p>JavaScript имеет 7 примитивных типов (иммутабельные, передаются по значению) и объекты (мутабельные, передаются по ссылке). Примитивы — базовые строительные блоки данных.</p>
+<pre><code>// 1. string - последовательность символов (Unicode). Иммутабельны: операции создают новые строки.
+let name = "Анна";
+let greeting = 'Привет'; // Одинарные или двойные кавычки эквивалентны.
+let template = `Привет, ${name}!`; // Шаблонные строки (backticks) позволяют интерполяцию и многострочность.
+let multiline = `Строка
+на несколько
+линий`; // Поддерживает переносы.
+
+// Методы строк: length, toUpperCase, indexOf, slice, replace и т.д.
+console.log(name.length); // 4
+console.log(name.toUpperCase()); // "АННА" (не меняет оригинал)
+console.log(name.indexOf("н")); // 1 (позиция первого вхождения)
+console.log(name.slice(1, 3)); // "нн" (срез с 1 по 3, не включая 3)
+
+// 2. number - все числа 64-битные с плавающей точкой (IEEE 754). Нет отдельного типа для целых.
+let age = 25;
+let price = 99.99;
+let bigNumber = 1e6; // 1000000 (экспоненциальная нотация для больших/малых чисел)
+let nan = 0 / 0; // NaN (Not a Number) - специальное значение для ошибок вычислений
+let infinity = 1 / 0; // Infinity
+
+// Внимание: точность с плавающей точкой
+console.log(0.1 + 0.2); // 0.30000000000000004 (из-за двоичного представления)
+
+// 3. boolean - логические значения для условий.
+let isStudent = true;
+let hasJob = false;
+
+// 4. undefined - значение по умолчанию для неинициализированных переменных или отсутствующих свойств.
+let x; // undefined
+console.log(x); // undefined
+
+// 5. null - намеренное отсутствие значения (часто для сброса переменных).
+let empty = null;
+
+// 6. symbol - уникальные идентификаторы (ES6). Используются для приватных свойств объектов или как ключи.
+const id = Symbol("id"); // Каждый Symbol уникален, даже с одинаковым описанием.
+const id2 = Symbol("id");
+console.log(id === id2); // false
+
+// Пример: в объектах для избежания коллизий ключей
+let obj = { [id]: "secret" };
+console.log(obj[id]); // "secret"
+
+// 7. bigint - для произвольно больших целых чисел (ES2020). Добавьте 'n' в конец.
+const huge = 123456789012345678901234567890n;
+console.log(huge + 1n); // Работает без потери точности
+</code></pre>
+<p>Проверка типов: Оператор typeof возвращает строку с типом. Обратите внимание на историческую ошибку: typeof null === "object". Для массивов используйте Array.isArray(). Для продвинутых проверок — instanceof или Object.prototype.toString.call().</p>
+<pre><code>typeof "текст"      // "string"
+typeof 42           // "number"
+typeof true         // "boolean"
+typeof undefined    // "undefined"
+typeof null         // "object" (ошибка, но так исторически)
+typeof {}           // "object"
+typeof function(){} // "function"
+typeof 1n           // "bigint"
+</code></pre>
+<p>Лучшая практика: Всегда проверяйте типы явно, чтобы избежать ошибок приведения (coercion).</p>
+<h3>1.3. Основные операции</h3>
+<p>Операции — это манипуляции с данными. JavaScript имеет математические, строковые, сравнительные и логические операторы. Важно понимать неявное приведение типов (type coercion).</p>
+<pre><code>// Математика: базовые арифметические операторы. Работают с number, но приводят другие типы.
+let sum = 5 + 3;      // 8
+let diff = 10 - 4;    // 6
+let product = 3 * 4;  // 12
+let quotient = 20 / 5; // 4
+let remainder = 10 % 3; // 1 (остаток, полезен для проверки четности: num % 2 === 0)
+let power = 2 ** 3;   // 8 (возведение в степень, ES6+)
+let increment = 5; increment++; // 6 (постфиксный инкремент, префиксный ++increment возвращает новое значение сразу)
+
+// Приведение: строка + число = строка
+console.log("5" + 3); // "53" (конкатенация)
+console.log("5" - 3); // 2 (вычитание приводит строку к числу)
+
+// Строки: конкатенация и методы.
+let fullName = "Иван" + " " + "Петров"; // "Иван Петров"
+let repeated = "Ha".repeat(3); // "HaHaHa" (ES6)
+let trimmed = "  текст  ".trim(); // "текст" (удаляет пробелы)
+let replaced = "hello world".replace("world", "JS"); // "hello JS"
+
+// Сравнение: == (нестрогое, с приведением) vs === (строгое, без приведения).
+5 == "5"   // true (приводит "5" к 5)
+5 === "5"  // false (разные типы)
+3 > 2      // true
+3 <= 3     // true
+"apple" &lt; "banana" // true (лексикографическое сравнение)
+
+// Логические операторы: короткое замыкание (short-circuiting) — не вычисляют вторую часть, если первая решает исход.
+true && false  // false (И, возвращает первое falsy значение)
+true || false  // true (ИЛИ, возвращает первое truthy значение)
+!true          // false (НЕ)
+
+// Falsy значения: false, 0, "", null, undefined, NaN. Truthy: все остальное.
+let value = 0 || "default"; // "default" (полезно для значений по умолчанию)
+
+// Тернарный оператор: короткая форма if-else.
+let status = (age >= 18) ? "взрослый" : "ребенок";
+// Эквивалентно if (age >= 18) { status = "взрослый" } else { status = "ребенок" }
+</code></pre>
+<p>Лучшая практика: Всегда используйте ===/!== для избежания неожиданного приведения. Для сложных условий комбинируйте с коротким замыканием, например: user && user.name (безопасный доступ, если user может быть null).</p>
+<h2>Часть 2: Управление потоком выполнения</h2>
+<h3>2.1. Условия (Ветвление)</h3>
+<p>Условия позволяют коду принимать решения на основе данных. if-else — базовая конструкция, switch — для множественных случаев.</p>
+<pre><code>// if-else: проверяет условие (truthy/falsy). Можно цепочкой.
+let weather = "дождь";
+
+if (weather === "дождь") {
+    console.log("Возьми зонт!");
+} else if (weather === "солнце") {
+    console.log("Надень очки!");
+} else {
+    console.log("Одевайся обычно");
+}
+
+// Пример с несколькими условиями:
+if (age >= 18 && hasID) {
+    console.log("Вход разрешен");
+} else {
+    console.log("Вход запрещен");
+}
+
+// switch-case: для сравнения с несколькими значениями. Использует строгое ===. Без break — fall-through (провалится в следующий case).
+let day = "понедельник";
+
+switch(day) {
+    case "понедельник":
+        console.log("Начало недели");
+        break; // Обязателен, иначе выполнит все ниже!
+    case "вторник":
+    case "среда":
+    case "четверг":
+        console.log("Будни"); // Группировка случаев без break между ними
+        break;
+    case "пятница":
+        console.log("Пятница!");
+        break;
+    default:
+        console.log("Выходной"); // Для всех остальных
+}
+</code></pre>
+<p>Расширенное объяснение: switch эффективен для enum-подобных значений (строки, числа). Альтернатива — объект с ключами: const actions = { "дождь": () => "Зонт", "солнце": () => "Очки" }; actions[weather]() || "Обычно";. Это более гибко для динамических случаев. Избегайте глубоких вложенных if — используйте early return для читаемости.</p>
+<h3>2.2. Циклы (Повторение)</h3>
+<p>Циклы повторяют код. Выберите тип в зависимости от сценария: известное количество итераций (for), условие (while), итерация по коллекциям (for...of/in).</p>
+<pre><code>// for: классический, для известного количества. Синтаксис: инициализация; условие; инкремент.
+for(let i = 0; i &lt; 5; i++) {
+    console.log("Шаг", i); // i локальна благодаря let
+}
+// Вывод: Шаг 0 ... Шаг 4
+
+// Расширенный: вложенные циклы для матриц
+for(let row = 0; row &lt; 3; row++) {
+    for(let col = 0; col &lt; 3; col++) {
+        console.log(`Клетка ${row},${col}`);
+    }
+}
+
+// while: пока условие true. Полезен, когда итерации зависят от внешних факторов.
+let attempts = 0;
+while(attempts &lt; 3) {
+    console.log("Попытка номер", attempts + 1);
+    attempts++;
+}
+
+// do-while: гарантирует хотя бы одно выполнение (постпроверка).
+let userInput;
+do {
+    userInput = prompt("Введите пароль:"); // Спросит минимум раз
+} while(userInput !== "12345");
+
+// for...of: итерация по iterable (массивы, строки, Set, Map). Получает значение.
+let fruits = ["яблоко", "банан", "апельсин"];
+for(let fruit of fruits) {
+    console.log(fruit);
+}
+
+// for...in: итерация по перечисляемым свойствам объектов (ключи). Не для массивов (порядок не гарантирован).
+let person = {name: "Анна", age: 25};
+for(let key in person) {
+    console.log(key, ":", person[key]);
+}
+</code></pre>
+<p>Расширенное: Для прерывания используйте break (выход из цикла), continue (пропуск итерации). Избегайте бесконечных циклов (добавьте счетчики). Для производительности кэшируйте длину: for(let i=0, len=array.length; i&lt;len; i++). В ES6+ prefer for...of для читаемости.</p>
+<h2>Часть 3: Структуры данных</h2>
+<h3>3.1. Массивы (Списки значений)</h3>
+<p>Массивы — упорядоченные коллекции. Они динамические (размер меняется), индексированы с 0. Массивы — это объекты, но с особым поведением.</p>
+<pre><code>// Создание: литерал [] или new Array().
+let emptyArray = [];
+let numbers = [1, 2, 3, 4, 5];
+let mixed = [1, "текст", true, null]; // Гетерогенные типы разрешены
+
+// Доступ: по индексу. Отрицательные индексы не поддерживаются (используйте at() в ES2022).
+let first = numbers[0];  // 1
+let last = numbers[numbers.length - 1]; // 5
+console.log(numbers.at(-1)); // 5 (ES2022, отрицательный индекс от конца)
+
+// Мутация: массивы мутабельны.
+numbers[0] = 10; // [10, 2, 3, 4, 5]
+numbers.push(6); // [10, 2, 3, 4, 5, 6] - добавляет в конец, возвращает новую длину
+let popped = numbers.pop(); // 6, массив: [10, 2, 3, 4, 5]
+numbers.unshift(0); // [0, 10, 2, 3, 4, 5] - добавляет в начало (медленно для больших массивов)
+numbers.shift();    // [10, 2, 3, 4, 5] - удаляет первый
+</code></pre>
+<p>Методы массивов (средний уровень): Многие методы возвращают новый массив (иммутабельные), другие мутируют оригинал. Это функциональный стиль (map, filter) vs императивный.</p>
+<pre><code>let fruits = ["Яблоко", "Банан", "Апельсин"];
+
+// map: трансформирует каждый элемент, возвращает новый массив.
+let upperFruits = fruits.map(fruit =&gt; fruit.toUpperCase()); // ["ЯБЛОКО", "БАНАН", "АПЕЛЬСИН"]
+// Внутри: callback(элемент, индекс, массив)
+
+// filter: возвращает новый массив с элементами, прошедшими тест.
+let longFruits = fruits.filter(fruit =&gt; fruit.length &gt; 5); // ["Яблоко", "Апельсин"]
+
+// find: возвращает первый элемент, прошедший тест (или undefined).
+let found = fruits.find(fruit =&gt; fruit.startsWith("Б")); // "Банан" (startsWith - метод строки)
+
+// forEach: выполняет callback для каждого, ничего не возвращает (для side-effects).
+fruits.forEach((fruit, index) =&gt; console.log(`${index}: ${fruit}`));
+
+// reduce: аккумулирует значение (сумма, max и т.д.). Callback(аккумулятор, элемент, индекс, массив), initialValue.
+let numbers2 = [1, 2, 3, 4];
+let sum = numbers2.reduce((total, num) =&gt; total + num, 0); // 10
+let max = numbers2.reduce((max, num) =&gt; Math.max(max, num), -Infinity); // 4
+
+// slice: копирует часть, не мутирует. slice(start, end) - end не включительно.
+let part = fruits.slice(1, 3); // ["Банан", "Апельсин"]
+let copy = fruits.slice(); // Полная копия
+
+// splice: мутирует, удаляет/вставляет. splice(start, deleteCount, ...items)
+fruits.splice(1, 1, "Груша"); // Удаляет 1 элемент с индекса 1, вставляет "Груша". fruits: ["Яблоко", "Груша", "Апельсин"]
+</code></pre>
+<p>Расширенное: some/every — проверка условий (возвращают boolean). indexOf/lastIndexOf — поиск позиции. flat/flatMap — для вложенных массивов. Ошибки: Не путайте мутирующие методы (push, splice) с иммутабельными (map, filter) — это важно в React/Redux. Для глубоких копий используйте JSON.parse(JSON.stringify(arr)) или structuredClone (ES2022).</p>
+<h3>3.2. Объекты (Структурированные данные)</h3>
+<p>Объекты — неупорядоченные коллекции ключ-значение (хэш-мапы). Ключи — строки или Symbol. Объекты мутабельны, передаются по ссылке.</p>
+<pre><code>// Создание: литерал {} или new Object().
+let user = {
+    firstName: "Иван", // Свойство (key: value)
+    lastName: "Петров",
+    age: 30;
+    isAdmin: false,
+    
+    // Метод: функция как значение.
+    getFullName: function() { // Классическая запись
+        return this.firstName + " " + this.lastName; // this - ссылка на объект
+    },
+    
+    greet() { // Короткая запись (ES6), эквивалентно function greet()
+        return `Привет, я ${this.firstName}!`;
+    }
+};
+
+// Доступ: точка (для известных ключей) или скобки (для динамических).
+console.log(user.firstName);     // "Иван"
+console.log(user["lastName"]);   // "Петров" (полезно для переменных: let key = "age"; user[key])
+
+// Мутация:
+user.email = "ivan@example.com"; // Добавление
+user["phone"] = "+79123456789";
+user.age = 31; // Изменение
+
+// Удаление:
+delete user.isAdmin; // Удаляет свойство
+
+// Проверка:
+if ("age" in user) { // true
+    console.log("Возраст указан");
+}
+console.log(user.hasOwnProperty("age")); // true (только собственные свойства, не прототипные)
+</code></pre>
+<p>Расширенное: Object.keys(user) — массив ключей, Object.values — значений, Object.entries — пар [key, value]. Object.assign(target, ...sources) — слияние объектов (поверхностное). Для глубокого слияния используйте библиотеки как lodash. this в методах: Контекст зависит от вызова (user.greet() — this=user). Потеря this в callbacks — решайте arrow functions или bind.</p>
+<pre><code>// Пример потери this:
+let greetFunc = user.greet;
+greetFunc(); // undefined (this=window или undefined в strict mode)
+
+// Решение:
+let boundGreet = user.greet.bind(user); // Фиксирует this
+boundGreet(); // Работает
+</code></pre>
+<p>Лучшая практика: Используйте короткую запись методов. Для immutable объектов — Object.freeze(user) (запрещает изменения).</p>
+<h2>Часть 4: Функции - основа JavaScript</h2>
+<h3>4.1. Базовые функции</h3>
+<p>Есть три способа объявления: declaration (hoisting), expression, arrow (ES6, нет своего this/arguments).</p>
+<pre><code>// 1. Declaration: поднимается, можно вызвать до объявления.
+function sayHello(name) { // Параметры в ()
+    return `Привет, ${name}!`; // return - выход с значением
+}
+sayHello("Мир"); // "Привет, Мир!" (аргументы)
+
+// 2. Expression: присваивается переменной, нет hoisting.
+const sayGoodbye = function(name) {
+    return `Пока, ${name}!`;
+};
+
+// 3. Arrow: компактная, нет своего this (берет из окружения), не может быть конструктором.
+const add = (a, b) => a + b; // Неявный return для одной строки
+const square = x => x * x; // Для одного параметра без ()
+const greet = name => { // Блок {} требует явного return
+    const message = `Привет, ${name}`;
+    return message;
+};
+</code></pre>
+<p>Параметры: По умолчанию, rest, деструктуризация (средний уровень).</p>
+<pre><code>// Default parameters (ES6):
+function greet(name = "Гость") { // Если аргумент не передан
+    return `Привет, ${name}`;
+}
+greet(); // "Привет, Гость"
+
+// Rest: собирает аргументы в массив.
+function sumAll(...numbers) { // ... - rest operator
+    return numbers.reduce((total, num) => total + num, 0);
+}
+sumAll(1, 2, 3, 4); // 10
+
+// Деструктуризация: извлекает свойства из объектов/массивов.
+function printUser({name, age = 18}) { // Default в деструктуре
+    console.log(`${name}, ${age} лет`);
+}
+printUser({name: "Анна", age: 25}); // "Анна, 25 лет"
+</code></pre>
+<p>Arguments объект: Псевдомассив всех аргументов (устарел, prefer rest).</p>
+<p>Ошибки: Передача лишних аргументов игнорируется, недостающие — undefined. Используйте strict mode ("use strict") для строгих правил.</p>
+<h3>4.2. Область видимости</h3>
+<pre><code>// 1. Global: вне функций, видна везде (избегайте загрязнения).
+let globalVar = "Я глобальная";
+console.log(window.globalVar); // В браузере global = window
+
+function test() {
+    console.log(globalVar); // Доступна
+}
+
+// 2. Function: внутри функций.
+function outer() {
+    let outerVar = "Я в outer";
+    
+    function inner() {
+        let innerVar = "Я в inner";
+        console.log(outerVar); // Лексическая видимость (внешний scope)
+        console.log(globalVar);
+    }
+    
+    inner();
+    // console.log(innerVar); // ReferenceError (не видна)
+}
+
+// 3. Block: для let/const внутри {} (if, for, {}).
+{
+    let blockVar = "Я в блоке";
+    var oldVar = "Я var"; // var - функциональный scope, игнорирует блоки
+}
+// console.log(blockVar); // ReferenceError
+console.log(oldVar); // "Я var"
+</code></pre>
+<p>Scope chain: Поиск переменной идет вверх по цепочке scopes до global. Strict mode: Запрещает неявные глобальные переменные.</p>
+<h3>4.3. Замыкания</h3>
+<pre><code>function createCounter() {
+    let count = 0; // Приватная, сохраняется в замыкании
+    
+    return function() { // Внутренняя функция замыкает count
+        count++; // Доступ к внешнему scope
+        return count;
+    };
+}
+
+const counter1 = createCounter();
+console.log(counter1()); // 1
+console.log(counter1()); // 2
+
+const counter2 = createCounter(); // Независимое замыкание
+console.log(counter2()); // 1
+</code></pre>
+<p>Практика (средний уровень): Модульный паттерн для приватности.</p>
+<pre><code>function createBankAccount(initialBalance) {
+    let balance = initialBalance; // Приватная переменная
+    
+    return { // Объект с методами, замыкающими balance
+        deposit(amount) {
+            if (amount &gt; 0) { // Валидация
+                balance += amount;
+            }
+            return balance;
+        },
+        withdraw(amount) {
+            if (amount &lt;= balance) {
+                balance -= amount;
+                return balance;
+            }
+            return "Недостаточно средств";
+        },
+        getBalance() {
+            return balance; // Только чтение
+        }
+    };
+}
+
+let account = createBankAccount(1000);
+account.deposit(500); // 1500
+// balance недоступна напрямую — инкапсуляция
+</code></pre>
+<p>Расширенное: Замыкания потребляют память (держат scope живым). В циклах с var — проблема (все замыкания видят последнее значение), решайте let или IIFE. Применение: currying, event handlers.</p>
+<pre><code>// Currying с замыканием
+function multiply(a) {
+    return function(b) {
+        return a * b;
+    };
+}
+const double = multiply(2);
+double(5); // 10
+</code></pre>
+<h2>Часть 5: Работа с DOM (Браузер)</h2>
+<h3>5.1. Поиск элементов</h3>
+<p>Методы document для поиска. querySelector — мощный, как CSS.</p>
+<pre><code>// getElementById: быстрый, по уникальному id.
+let header = document.getElementById("header"); // null если не найден
+
+// getElementsByClassName: коллекция (HTMLCollection, живая — обновляется автоматически).
+let items = document.getElementsByClassName("item"); // Массивоподобный, for...of работает
+
+// getElementsByTagName: по тегу.
+let paragraphs = document.getElementsByTagName("p");
+
+// querySelector: первый по CSS-селектору.
+let element = document.querySelector(".container .item"); // .class, #id, tag, [attr]
+
+// querySelectorAll: все, возвращает NodeList (статический, forEach поддерживает).
+let allElements = document.querySelectorAll(".item");
+</code></pre>
+<p>Расширенное: Поиск от элемента: element.querySelector(".child"). Живые vs статические коллекции: getElements* — живые (изменения DOM отражаются), querySelectorAll — снимок.</p>
+<h3>5.2. Изменение содержимого</h3>
+<p>Манипуляция текстом, стилями, классами.</p>
+<pre><code>let div = document.getElementById("myDiv");
+
+// Текст: textContent - чистый текст (безопасный от XSS), innerHTML - с HTML (опасный, если пользовательский ввод).
+div.textContent = "Новый текст";
+div.innerHTML = "&lt;strong&gt;Жирный&lt;/strong&gt; текст"; // Парсит HTML
+
+// Стили: inline styles.
+div.style.color = "red"; // camelCase для свойств вроде background-color
+div.style.backgroundColor = "#f0f0f0";
+div.style.display = "none"; // Скрыть (удаляет из потока)
+div.style.visibility = "hidden"; // Скрыть, но занимает место
+
+// Классы: classList - объект для манипуляции.
+div.classList.add("active", "visible"); // Добавляет несколько
+div.classList.remove("old");
+div.classList.toggle("hidden"); // Добавляет/удаляет
+div.classList.contains("active"); // true/false
+div.classList.replace("old", "new"); // Замена
+</code></pre>
+<p>Расширенное: Для производительности prefer classList над style (CSS правила лучше). Атрибуты: div.setAttribute("data-id", "123"), div.getAttribute("data-id").</p>
+<h3>5.3. События</h3>
+<p>События — реакции на действия пользователя/DOM. addEventListener — стандарт.</p>
+<pre><code>let button = document.querySelector("button");
+
+// onclick: старый, перезаписывает (не используйте).
+button.onclick = function() {
+    console.log("Клик!");
+};
+
+// addEventListener: добавляет несколько, options (once, passive).
+button.addEventListener("click", function(event) { // event - объект с деталями
+    console.log("Клик!", event.target, event.type); // target - элемент, type - "click"
+});
+
+// Основные события:
+element.addEventListener("click", handler);      // Клик (мышь)
+element.addEventListener("dblclick", handler);   // Двойной клик
+element.addEventListener("mouseover", handler);  // Наведение
+element.addEventListener("mouseout", handler);   // Уход
+element.addEventListener("focus", handler);      // Фокус (для input)
+element.addEventListener("blur", handler);       // Потеря фокуса
+element.addEventListener("keydown", handler);    // Клавиша вниз (event.key, event.code)
+element.addEventListener("submit", handler);     // Форма (для form)
+
+// Удаление: removeEventListener (нужен тот же handler).
+let handler = () => console.log("Click");
+button.addEventListener("click", handler);
+button.removeEventListener("click", handler);
+
+// Пропагация: bubbling (всплытие от target вверх), capturing (захват сверху вниз).
+// Отмена: event.preventDefault() - отменяет default (submit, click на link)
+link.addEventListener("click", function(event) {
+    event.preventDefault(); // Не перейти по ссылке
+    event.stopPropagation(); // Остановить всплытие
+    event.stopImmediatePropagation(); // Остановить все handlers на этом элементе
+});
+</code></pre>
+<p>Расширенное (средний уровень): Delegation — слушатель на родителе, проверка event.target.matches(".selector"). Полезно для динамических элементов. Custom events: new CustomEvent("myEvent", {detail: data}), element.dispatchEvent.</p>
+<h3>5.4. Создание элементов</h3>
+<p>Динамическое создание/удаление.</p>
+<pre><code>// createElement: создает узел.
+let newDiv = document.createElement("div"); // &lt;div&gt;&lt;/div&gt;
+newDiv.textContent = "Я новый элемент!";
+
+// Добавление:
+document.body.appendChild(newDiv); // В конец body
+parentElement.insertBefore(newDiv, referenceElement); // Перед reference
+parentElement.append(newDiv, anotherDiv); // ES2016, несколько
+parentElement.prepend(newDiv); // В начало
+
+// Удаление:
+let element = document.getElementById("toRemove");
+element.remove(); // Простой
+// Старый: element.parentNode.removeChild(element);
+
+// Клонирование:
+let clone = element.cloneNode(true); // true - глубокое (с детьми), false - поверхностное
+</code></pre>
+<p>Расширенное: Для массовых изменений используйте DocumentFragment (виртуальный контейнер, минимизирует reflows).</p>
+<pre><code>let frag = document.createDocumentFragment();
+for (let i = 0; i &lt; 10; i++) {
+    let p = document.createElement("p");
+    p.textContent = `Параграф ${i}`;
+    frag.appendChild(p);
+}
+document.body.appendChild(frag); // Одна вставка
+</code></pre>
+<h2>Часть 6: Асинхронность</h2>
+<h3>6.1. Callbacks (Старый способ)</h3>
+<p>Callbacks — функции, передаваемые как аргументы, вызываются по завершении.</p>
+<pre><code>// Пример: setTimeout - асинхронный таймер.
+function getData(callback) {
+    setTimeout(() => { // Имитация задержки (network, IO)
+        console.log("Данные получены");
+        callback("data");
+    }, 1000);
+}
+
+getData(function(data) {
+    console.log("Обработали:", data);
+    getMoreData(function(moreData) { // Callback hell - вложенность, сложно читать/ошибки
+        console.log("Еще:", moreData);
+    });
+});
+</code></pre>
+<p>Проблемы: Pyramid of doom, сложная обработка ошибок (нужен callback для error). Альтернативы: Promises.</p>
+<h3>6.2. Promises (Обещания)</h3>
+<p>Promise — объект для асинхронных операций. Состояния: pending, fulfilled (resolve), rejected (reject).</p>
+<pre><code>// Создание:
+let promise = new Promise((resolve, reject) => { // Executor выполняется сразу
+    setTimeout(() => {
+        let success = true;
+        if (success) {
+            resolve("Данные загружены!"); // fulfilled
+        } else {
+            reject(new Error("Ошибка загрузки")); // rejected
+        }
+    }, 2000);
+});
+
+// Цепочка: then (для resolve), catch (для reject), finally (всегда).
+promise
+    .then(result => { // result из resolve
+        console.log("Успех:", result);
+        return result + " обработаны"; // Передает в следующий then
+    })
+    .then(processed => {
+        console.log("Обработано:", processed);
+        throw new Error("Имитация ошибки"); // Перейдет в catch
+    })
+    .catch(error => { // Ловит ошибки из then/reject
+        console.error("Ошибка:", error.message);
+    })
+    .finally(() => {
+        console.log("Завершено"); // Очистка
+    });
+</code></pre>
+<p>Расширенное (средний уровень): Promise.all([p1, p2]) — ждет все, reject при первой ошибке. Promise.race — первый завершенный. Promise.allSettled — все, с статусами. Promise.any — первый fulfilled. Ошибки: Всегда добавляйте catch, иначе unhandled rejection.</p>
+<h3>6.3. Async/Await (Современный способ)</h3>
+<p>Синтаксический сахар над Promises. Делает код линейным.</p>
+<pre><code>async function loadData() { // async - возвращает Promise
+    try { // Для ошибок
+        console.log("Начинаем...");
+        
+        let data = await fetchData(); // await - ждет resolve, бросает reject в catch
+        console.log("Данные:", data);
+        
+        let processed = await processData(data);
+        console.log("Обработано:", processed);
+        
+        return processed; // resolve
+    } catch (error) {
+        console.error("Ошибка:", error);
+        throw error; // reject
+    }
+}
+
+// Использование: как Promise
+loadData()
+    .then(result => console.log("Финал:", result))
+    .catch(err => console.log("Ошибка в вызове:", err));
+</code></pre>
+<p>Расширенное: В циклах: for await (of asyncIterable). Параллель: let [d1, d2] = await Promise.all([p1, p2]). Top-level await в модулях. Ошибки: Всегда try-catch, await только в async.</p>
+<h3>6.4. Fetch API (Работа с HTTP)</h3>
+<p>Built-in для запросов. Возвращает Promise с Response.</p>
+<pre><code>// GET: простой запрос.
+async function fetchUsers() {
+    try {
+        let response = await fetch('https://api.example.com/users'); // GET по умолчанию
+        
+        if (!response.ok) { // Проверка статус 200-299
+            throw new Error(`HTTP ошибка: ${response.status}`); // 404, 500 и т.д.
+        }
+        
+        let users = await response.json(); // Парсит body как JSON (Promise)
+        // Альтернативы: .text(), .blob(), .formData()
+        console.log(users);
+        return users;
+    } catch (error) {
+        console.error("Ошибка:", error);
+        return []; // Fallback
+    }
+}
+
+// POST: с опциями.
+async function createUser(userData) {
+    let response = await fetch('https://api.example.com/users', {
+        method: 'POST', // GET, POST, PUT, DELETE
+        headers: { // Заголовки
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer token' // Для аутентификации
+        },
+        body: JSON.stringify(userData), // Stringify для JSON
+        credentials: 'include', // Cookies
+        mode: 'cors' // CORS
+    });
+    
+    if (!response.ok) {
+        throw new Error(await response.text());
+    }
+    return await response.json();
+}
+</code></pre>
+<p>Расширенное (средний уровень): AbortController для отмены: let controller = new AbortController(); fetch(url, {signal: controller.signal}); controller.abort(). Headers — Map-подобный. Для form: new FormData(formElement).</p>
+<h2>Часть 7: ООП в JavaScript</h2>
+<p>ООП в JS прототипное, не классовое (под капотом прототипы). ES6 классы — сахар.</p>
+<h3>7.1. Конструкторы (Классический подход)</h3>
+<p>Функции для создания объектов с общими методами.</p>
+<pre><code>function Person(name, age) { // Конструктор (new вызывает)
+    this.name = name;
+    this.age = age;
+    
+    this.greet = function() { // Метод на экземпляре (копируется каждый раз - неэффективно)
+        console.log(`Привет, я ${this.name}`);
+    };
+}
+
+let person1 = new Person("Анна", 25); // new создает {}, устанавливает this, прототип
+person1.greet();
+
+// Проблема: методы дублируются. Решение: прототип.
+</code></pre>
+<p>Расширенное: Без new — this=global, ошибки. Проверяйте: if (!(this instanceof Person)) return new Person(...).</p>
+<h3>7.2. Прототипы</h3>
+<p>Прототип — объект для общих свойств. Цепочка прототипов (inheritance).</p>
+<pre><code>function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+// Прототип: общие методы
+Person.prototype.greet = function() {
+    console.log(`Привет, я ${this.name}`);
+};
+
+Person.prototype.getBirthYear = function() {
+    return new Date().getFullYear() - this.age;
+};
+
+let p = new Person("Иван", 30);
+p.greet(); // Находит в прототипе
+
+// Наследование:
+function Student(name, age, major) {
+    Person.call(this, name, age); // Вызов супер-конструктора
+    this.major = major;
+}
+
+Student.prototype = Object.create(Person.prototype); // Связь прототипов
+Student.prototype.constructor = Student; // Восстановление
+
+Student.prototype.study = function() {
+    console.log(`${this.name} изучает ${this.major}`);
+};
+
+let s = new Student("Мария", 20, "Математика");
+s.greet(); // Из Person.prototype
+s.study();
+console.log(s instanceof Student); // true
+console.log(s instanceof Person); // true (цепочка)
+</code></pre>
+<p>Расширенное (сложный уровень): __proto__ - ссылка на прототип (не используйте напрямую). Object.getPrototypeOf(obj). Для mixin: Object.assign(Student.prototype, mixinObj). Прототипы экономят память.</p>
+<h3>7.3. Классы ES6 (Современный синтаксис)</h3>
+<p>Сахар над прототипами. Более читаемо. Мы добавили дополнительные примеры, включая использование приватных полей (#), статических свойств, геттеров/сеттеров в реальных сценариях, а также примеры полиморфизма и композиции.</p>
+<pre><code>// Базовый класс
+class Person {
+    // Конструктор
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Метод
+    greet() {
+        console.log(`Привет, я ${this.name}`);
+    }
+    
+    // Геттер (вызывается как свойство)
+    get birthYear() {
+        return new Date().getFullYear() - this.age;
+    }
+    
+    // Сеттер
+    set nickname(value) {
+        this._nickname = value;
+    }
+    
+    // Статический метод (принадлежит классу, а не объекту)
+    static compareAge(a, b) {
+        return a.age - b.age;
+    }
+}
+
+// Наследование
+class Student extends Person {
+    constructor(name, age, major) {
+        super(name, age); // Вызов родительского конструктора
+        this.major = major;
+    }
+    
+    // Переопределение метода (полиморфизм)
+    greet() {
+        super.greet(); // Вызов родительского метода
+        console.log(`Я изучаю ${this.major}`);
+    }
+    
+    // Свой метод
+    study() {
+        console.log(`${this.name} готовится к экзамену`);
+    }
+}
+
+// Использование базового класса
+let person = new Person("Алексей", 35);
+person.greet(); // "Привет, я Алексей"
+console.log(person.birthYear); // Текущий год - 35
+person.nickname = "Alex"; // Установка через setter
+console.log(person._nickname); // "Alex"
+
+// Использование наследуемого класса
+let student = new Student("Иван", 20, "Информатика");
+student.greet(); // "Привет, я Иван" + "Я изучаю Информатика"
+student.study(); // "Иван готовится к экзамену"
+console.log(Person.compareAge(person, student)); // 15 (35 - 20)
+
+// Дополнительный пример: Класс с приватными полями (ES2022+)
+class BankAccount {
+    #balance; // Приватное поле (недоступно извне)
+    
+    constructor(initialBalance) {
+        this.#balance = initialBalance;
+    }
+    
+    deposit(amount) {
+        if (amount &gt; 0) {
+            this.#balance += amount;
+        }
+        return this.#balance;
+    }
+    
+    get balance() { // Геттер для чтения приватного
+        return this.#balance;
+    }
+    
+    static createSavings(initial) { // Статический фабричный метод
+        return new BankAccount(initial);
+    }
+}
+
+let account = BankAccount.createSavings(1000); // Использование статического метода
+account.deposit(500);
+console.log(account.balance); // 1500 (через геттер)
+// console.log(account.#balance); // SyntaxError: Private field '#balance' must be declared in an enclosing class
+
+// Дополнительный пример: Полиморфизм с несколькими классами
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    
+    makeSound() {
+        console.log("Звук животного");
+    }
+}
+
+class Dog extends Animal {
+    makeSound() {
+        console.log("Гав!");
+    }
+}
+
+class Cat extends Animal {
+    makeSound() {
+        console.log("Мяу!");
+    }
+}
+
+// Массив с полиморфизмом
+const animals = [new Dog("Бобик"), new Cat("Мурка")];
+animals.forEach(animal =&gt; animal.makeSound()); // "Гав!" "Мяу!" (вызов переопределенных методов)
+
+// Дополнительный пример: Композиция (вместо глубокого наследования)
+class Engine {
+    start() {
+        console.log("Двигатель запущен");
+    }
+}
+
+class Car {
+    constructor() {
+        this.engine = new Engine(); // Композиция: имеет Engine
+    }
+    
+    drive() {
+        this.engine.start();
+        console.log("Машина едет");
+    }
+}
+
+let myCar = new Car();
+myCar.drive(); // "Двигатель запущен" "Машина едет"
+</code></pre>
+<p>Расширенное (сложный уровень): Приватные поля (#private, ES2022) обеспечивают настоящую инкапсуляцию. Super в методах для вызова родительских. Классы не поднимаются (no hoisting). Для полиморфизма переопределяйте методы. Предпочитайте композицию над наследованием для гибкости (принцип "has-a" vs "is-a"). Ошибки: Забыть super() в наследнике — ReferenceError. Используйте instanceof для проверки типа.</p>
+<h2>Часть 8: Продвинутые концепции</h2>
+<h3>8.1. Деструктуризация</h3>
+<p>Извлечение значений из объектов/массивов. ES6.</p>
+<pre><code>// Массивы: по позиции.
+let numbers = [1, 2, 3, 4, 5];
+let [first, second, , fourth, ...rest] = numbers; // Пропуск ,, rest - остаток
+// first=1, second=2, fourth=4, rest=[5]
+
+// Обмен:
+let a = 1, b = 2;
+[a, b] = [b, a]; // a=2, b=1
+
+// Объекты: по ключам.
+let user = { name: "Анна", age: 25, city: "Москва" };
+let { name, age, city = "Неизвестно" } = user; // Default
+let { name: userName } = user; // Переименование
+
+// Вложенная:
+let { address: { street } } = { address: { street: "Main" } }; // street="Main"
+</code></pre>
+<p>Расширенное: В параметрах функций, с defaults: function({name="Гость"}={}) {}. Для модулей: import {a as b} from...</p>
+<h3>8.2. Spread и Rest операторы</h3>
+<p>... для разворачивания/сбора.</p>
+<pre><code>// Spread: в массивах/объектах/вызовах.
+let arr1 = [1, 2, 3];
+let arr2 = [4, 5, 6];
+let combined = [...arr1, ...arr2, 7]; // [1,2,3,4,5,6,7]
+
+let obj1 = { x: 1, y: 2 };
+let obj2 = { y: 3, z: 4 };
+let merged = { ...obj1, ...obj2 }; // {x:1, y:3, z:4} (перезаписывает)
+
+Math.max(...arr1); // 3 (spread в аргументы)
+
+// Rest: в параметрах/деструктуре.
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+</code></pre>
+<p>Расширенное: Копирование: let copy = {...obj} (поверхностное). В React: для props.</p>
+<h3>8.3. Модули</h3>
+<p>ES6 модули для организации кода. Экспорт/импорт.</p>
+<p>math.js:</p>
+<pre><code>export const PI = 3.14159; // Named export
+
+export function sum(a, b) {
+    return a + b;
+}
+
+export default class Calculator { // Default export (один на модуль)
+    multiply(a, b) {
+        return a * b;
+    }
+}
+</code></pre>
+<p>app.js:</p>
+<pre><code>import Calculator, { PI, sum as add } from './math.js'; // Default без {}, named в {}, as - alias
+
+console.log(PI);
+console.log(add(2, 3));
+
+let calc = new Calculator();
+console.log(calc.multiply(4, 5));
+</code></pre>
+<p>Расширенное (сложный уровень): Dynamic import: import("./mod.js").then(mod => ...). Tree shaking в bundlers (Webpack). CommonJS (require/exports) для Node.</p>
+<h3>8.4. Генераторы</h3>
+<p>Функции, возвращающие итераторы. yield — пауза/возврат.</p>
+<pre><code>function* numberGenerator() { // * - generator
+    yield 1; // Пауза, возвращает {value:1, done:false}
+    yield 2;
+    yield 3;
+    return 4; // {value:4, done:true}
+}
+
+let gen = numberGenerator();
+console.log(gen.next()); // {value:1, done:false}
+console.log(gen.next().value); // 2
+
+// for...of: автоматически next()
+for (let num of numberGenerator()) {
+    console.log(num); // 1 2 3 (return игнорируется)
+}
+
+// Двусторонняя: next(arg) - передает в yield
+function* twoWay() {
+    let input = yield "Give me input";
+    console.log(input);
+}
+let g = twoWay();
+g.next(); // {value:"Give me input", done:false}
+g.next("Input"); // Выводит "Input"
+</code></pre>
+<p>Практика (сложный уровень): Ленивые последовательности.</p>
+<pre><code>function* fibonacci(limit) {
+    let [prev, curr] = [0, 1];
+    while (limit-- &gt; 0) {
+        yield curr; // Вычисляет по требованию
+        [prev, curr] = [curr, prev + curr];
+    }
+}
+
+for (let num of fibonacci(10)) {
+    console.log(num); // 1 1 2 3 5 8 13 21 34 55
+}
+</code></pre>
+<p>Расширенное: Async generators: async function*, yield await. Для streams, infinite sequences.</p>
+<h2>Часть 9: Практические паттерны</h2>
+<p>Паттерны — решения типичных проблем. Средний/сложный уровень.</p>
+<h3>9.1. Модульный паттерн</h3>
+<p>IIFE для приватности (до ES6 модулей).</p>
+<pre><code>const UserModule = (function() { // IIFE - immediate invoke
+    // Приватные
+    let users = [];
+    let apiUrl = 'https://api.example.com';
+    
+    function validateUser(user) { // Приватный метод
+        return user.name && user.email;
+    }
+    
+    // Публичные
+    return {
+        addUser(user) {
+            if (validateUser(user)) {
+                users.push(user);
+                return true;
+            }
+            return false;
+        },
+        
+        getUsers() {
+            return [...users]; // Копия для безопасности
+        },
+        
+        async fetchUsers() {
+            try {
+                let response = await fetch(`${apiUrl}/users`);
+                if (!response.ok) throw new Error("Fetch error");
+                users = await response.json();
+                return users;
+            } catch (error) {
+                console.error("Ошибка:", error);
+                return [];
+            }
+        }
+    };
+})();
+
+UserModule.addUser({name: "Анна", email: "anna@test.com"});
+console.log(UserModule.getUsers());
+UserModule.fetchUsers();
+</code></pre>
+<p>Расширенное: Augmenting modules — добавление методов позже. Альтернатива: ES6 classes с #private.</p>
+<h3>9.2. Паттерн Observer (Наблюдатель)</h3>
+<p>Для pub/sub (events). Базис для EventEmitter в Node.</p>
+<pre><code>class EventEmitter {
+    constructor() {
+        this.events = {}; // {event: [listeners]}
+    }
+    
+    on(event, listener) { // Subscribe
+        if (!this.events[event]) this.events[event] = [];
+        this.events[event].push(listener);
+        return () => this.off(event, listener); // Возврат unsubscribe
+    }
+    
+    off(event, listener) { // Unsubscribe
+        if (this.events[event]) {
+            this.events[event] = this.events[event].filter(l => l !== listener);
+        }
+    }
+    
+    emit(event, ...data) { // Publish
+        if (this.events[event]) {
+            this.events[event].forEach(listener => listener(...data));
+        }
+    }
+    
+    once(event, listener) { // Один раз
+        const wrapper = (...args) => {
+            listener(...args);
+            this.off(event, wrapper);
+        };
+        this.on(event, wrapper);
+    }
+}
+
+const emitter = new EventEmitter();
+
+const unsubscribe = emitter.on('login', user => {
+    console.log(`Пользователь ${user.name} вошел`);
+});
+
+emitter.once('error', err => console.error(err));
+
+emitter.emit('login', {name: "Анна"});
+unsubscribe();
+emitter.emit('login', {name: "Боб"}); // Не вызовет
+</code></pre>
+<p>Расширенное (сложный уровень): Namespaces для событий (event:namespace). Wildcards (*.event). Используйте в React (useEffect как observer).</p>
+<h3>9.3. Паттерн Singleton (Одиночка)</h3>
+<p>Один экземпляр класса.</p>
+<pre><code>class Database {
+    static instance; // Статическое поле (ES6)
+    
+    constructor(config) {
+        if (Database.instance) {
+            return Database.instance; // Возврат существующего
+        }
+        
+        this.connection = this.connect(config);
+        Database.instance = this;
+    }
+    
+    connect(config) {
+        console.log("Подключаемся...");
+        return { connected: true, config };
+    }
+    
+    query(sql) {
+        console.log("Запрос:", sql);
+        return { result: "данные" };
+    }
+}
+
+const db1 = new Database({host: 'localhost'});
+const db2 = new Database({host: 'remote'});
+console.log(db1 === db2); // true
+db1.query("SELECT *");
+</code></pre>
+<p>Расширенное: Lazy init (в constructor). Для многопоточности — не подходит (JS однопоточный). Альтернатива: модули как singletons.</p>
+<h2>Часть 10: Советы и лучшие практики</h2>
+<h3>10.1. Кодстайл</h3>
+<p>Следуйте стандартам (Airbnb, Google). Используйте linters (ESLint).</p>
+<p>Хорошо:</p>
+<pre><code>const MAX_RETRIES = 3; // Константы uppercase
+const API_URL = 'https://api.example.com'; // 单引号 для строк
+
+function calculateTotal(items) { // camelCase, descriptive
+    return items.reduce((sum, item) => sum + item.price, 0); // Функциональный стиль
+}
+
+class UserService { // PascalCase
+    constructor(apiClient) {
+        this.apiClient = apiClient;
+    }
+    
+    async getUser(id) {
+        try {
+            return await this.apiClient.fetch(`/users/${id}`);
+        } catch (error) {
+            console.error('Ошибка загрузки:', error);
+            throw error;
+        }
+    }
+}
+</code></pre>
+<p>Плохо:</p>
+<pre><code>var maxretries=3; // Нет пробелов, var
+var ApiUrl='https://api.example.com';
+
+function calc(items){let s=0;for(let i=0;i&lt;items.length;i++){s+=items[i].price;}return s;} // Не читаемо
+</code></pre>
+<p>Практики: 2-4 пробела, ; в конце, {} для if даже одной строки. Комментарии JSDoc.</p>
+<h3>10.2. Обработка ошибок</h3>
+<p>Всегда ловите, логируйте, информируйте.</p>
+<pre><code>// try-catch в async:
+async function fetchData() {
+    try {
+        let data = await apiCall();
+        return process(data);
+    } catch (error) {
+        console.error('Ошибка в fetchData:', error.stack); // Stack для debug
+        showUserMessage('Ошибка загрузки'); // UI
+        return []; // Graceful degradation
+    }
+}
+
+// Custom errors:
+class ValidationError extends Error {
+    constructor(message, field) {
+        super(message);
+        this.name = 'ValidationError';
+        this.field = field;
+        this.timestamp = new Date();
+    }
+}
+
+function validateUser(user) {
+    if (!user.email) {
+        throw new ValidationError('Email обязателен', 'email');
+    }
+}
+
+try {
+    validateUser({});
+} catch (err) {
+    if (err instanceof ValidationError) {
+        console.log(`Поле: ${err.field}`);
+    }
+}
+
+// Global handlers:
+window.addEventListener('error', event =&gt; {
+    console.error('Глобальная:', event.error);
+    // Sentry или analytics
+});
+
+window.addEventListener('unhandledrejection', event =&gt; {
+    console.error('Promise rejection:', event.reason);
+    event.preventDefault(); // Не показывать в консоли
+});
+</code></pre>
+<p>Расширенное: Error boundaries в React. В Node: process.on('uncaughtException').</p>
+<h3>10.3. Производительность</h3>
+<p>Оптимизируйте циклы, DOM, события.</p>
+<pre><code>// Циклы: кэш длины.
+for (let i = 0, len = array.length; i &lt; len; i++) {} // ХОРОШО
+
+// DOM: batch updates с fragment.
+let fragment = document.createDocumentFragment();
+for (let i = 0; i &lt; 1000; i++) {
+    let div = document.createElement('div');
+    div.textContent = `Элемент ${i}`;
+    fragment.appendChild(div);
+}
+document.body.appendChild(fragment); // Один reflow
+
+// Debounce: для resize, scroll (throttle - фиксированная частота).
+function debounce(func, delay) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() =&gt; func.apply(this, args), delay);
+    };
+}
+
+window.addEventListener('resize', debounce(() =&gt; {
+    console.log('Изменено');
+}, 250));
+
+// Throttle:
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() =&gt; inThrottle = false, limit);
+        }
+    };
+}
+</code></pre>
+<p>Расширенное: Web Workers для тяжелых вычислений. Memoization для функций. Профилируйте с Chrome DevTools.</p>
+<h2>Часть 11: TypeScript - Надстройка над JavaScript</h2>
+<p>TypeScript (TS) - это типизированный superset JavaScript, компилируемый в JS. Он добавляет статическую типизацию, интерфейсы, generics и другие фичи для больших проектов. TS помогает ловить ошибки на этапе разработки, улучшает автодополнение и рефакторинг. Установка: npm install -g typescript, компиляция: tsc file.ts. Конфигурация в tsconfig.json.</p>
+<h3>11.1. Базовые типы и переменные</h3>
+<p>В TS переменные имеют типы, объявляемые явно. Это предотвращает ошибки типов в runtime.</p>
+<pre><code>// Базовые типы: number, string, boolean, null, undefined, any (избегайте, отключает типизацию), unknown (безопасный any).
+let age: number = 25; // Явный тип
+// age = "двадцать пять"; // Ошибка компиляции: Type 'string' is not assignable to type 'number'.
+
+let name: string = "Анна";
+let isStudent: boolean = true;
+let nothing: null = null;
+let maybe: undefined = undefined;
+
+let flexible: any = 42; // Можно присвоить что угодно, но избегайте
+flexible = "текст"; // Нет ошибки
+
+let safe: unknown = 42; // Нужно проверить тип перед использованием
+if (typeof safe === "number") {
+    let sum = safe + 10; // OK
+}
+
+// Массивы и кортежи (tuples)
+let numbers: number[] = [1, 2, 3]; // Массив чисел
+// numbers.push("четыре"); // Ошибка
+
+let tuple: [string, number] = ["Анна", 25]; // Фиксированная длина и типы
+// tuple[0] = 30; // Ошибка
+</code></pre>
+<p>Почему типы? В JS типы динамические, что приводит к runtime-ошибкам (например, сложение строки и числа). TS проверяет на compile-time. Лучшая практика: Используйте строгие типы, избегайте any. Для опциональных: let optional?: string;.</p>
+<h3>11.2. Интерфейсы и типы</h3>
+<p>Интерфейсы описывают структуру объектов. Union и intersection для комбинаций.</p>
+<pre><code>// Интерфейс: контракт для объектов
+interface User {
+    name: string; // Обязательное
+    age: number;
+    email?: string; // Опциональное
+    greet(): string; // Метод
+}
+
+let user: User = {
+    name: "Иван",
+    age: 30,
+    greet() {
+        return `Привет, ${this.name}`;
+    }
+};
+// user.age = "тридцать"; // Ошибка
+
+// Type alias: альтернатива интерфейсам для простых типов
+type ID = string | number; // Union: строка или число
+let userId: ID = "abc123";
+userId = 123; // OK
+
+// Intersection: комбинация типов
+type Admin = User & { role: string }; // & - intersection
+let admin: Admin = {
+    name: "Админ",
+    age: 40,
+    role: "admin",
+    greet() { return "Привет"; }
+};
+</code></pre>
+<p>Расширенное: Extends для наследования интерфейсов: interface Student extends User { major: string; }. Readonly: readonly name: string; для иммутабельности. Ошибки: Несоответствие интерфейсу — compile error.</p>
+<h3>11.3. Функции в TypeScript</h3>
+<p>Типы для параметров и возвращаемого значения. Overloads для перегрузок.</p>
+<pre><code>// Базовая функция с типами
+function add(a: number, b: number): number { // :number - тип возврата
+    return a + b;
+}
+// add("1", 2); // Ошибка: Argument of type 'string' is not assignable to parameter of type 'number'.
+
+// Опциональные и default параметры
+function greet(name: string, greeting: string = "Привет"): string {
+    return `${greeting}, ${name}`;
+}
+
+// Rest параметры
+function sum(...numbers: number[]): number {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+
+// Arrow функции
+const multiply = (a: number, b: number): number =&gt; a * b;
+
+// Overloads: несколько сигнатур
+function combine(a: number, b: number): number;
+function combine(a: string, b: string): string;
+function combine(a: any, b: any): any {
+    return a + b;
+}
+combine(1, 2); // 3
+combine("a", "b"); // "ab"
+</code></pre>
+<p>Расширенное: Типизация callbacks: (callback: (x: number) => void). Async: async function fetchData(): Promise&lt;User[]&gt;. Лучшая практика: Всегда типизируйте функции для ясности.</p>
+<h3>11.4. Классы и ООП в TypeScript</h3>
+<p>Классы как в ES6, но с типами, модификаторами доступа (public, private, protected).</p>
+<pre><code>class Person {
+    private name: string; // Private: доступ только внутри класса
+    public age: number; // Public: по умолчанию
+    protected nickname: string; // Protected: доступ в классе и наследниках
+    
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    greet(): string {
+        return `Привет, я ${this.name}`;
+    }
+}
+
+class Student extends Person {
+    major: string;
+    
+    constructor(name: string, age: number, major: string) {
+        super(name, age);
+        this.major = major;
+        this.nickname = "Студент"; // Доступ к protected
+    }
+    
+    greet(): string { // Override с тем же типом
+        return super.greet() + `, изучаю ${this.major}`;
+    }
+}
+
+let student = new Student("Иван", 20, "Информатика");
+console.log(student.greet()); // "Привет, я Иван, изучаю Информатика"
+// console.log(student.name); // Ошибка: Property 'name' is private
+</code></pre>
+<p>Расширенное: Abstract классы: abstract class Shape { abstract area(): number; }. Readonly свойства. Ошибки: Несовместимые override — compile error.</p>
+<h3>11.5. Generics</h3>
+<p>Generics для обобщенных типов (как шаблоны в других языках).</p>
+<pre><code>// Generic функция: T - placeholder типа
+function identity&lt;T&gt;(arg: T): T {
+    return arg;
+}
+let num = identity&lt;number&gt;(42); // 42
+let str = identity("текст"); // Инференс типа: "текст"
+
+// Generic класс
+class Box&lt;T&gt; {
+    value: T;
+    constructor(value: T) {
+        this.value = value;
+    }
+    getValue(): T {
+        return this.value;
+    }
+}
+let numberBox = new Box&lt;number&gt;(10);
+let stringBox = new Box&lt;string&gt;("коробка");
+
+// Generic интерфейс
+interface Pair&lt;K, V&gt; {
+    key: K;
+    value: V;
+}
+let pair: Pair&lt;string, number&gt; = { key: "возраст", value: 25 };
+</code></pre>
+<p>Расширенное: Constraints: &lt;T extends number&gt;. Defaults: &lt;T = string&gt;. Практика: Для коллекций, как Array&lt;T&gt;.</p>
+<h3>11.6. Модули и продвинутые фичи</h3>
+<p>Модули как в ES6, но с типами. Enums, namespaces.</p>
+<pre><code>// Enum: перечисления
+enum Color {
+    Red = "Красный",
+    Green = "Зеленый",
+    Blue = "Синий"
+}
+let c: Color = Color.Red; // "Красный"
+
+// Namespaces: группировка
+namespace Utils {
+    export function log(message: string): void {
+        console.log(message);
+    }
+}
+Utils.log("Сообщение");
+
+// Декларации: для внешних библиотек (d.ts файлы)
+declare module "some-lib" {
+    export function func(): void;
+}
+</code></pre>
+<p>Расширенное: Utility types: Partial&lt;T&gt;, Readonly&lt;T&gt;, Pick&lt;T, K&gt;. Лучшая практика: Используйте @types для библиотек (npm install @types/node).</p>
+<p>Переход от JS к TS: Начните с any, постепенно добавляйте типы. TS улучшает JS-код, но требует компиляции.</p>
+<h2>Итог: Путь изучения JavaScript и TypeScript</h2>
+<ul>
+<li>Неделя 1-2: Основы (переменные, типы, условия, циклы)</li>
+<li>Неделя 3-4: Функции, массивы, объекты</li>
+<li>Неделя 5-6: DOM, события, формы</li>
+<li>Неделя 7-8: Асинхронность, Promise, async/await</li>
+<li>Неделя 9-10: ООП, классы, модули</li>
+<li>Неделя 11-12: Продвинутые темы, паттерны, оптимизация</li>
+<li>Неделя 13-14: TypeScript</li>
+</ul>
+<p>Первый проект после основ:</p>
+<pre><code>// Простой TODO список
+class TodoApp {
+    constructor() {
+        this.todos = [];
+        this.init();
+    }
+    
+    init() {
+        this.form = document.getElementById('todo-form');
+        this.input = document.getElementById('todo-input');
+        this.list = document.getElementById('todo-list');
+        
+        this.form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.addTodo(this.input.value);
+            this.input.value = '';
+        });
+    }
+    
+    addTodo(text) {
+        const todo = {
+            id: Date.now(),
+            text: text,
+            completed: false
+        };
+        
+        this.todos.push(todo);
+        this.render();
+    }
+    
+    render() {
+        this.list.innerHTML = '';
+        
+        this.todos.forEach(todo =&gt; {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                &lt;input type="checkbox" ${todo.completed ? 'checked' : ''}&gt;
+                &lt;span&gt;${todo.text}&lt;/span&gt;
+                &lt;button&gt;Удалить&lt;/button&gt;
+            `;
+            
+            this.list.appendChild(li);
+        });
+    }
+}
+
+new TodoApp();
+</code></pre>
+<p>Помните: JavaScript учится на практике. Пишите код каждый день, делайте проекты, ошибайтесь и исправляйте ошибки. Удачи! 🚀</p>
+</body>
+</html>

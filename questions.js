@@ -4,7 +4,7 @@ const QUESTIONS_DATA = {
             "id": 1,
             "title": "Сумма двух чисел",
             "difficulty": "easy",
-            "description": "Напишите функцию sum, которая принимает два числа и возвращает их сумму.",
+            "description": "Напишите функцию sum, которая принимает два числа и возвращает их сумму.\n\nПример: sum(2, 3) должно вернуть 5",
             "initialCode": "function sum(a, b) {\n // Напишите решение здесь\n \n}",
             "solution": "function sum(a, b) {\n return a + b;\n}",
             "hints": [
@@ -21,11 +21,11 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 2,
-            "title": "Разница между var, let и const",
+            "title": "Объявление переменных: var, let, const",
             "difficulty": "easy",
-            "description": "Объявите три переменные:\n1. var с именем globalVar и значением 'глобальная'\n2. let с именем mutableVar и начальным значением 'изменяемая', затем измените её на 'измененная'\n3. const с именем constantVar и значением 'константа'\n\nВерните массив [globalVar, mutableVar, constantVar]",
-            "initialCode": "function declareVariables() {\n // Объявите переменные здесь\n \n return [globalVar, mutableVar, constantVar];\n}",
-            "solution": "function declareVariables() {\n var globalVar = 'глобальная';\n let mutableVar = 'изменяемая';\n const constantVar = 'константа';\n \n mutableVar = 'измененная';\n // constantVar = 'новая' // Error\n \n return [globalVar, mutableVar, constantVar];\n}",
+            "description": "Объявите три переменные:\n1. С помощью var (глобальная переменная)\n2. С помощью let (изменяемая переменная)\n3. С помощью const (константа)\n\nЗатем измените значение переменной let и верните массив со всеми значениями.",
+            "initialCode": "function declareVariables() {\n // 1. Объявите переменную с помощью var и назовите её globalVar\n // 2. Объявите переменную с помощью let и назовите её mutableVar\n // 3. Объявите переменную с помощью const и назовите её constantVar\n // 4. Измените значение mutableVar на 'измененная'\n // 5. Верните массив [globalVar, mutableVar, constantVar]\n \n}",
+            "solution": "function declareVariables() {\n var globalVar = 'глобальная';\n let mutableVar = 'изменяемая';\n const constantVar = 'константа';\n \n mutableVar = 'измененная';\n // constantVar = 'новая' // Вызовет ошибку, так как const нельзя переприсвоить\n \n return [globalVar, mutableVar, constantVar];\n}",
             "hints": [
                 "var имеет функциональную область видимости",
                 "let можно переприсвоить, const - нет",
@@ -38,14 +38,14 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 3,
-            "title": "Типы данных",
+            "title": "Определение типов данных",
             "difficulty": "easy",
-            "description": "Создайте переменные разных типов данных и верните их типы в массиве.",
-            "initialCode": "function checkTypes() {\n // Создайте переменные разных типов\n \n return types;\n}",
+            "description": "Создайте переменные разных типов данных и верните массив с их типами (используя оператор typeof).\n\nСоздайте переменные следующих типов: строка, число, булево значение, undefined, null, Symbol, BigInt, объект, массив, функция.",
+            "initialCode": "function checkTypes() {\n // Создайте переменные разных типов данных\n // Верните массив с их типами через typeof\n \n}",
             "solution": "function checkTypes() {\n const str = 'строка';\n const num = 42;\n const bool = true;\n const undef = undefined;\n const nul = null;\n const sym = Symbol('id');\n const big = 123n;\n const obj = {};\n const arr = [];\n const func = function() {};\n \n const types = [\n typeof str, typeof num, typeof bool, typeof undef,\n typeof nul, typeof sym, typeof big, typeof obj,\n typeof arr, typeof func\n ];\n \n return types;\n}",
             "hints": [
                 "Используйте typeof для определения типа",
-                "Обратите внимание на typeof null",
+                "Обратите внимание: typeof null возвращает 'object'",
                 "Массивы и функции - тоже объекты"
             ],
             "tests": [
@@ -55,10 +55,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 4,
-            "title": "Преобразование типов",
+            "title": "Преобразование типов данных",
             "difficulty": "medium",
-            "description": "Напишите функцию convertTypes, которая преобразует строку в число, число в строку, булево в число.",
-            "initialCode": "function convertTypes() {\n const strNum = '123';\n const num = 456;\n const bool = true;\n \n // Преобразуйте типы\n \n return [numFromStr, strFromNum, numFromBool];\n}",
+            "description": "Напишите функцию, которая преобразует:\n1. Строку '123' в число\n2. Число 456 в строку\n3. Булево значение true в число\n\nВерните массив с результатами преобразований.",
+            "initialCode": "function convertTypes() {\n const strNum = '123';\n const num = 456;\n const bool = true;\n \n // Преобразуйте типы:\n // 1. strNum в число\n // 2. num в строку\n // 3. bool в число\n \n return [numFromStr, strFromNum, numFromBool];\n}",
             "solution": "function convertTypes() {\n const strNum = '123';\n const num = 456;\n const bool = true;\n \n // Преобразуйте типы\n const numFromStr = Number(strNum);\n const strFromNum = String(num);\n const numFromBool = Number(bool);\n \n return [numFromStr, strFromNum, numFromBool];\n}",
             "hints": [
                 "Используйте Number() для преобразования в число",
@@ -72,14 +72,14 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 5,
-            "title": "Точность чисел",
+            "title": "Решение проблемы точности чисел с плавающей точкой",
             "difficulty": "medium",
-            "description": "Напишите функцию fixPrecision, которая решает проблему точности 0.1 + 0.2",
-            "initialCode": "function fixPrecision() {\n const a = 0.1;\n const b = 0.2;\n // Решите проблему точности\n \n return result;\n}",
+            "description": "В JavaScript 0.1 + 0.2 не равно 0.3 из-за проблем с точностью. Напишите функцию, которая правильно вычисляет 0.1 + 0.2.\n\nПример: функция должна вернуть 0.3 (не 0.30000000000000004).",
+            "initialCode": "function fixPrecision() {\n const a = 0.1;\n const b = 0.2;\n // Решите проблему точности так, чтобы a + b равнялось 0.3\n \n return result;\n}",
             "solution": "function fixPrecision() {\n const a = 0.1;\n const b = 0.2;\n // Решение проблемы точности\n const result = (a * 10 + b * 10) / 10;\n // Или: const result = parseFloat((a + b).toFixed(1));\n \n return result;\n}",
             "hints": [
                 "Умножьте числа на 10, сложите, затем разделите на 10",
-                "Можно использовать toFixed(), но вернется строка",
+                "Можно использовать toFixed(), но он вернет строку",
                 "parseFloat() преобразует строку в число"
             ],
             "tests": [
@@ -89,10 +89,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 6,
-            "title": "Работа с BigInt",
+            "title": "Работа с большими числами (BigInt)",
             "difficulty": "easy",
-            "description": "Выполните операции с большими числами используя BigInt",
-            "initialCode": "function bigIntOperations() {\n const huge = 9007199254740991n;\n // Выполните +1 и *2\n \n return [incremented, doubled];\n}",
+            "description": "Используйте BigInt для работы с очень большими числами. Дано большое число 9007199254740991n. Выполните:\n1. Увеличьте его на 1\n2. Умножьте на 2\n\nВерните массив с результатами.",
+            "initialCode": "function bigIntOperations() {\n const huge = 9007199254740991n;\n // Выполните операции с BigInt:\n // 1. huge + 1\n // 2. huge * 2\n \n return [incremented, doubled];\n}",
             "solution": "function bigIntOperations() {\n const huge = 9007199254740991n;\n // Выполните +1 и *2\n const incremented = huge + 1n;\n const doubled = huge * 2n;\n \n return [incremented, doubled];\n}",
             "hints": [
                 "Используйте суффикс n для BigInt",
@@ -106,10 +106,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 7,
-            "title": "Строковые операции",
+            "title": "Операции со строками",
             "difficulty": "easy",
-            "description": "Выполните различные операции со строками: интерполяцию, методы",
-            "initialCode": "function stringOperations(name, age) {\n // Используйте шаблонные строки\n // Используйте методы строк\n \n return [greeting, upperName, includesTest];\n}",
+            "description": "Напишите функцию, которая принимает имя и возраст, и выполняет:\n1. Создает приветствие в формате 'Привет, [имя]! Тебе [возраст] лет.' (используйте шаблонные строки)\n2. Преобразует имя в верхний регистр\n3. Проверяет, содержит ли приветствие слово 'Привет'\n\nВерните массив с результатами.",
+            "initialCode": "function stringOperations(name, age) {\n // 1. Используйте шаблонные строки для создания приветствия\n // 2. Преобразуйте имя в верхний регистр\n // 3. Проверьте, содержит ли приветствие слово 'Привет'\n \n return [greeting, upperName, includesTest];\n}",
             "solution": "function stringOperations(name, age) {\n // Шаблонные строки\n const greeting = `Привет, ${name}! Тебе ${age} лет.`;\n // Методы строк\n const upperName = name.toUpperCase();\n const includesTest = greeting.includes('Привет');\n \n return [greeting, upperName, includesTest];\n}",
             "hints": [
                 "Используйте обратные кавычки для шаблонных строк",
@@ -123,15 +123,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 8,
-            "title": "Строгое сравнение",
+            "title": "Строгое и нестрогое сравнение",
             "difficulty": "easy",
-            "description": "Продемонстрируйте разницу между == и ===",
-            "initialCode": "function strictComparison() {\n const a = 5;\n const b = '5';\n const c = 5;\n \n // Сравните значения\n \n return [looseEq, strictEq, strictEq2];\n}",
-            "solution": "function strictComparison() {\n const a = 5;\n const b = '5';\n const c = 5;\n \n // Сравните значения\n const looseEq = a == b; // true\n const strictEq = a === b; // false\n const strictEq2 = a === c; // true\n \n return [looseEq, strictEq, strictEq2];\n}",
+            "description": "Продемонстрируйте разницу между == (нестрогое сравнение) и === (строгое сравнение).\n\nСравните:\n1. Число 5 и строку '5' с помощью ==\n2. Число 5 и строку '5' с помощью ===\n3. Число 5 и число 5 с помощью ===\n\nВерните массив с результатами сравнений.",
+            "initialCode": "function strictComparison() {\n const a = 5;\n const b = '5';\n const c = 5;\n \n // Сравните значения:\n // 1. a == b (нестрогое сравнение)\n // 2. a === b (строгое сравнение)\n // 3. a === c (строгое сравнение)\n \n return [looseEq, strictEq, strictEq2];\n}",
+            "solution": "function strictComparison() {\n const a = 5;\n const b = '5';\n const c = 5;\n \n // Сравните значения\n const looseEq = a == b; // true (приведение типов)\n const strictEq = a === b; // false (разные типы)\n const strictEq2 = a === c; // true (одинаковые значения и типы)\n \n return [looseEq, strictEq, strictEq2];\n}",
             "hints": [
-                "== выполняет приведение типов",
+                "== выполняет приведение типов перед сравнением",
                 "=== проверяет и значение, и тип",
-                "Всегда используйте === если не требуется приведение"
+                "Всегда используйте === если не требуется явное приведение"
             ],
             "tests": [
                 { "code": "strictComparison()", "expected": [true, false, true] }
@@ -142,13 +142,13 @@ const QUESTIONS_DATA = {
             "id": 9,
             "title": "Логические операторы",
             "difficulty": "medium",
-            "description": "Используйте логические операторы для обработки значений",
-            "initialCode": "function logicalOperators(name, age) {\n // Установите значение по умолчанию для name\n // Проверьте, что age между 18 и 65\n \n return [defaultName, isWorkingAge];\n}",
+            "description": "Используйте логические операторы для:\n1. Установки значения по умолчанию для имени, если оно пустое\n2. Проверки, что возраст находится в диапазоне от 18 до 65 включительно\n\nВерните массив [defaultName, isWorkingAge].",
+            "initialCode": "function logicalOperators(name, age) {\n // 1. Если name пустое (false), используйте 'Гость' как значение по умолчанию\n // 2. Проверьте, что age находится между 18 и 65 (включительно)\n \n return [defaultName, isWorkingAge];\n}",
             "solution": "function logicalOperators(name, age) {\n // Установите значение по умолчанию для name\n const defaultName = name || 'Гость';\n // Проверьте, что age между 18 и 65\n const isWorkingAge = age >= 18 && age <= 65;\n \n return [defaultName, isWorkingAge];\n}",
             "hints": [
                 "|| возвращает первое truthy значение",
-                "&& возвращает первое falsy или последнее truthy",
-                "Используйте >= и <= для диапазона"
+                "&& возвращает true только если оба выражения true",
+                "Используйте >= и <= для проверки диапазона"
             ],
             "tests": [
                 { "code": "logicalOperators('', 25)", "expected": ['Гость', true] },
@@ -160,13 +160,13 @@ const QUESTIONS_DATA = {
             "id": 10,
             "title": "Тернарный оператор",
             "difficulty": "easy",
-            "description": "Используйте тернарный оператор для проверки возраста",
-            "initialCode": "function ternaryOperator(age) {\n // Используйте тернарный оператор\n \n return status;\n}",
+            "description": "Используйте тернарный оператор для проверки возраста. Если возраст 18 и больше, верните 'совершеннолетний', иначе верните 'несовершеннолетний'.",
+            "initialCode": "function ternaryOperator(age) {\n // Используйте тернарный оператор для проверки возраста\n // Если age >= 18, верните 'совершеннолетний', иначе 'несовершеннолетний'\n \n return status;\n}",
             "solution": "function ternaryOperator(age) {\n // Используйте тернарный оператор\n const status = age >= 18 ? 'совершеннолетний' : 'несовершеннолетний';\n \n return status;\n}",
             "hints": [
-                "Синтаксис: условие ? значение1 : значение2",
-                "Если условие true - возвращает значение1",
-                "Если условие false - возвращает значение2"
+                "Синтаксис: условие ? значение_если_true : значение_если_false",
+                "Если условие true - возвращает первое значение",
+                "Если условие false - возвращает второе значение"
             ],
             "tests": [
                 { "code": "ternaryOperator(20)", "expected": 'совершеннолетний' },
@@ -174,13 +174,12 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 1: Фундамент"
         },
-
         {
             "id": 11,
-            "title": "Простое условие if-else",
+            "title": "Проверка числа: положительное, отрицательное или ноль",
             "difficulty": "easy",
-            "description": "Напишите функцию checkNumber, которая возвращает 'положительное', 'отрицательное' или 'ноль'",
-            "initialCode": "function checkNumber(num) {\n // Используйте if-else\n \n}",
+            "description": "Напишите функцию checkNumber, которая принимает число и возвращает:\n- 'положительное', если число больше 0\n- 'отрицательное', если число меньше 0\n- 'ноль', если число равно 0\n\nИспользуйте if-else.",
+            "initialCode": "function checkNumber(num) {\n // Используйте if-else для проверки числа\n // Если num > 0, верните 'положительное'\n // Иначе если num < 0, верните 'отрицательное'\n // Иначе верните 'ноль'\n \n}",
             "solution": "function checkNumber(num) {\n if (num > 0) {\n return 'положительное';\n } else if (num < 0) {\n return 'отрицательное';\n } else {\n return 'ноль';\n }\n}",
             "hints": [
                 "Сначала проверьте > 0",
@@ -196,15 +195,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 12,
-            "title": "Switch для дней недели",
+            "title": "Определение типа дня недели",
             "difficulty": "easy",
-            "description": "Используйте switch для возврата типа дня (рабочий/выходной)",
-            "initialCode": "function dayType(day) {\n // Используйте switch\n \n}",
+            "description": "Используйте switch для определения типа дня недели. Функция принимает название дня и возвращает:\n- 'рабочий' для понедельника-пятницы\n- 'выходной' для субботы и воскресенья\n- 'неизвестный день' для других значений\n\nУчтите, что название дня может быть в любом регистре.",
+            "initialCode": "function dayType(day) {\n // Используйте switch для определения типа дня\n // Приведите day к нижнему регистру для единообразия\n \n}",
             "solution": "function dayType(day) {\n switch(day.toLowerCase()) {\n case 'понедельник':\n case 'вторник':\n case 'среда':\n case 'четверг':\n case 'пятница':\n return 'рабочий';\n case 'суббота':\n case 'воскресенье':\n return 'выходной';\n default:\n return 'неизвестный день';\n }\n}",
             "hints": [
-                "Используйте toLowerCase() для единообразия",
-                "Группируйте случаи без break между ними",
-                "Не забудьте default"
+                "Используйте toLowerCase() для приведения к нижнему регистру",
+                "Группируйте несколько case без break между ними",
+                "Не забудьте default для обработки неизвестных значений"
             ],
             "tests": [
                 { "code": "dayType('понедельник')", "expected": 'рабочий' },
@@ -215,10 +214,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 13,
-            "title": "Цикл for - сумма чисел",
+            "title": "Сумма чисел от 1 до n",
             "difficulty": "easy",
-            "description": "Используйте цикл for для вычисления суммы чисел от 1 до n",
-            "initialCode": "function sumToN(n) {\n let sum = 0;\n // Используйте цикл for\n \n return sum;\n}",
+            "description": "Используйте цикл for для вычисления суммы всех чисел от 1 до n включительно.\n\nПример: для n=5 сумма будет 1+2+3+4+5 = 15.",
+            "initialCode": "function sumToN(n) {\n let sum = 0;\n // Используйте цикл for для суммирования чисел от 1 до n\n \n return sum;\n}",
             "solution": "function sumToN(n) {\n let sum = 0;\n for(let i = 1; i <= n; i++) {\n sum += i;\n }\n return sum;\n}",
             "hints": [
                 "Инициализируйте i = 1",
@@ -234,14 +233,14 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 14,
-            "title": "Цикл while - факториал",
+            "title": "Вычисление факториала с помощью while",
             "difficulty": "medium",
-            "description": "Вычислите факториал числа используя цикл while",
-            "initialCode": "function factorialWhile(n) {\n if (n < 0) return null;\n let result = 1;\n // Используйте цикл while\n \n return result;\n}",
+            "description": "Вычислите факториал числа n с помощью цикла while.\nФакториал n (обозначается n!) - произведение всех положительных целых чисел от 1 до n.\n\nПример: 5! = 1*2*3*4*5 = 120.\nЕсли n < 0, верните null.",
+            "initialCode": "function factorialWhile(n) {\n if (n < 0) return null;\n let result = 1;\n // Используйте цикл while для вычисления факториала\n \n return result;\n}",
             "solution": "function factorialWhile(n) {\n if (n < 0) return null;\n let result = 1;\n let i = 1;\n \n while(i <= n) {\n result *= i;\n i++;\n }\n \n return result;\n}",
             "hints": [
                 "Инициализируйте счетчик i = 1",
-                "Умножайте result на i",
+                "Умножайте result на i на каждой итерации",
                 "Увеличивайте i пока i <= n"
             ],
             "tests": [
@@ -253,13 +252,13 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 15,
-            "title": "Цикл do-while",
+            "title": "Генерация случайных чисел до выполнения условия",
             "difficulty": "medium",
-            "description": "Генерируйте случайные числа пока не получите число > 0.5",
-            "initialCode": "function generateUntilHalf() {\n let randomNum;\n let attempts = 0;\n // Используйте do-while\n \n return attempts;\n}",
+            "description": "Используйте цикл do-while для генерации случайных чисел. Генерируйте числа с помощью Math.random() (возвращает число от 0 до 1) до тех пор, пока не получите число больше 0.5.\n\nВерните количество попыток, которое потребовалось.",
+            "initialCode": "function generateUntilHalf() {\n let randomNum;\n let attempts = 0;\n // Используйте do-while для генерации чисел\n // Генерируйте пока randomNum <= 0.5\n \n return attempts;\n}",
             "solution": "function generateUntilHalf() {\n let randomNum;\n let attempts = 0;\n \n do {\n randomNum = Math.random(); // 0-1\n attempts++;\n } while(randomNum <= 0.5);\n \n return attempts;\n}",
             "hints": [
-                "Math.random() возвращает число от 0 до 1",
+                "Math.random() возвращает случайное число от 0 до 1",
                 "do-while выполнится минимум один раз",
                 "Увеличивайте attempts на каждой итерации"
             ],
@@ -270,15 +269,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 16,
-            "title": "Цикл for...of для массива",
+            "title": "Поиск максимального числа в массиве",
             "difficulty": "easy",
-            "description": "Используйте for...of для поиска максимального числа в массиве",
-            "initialCode": "function findMaxForOf(arr) {\n if (arr.length === 0) return null;\n let max = arr[0];\n // Используйте for...of\n \n return max;\n}",
+            "description": "Используйте цикл for...of для поиска максимального числа в массиве.\n\nЕсли массив пустой, верните null.",
+            "initialCode": "function findMaxForOf(arr) {\n if (arr.length === 0) return null;\n let max = arr[0];\n // Используйте for...of для перебора массива\n // Сравнивайте каждый элемент с max\n \n return max;\n}",
             "solution": "function findMaxForOf(arr) {\n if (arr.length === 0) return null;\n let max = arr[0];\n \n for(const num of arr) {\n if (num > max) {\n max = num;\n }\n }\n \n return max;\n}",
             "hints": [
                 "for...of перебирает значения массива",
                 "Сравнивайте текущее значение с max",
-                "Обновляйте max если нашли больше"
+                "Обновляйте max если нашли большее значение"
             ],
             "tests": [
                 { "code": "findMaxForOf([1, 5, 3, 9, 2])", "expected": 9 },
@@ -289,10 +288,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 17,
-            "title": "Цикл for...in для объекта",
+            "title": "Сумма числовых значений объекта",
             "difficulty": "medium",
-            "description": "Используйте for...in для подсчета суммы значений объекта",
-            "initialCode": "function sumObjectValues(obj) {\n let sum = 0;\n // Используйте for...in\n \n return sum;\n}",
+            "description": "Используйте цикл for...in для подсчета суммы всех числовых значений в объекте.\n\nПример: для объекта {a: 1, b: 2, c: 3} сумма будет 6.",
+            "initialCode": "function sumObjectValues(obj) {\n let sum = 0;\n // Используйте for...in для перебора ключей объекта\n // Складывайте только числовые значения\n \n return sum;\n}",
             "solution": "function sumObjectValues(obj) {\n let sum = 0;\n \n for(const key in obj) {\n if (typeof obj[key] === 'number') {\n sum += obj[key];\n }\n }\n \n return sum;\n}",
             "hints": [
                 "for...in перебирает ключи объекта",
@@ -307,15 +306,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 18,
-            "title": "Break и continue в цикле",
+            "title": "Поиск первого четного числа в массиве",
             "difficulty": "medium",
-            "description": "Найдите первое четное число в массиве используя break",
-            "initialCode": "function findFirstEven(arr) {\n // Используйте break\n \n}",
-            "solution": "function findFirstEven(arr) {\n for(let i = 0; i < arr.length; i++) {\n if (arr[i] % 2 === 0) {\n return arr[i];\n // или break и вернуть после цикла\n }\n }\n return null;\n}",
+            "description": "Найдите первое четное число в массиве. Используйте цикл и прервите его как только найдете четное число.\n\nЕсли четных чисел нет, верните null.",
+            "initialCode": "function findFirstEven(arr) {\n // Используйте цикл для поиска первого четного числа\n // Как только найдете - верните его\n // Если не найдете - верните null\n \n}",
+            "solution": "function findFirstEven(arr) {\n for(let i = 0; i < arr.length; i++) {\n if (arr[i] % 2 === 0) {\n return arr[i];\n }\n }\n return null;\n}",
             "hints": [
                 "Проверяйте остаток от деления на 2",
-                "Используйте return для немедленного выхода",
-                "Или break чтобы прервать цикл"
+                "Используйте return для немедленного выхода из функции",
+                "Или используйте break чтобы прервать цикл"
             ],
             "tests": [
                 { "code": "findFirstEven([1, 3, 5, 2, 7, 4])", "expected": 2 },
@@ -325,14 +324,14 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 19,
-            "title": "Вложенные циклы",
+            "title": "Создание таблицы умножения",
             "difficulty": "medium",
-            "description": "Создайте матрицу умножения (таблицу Пифагора)",
-            "initialCode": "function multiplicationTable(n) {\n const table = [];\n // Используйте вложенные циклы\n \n return table;\n}",
+            "description": "Создайте матрицу умножения (таблицу Пифагора) размером n×n.\n\nПример для n=3:\n[[1, 2, 3],\n [2, 4, 6],\n [3, 6, 9]]",
+            "initialCode": "function multiplicationTable(n) {\n const table = [];\n // Используйте вложенные циклы для создания таблицы\n // Каждый элемент table[i][j] = (i+1) * (j+1)\n \n return table;\n}",
             "solution": "function multiplicationTable(n) {\n const table = [];\n \n for(let i = 1; i <= n; i++) {\n const row = [];\n for(let j = 1; j <= n; j++) {\n row.push(i * j);\n }\n table.push(row);\n }\n \n return table;\n}",
             "hints": [
-                "Внешний цикл для строк",
-                "Внутренний цикл для столбцов",
+                "Внешний цикл для строк (i от 1 до n)",
+                "Внутренний цикл для столбцов (j от 1 до n)",
                 "Умножайте номер строки на номер столбца"
             ],
             "tests": [
@@ -342,10 +341,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 20,
-            "title": "Ранний возврат (early return)",
+            "title": "Проверка пароля с ранним возвратом",
             "difficulty": "medium",
-            "description": "Используйте early return для проверки пароля",
-            "initialCode": "function checkPassword(password) {\n // Используйте early return\n \n}",
+            "description": "Используйте early return (ранний возврат) для проверки пароля. Проверьте:\n1. Пароль не пустой\n2. Длина не менее 8 символов\n3. Содержит хотя бы одну заглавную букву\n4. Содержит хотя бы одну цифру\n\nПри первой же ошибке возвращайте сообщение об ошибке.",
+            "initialCode": "function checkPassword(password) {\n // Используйте early return для проверки пароля\n // Проверяйте условия по очереди\n \n}",
             "solution": "function checkPassword(password) {\n // Early returns\n if (!password) return 'Пароль не может быть пустым';\n if (password.length < 8) return 'Пароль слишком короткий';\n if (!/[A-Z]/.test(password)) return 'Нужна хотя бы одна заглавная буква';\n if (!/[0-9]/.test(password)) return 'Нужна хотя бы одна цифра';\n \n return 'Пароль надежный';\n}",
             "hints": [
                 "Сначала проверьте пустоту",
@@ -360,19 +359,18 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 2: Управление потоком выполнения"
         },
-
         {
             "id": 21,
-            "title": "Основы массивов",
+            "title": "Базовые операции с массивами",
             "difficulty": "easy",
-            "description": "Создайте массив и выполните базовые операции: push, pop, shift, unshift",
-            "initialCode": "function arrayBasics() {\n const arr = [1, 2, 3];\n // Выполните операции\n \n return arr;\n}",
+            "description": "Выполните базовые операции с массивом [1, 2, 3]:\n1. Добавьте 4 в конец (push)\n2. Удалите последний элемент (pop)\n3. Добавьте 0 в начало (unshift)\n4. Удалите первый элемент (shift)\n\nВерните итоговый массив.",
+            "initialCode": "function arrayBasics() {\n const arr = [1, 2, 3];\n // Выполните операции с массивом:\n // 1. Добавьте 4 в конец\n // 2. Удалите последний элемент\n // 3. Добавьте 0 в начало\n // 4. Удалите первый элемент\n \n return arr;\n}",
             "solution": "function arrayBasics() {\n const arr = [1, 2, 3];\n \n // Добавить в конец\n arr.push(4);\n // Удалить с конца\n arr.pop();\n // Добавить в начало\n arr.unshift(0);\n // Удалить с начала\n arr.shift();\n \n return arr;\n}",
             "hints": [
-                "push добавляет в конец",
-                "pop удаляет с конца",
-                "unshift добавляет в начало",
-                "shift удаляет с начала"
+                "push добавляет элемент в конец массива",
+                "pop удаляет последний элемент",
+                "unshift добавляет элемент в начало",
+                "shift удаляет первый элемент"
             ],
             "tests": [
                 { "code": "arrayBasics()", "expected": [1, 2, 3] }
@@ -381,10 +379,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 22,
-            "title": "Метод map",
+            "title": "Преобразование массива чисел в их квадраты",
             "difficulty": "easy",
-            "description": "Используйте map для преобразования массива чисел в их квадраты",
-            "initialCode": "function squareNumbers(arr) {\n // Используйте map\n \n}",
+            "description": "Используйте метод map для преобразования массива чисел в массив их квадратов.\n\nПример: [1, 2, 3, 4] → [1, 4, 9, 16]",
+            "initialCode": "function squareNumbers(arr) {\n // Используйте метод map\n // Верните новый массив с квадратами чисел\n \n}",
             "solution": "function squareNumbers(arr) {\n return arr.map(num => num * num);\n}",
             "hints": [
                 "map создает новый массив",
@@ -399,13 +397,13 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 23,
-            "title": "Метод filter",
+            "title": "Фильтрация чисел больше 10",
             "difficulty": "easy",
-            "description": "Используйте filter для отбора чисел больше 10",
-            "initialCode": "function filterGreaterThan10(arr) {\n // Используйте filter\n \n}",
+            "description": "Используйте метод filter для отбора чисел больше 10 из массива.\n\nПример: [5, 12, 8, 15, 3] → [12, 15]",
+            "initialCode": "function filterGreaterThan10(arr) {\n // Используйте метод filter\n // Верните новый массив с числами > 10\n \n}",
             "solution": "function filterGreaterThan10(arr) {\n return arr.filter(num => num > 10);\n}",
             "hints": [
-                "filter возвращает новый массив",
+                "filter возвращает новый массив с элементами, удовлетворяющими условию",
                 "Используйте стрелочную функцию",
                 "Условие: num > 10"
             ],
@@ -417,10 +415,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 24,
-            "title": "Метод reduce",
+            "title": "Вычисление среднего значения массива",
             "difficulty": "medium",
-            "description": "Используйте reduce для вычисления среднего значения",
-            "initialCode": "function calculateAverage(arr) {\n // Используйте reduce\n \n}",
+            "description": "Используйте метод reduce для вычисления среднего значения массива чисел.\n\nЕсли массив пустой, верните 0.",
+            "initialCode": "function calculateAverage(arr) {\n // Используйте reduce для вычисления суммы\n // Затем разделите сумму на количество элементов\n \n}",
             "solution": "function calculateAverage(arr) {\n if (arr.length === 0) return 0;\n \n const sum = arr.reduce((total, num) => total + num, 0);\n return sum / arr.length;\n}",
             "hints": [
                 "reduce аккумулирует значения",
@@ -435,13 +433,13 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 25,
-            "title": "Методы slice и splice",
+            "title": "Разница между slice и splice",
             "difficulty": "medium",
-            "description": "Продемонстрируйте разницу между slice и splice",
-            "initialCode": "function sliceVsSplice() {\n const arr1 = [1, 2, 3, 4, 5];\n const arr2 = [1, 2, 3, 4, 5];\n \n // Используйте slice и splice\n \n return [sliceResult, spliceResult, arr1, arr2];\n}",
-            "solution": "function sliceVsSplice() {\n const arr1 = [1, 2, 3, 4, 5];\n const arr2 = [1, 2, 3, 4, 5];\n \n // slice не мутирует оригинал\n const sliceResult = arr1.slice(1, 4); // [2, 3, 4]\n \n // splice мутирует оригинал\n const spliceResult = arr2.splice(1, 3); // [2, 3, 4]\n \n return [sliceResult, spliceResult, arr1, arr2];\n}",
+            "description": "Продемонстрируйте разницу между методами slice и splice.\n\nИспользуйте два одинаковых массива [1, 2, 3, 4, 5]:\n1. Для первого массива используйте slice(1, 4)\n2. Для второго массива используйте splice(1, 3)\n\nВерните массив с результатами и исходными массивами.",
+            "initialCode": "function sliceVsSplice() {\n const arr1 = [1, 2, 3, 4, 5];\n const arr2 = [1, 2, 3, 4, 5];\n \n // Используйте slice и splice\n // sliceResult = arr1.slice(1, 4)\n // spliceResult = arr2.splice(1, 3)\n \n return [sliceResult, spliceResult, arr1, arr2];\n}",
+            "solution": "function sliceVsSplice() {\n const arr1 = [1, 2, 3, 4, 5];\n const arr2 = [1, 2, 3, 4, 5];\n \n // slice не изменяет оригинальный массив\n const sliceResult = arr1.slice(1, 4); // [2, 3, 4]\n \n // splice изменяет оригинальный массив\n const spliceResult = arr2.splice(1, 3); // [2, 3, 4]\n \n return [sliceResult, spliceResult, arr1, arr2];\n}",
             "hints": [
-                "slice возвращает часть массива",
+                "slice возвращает часть массива, не изменяя оригинал",
                 "splice изменяет оригинальный массив",
                 "slice(start, end), splice(start, deleteCount)"
             ],
@@ -452,15 +450,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 26,
-            "title": "Создание и доступ к объектам",
+            "title": "Создание и доступ к объекту",
             "difficulty": "easy",
-            "description": "Создайте объект пользователя и получите доступ к его свойствам",
-            "initialCode": "function createUser() {\n // Создайте объект пользователя\n \n return [name, email, age];\n}",
+            "description": "Создайте объект пользователя со свойствами:\n- name: 'Иван'\n- email: 'ivan@example.com'\n- age: 25\n- 'phone number': '+79123456789' (свойство с пробелом)\n\nПолучите доступ к свойствам разными способами и верните массив [name, email, age].",
+            "initialCode": "function createUser() {\n // Создайте объект пользователя\n // Получите доступ к свойствам:\n // name через точку\n // email через квадратные скобки\n // age через точку\n \n return [name, email, age];\n}",
             "solution": "function createUser() {\n // Создайте объект пользователя\n const user = {\n name: 'Иван',\n email: 'ivan@example.com',\n age: 25,\n 'phone number': '+79123456789' // свойство с пробелом\n };\n \n // Доступ к свойствам\n const name = user.name;\n const email = user['email'];\n const age = user.age;\n \n return [name, email, age];\n}",
             "hints": [
                 "Используйте {} для создания объекта",
                 "Доступ через точку для простых свойств",
-                "Доступ через [] для свойств с пробелами"
+                "Доступ через [] для свойств с пробелами или динамических имен"
             ],
             "tests": [
                 { "code": "createUser()", "expected": ['Иван', 'ivan@example.com', 25] }
@@ -469,15 +467,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 27,
-            "title": "Методы объектов",
+            "title": "Добавление метода к объекту",
             "difficulty": "easy",
-            "description": "Добавьте метод к объекту и используйте this",
-            "initialCode": "function addMethodToObject() {\n const person = {\n name: 'Анна',\n age: 30,\n // Добавьте метод getInfo\n };\n \n return person.getInfo();\n}",
+            "description": "Создайте объект person со свойствами name и age, и добавьте метод getInfo, который возвращает строку в формате 'Имя: [name], Возраст: [age]'.\n\nИспользуйте ключевое слово this для доступа к свойствам объекта.",
+            "initialCode": "function addMethodToObject() {\n const person = {\n name: 'Анна',\n age: 30,\n // Добавьте метод getInfo, который возвращает строку\n };\n \n return person.getInfo();\n}",
             "solution": "function addMethodToObject() {\n const person = {\n name: 'Анна',\n age: 30,\n // Добавьте метод getInfo\n getInfo() {\n return `Имя: ${this.name}, Возраст: ${this.age}`;\n }\n };\n \n return person.getInfo();\n}",
             "hints": [
                 "Используйте сокращенный синтаксис метода",
                 "this ссылается на текущий объект",
-                "Используйте шаблонные строки"
+                "Используйте шаблонные строки для форматирования"
             ],
             "tests": [
                 { "code": "addMethodToObject()", "expected": 'Имя: Анна, Возраст: 30' }
@@ -486,15 +484,15 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 28,
-            "title": "Object.keys, values, entries",
+            "title": "Методы Object.keys, values, entries",
             "difficulty": "medium",
-            "description": "Используйте методы Object для работы с объектом",
-            "initialCode": "function objectMethods() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n \n // Используйте Object методы\n \n return [keys, values, entries];\n}",
+            "description": "Используйте методы Object для работы с объектом {name: 'Иван', age: 25, city: 'Москва'}.\n\nВерните массив с:\n1. Ключами объекта\n2. Значениями объекта\n3. Парами ключ-значение",
+            "initialCode": "function objectMethods() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n \n // Используйте Object методы:\n // keys - для получения ключей\n // values - для получения значений\n // entries - для получения пар [ключ, значение]\n \n return [keys, values, entries];\n}",
             "solution": "function objectMethods() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n \n // Используйте Object методы\n const keys = Object.keys(user);\n const values = Object.values(user);\n const entries = Object.entries(user);\n \n return [keys, values, entries];\n}",
             "hints": [
-                "Object.keys возвращает ключи",
-                "Object.values возвращает значения",
-                "Object.entries возвращает пары [ключ, значение]"
+                "Object.keys возвращает массив ключей",
+                "Object.values возвращает массив значений",
+                "Object.entries возвращает массив пар [ключ, значение]"
             ],
             "tests": [
                 { "code": "objectMethods()", "expected": [['name', 'age', 'city'], ['Иван', 25, 'Москва'], [['name', 'Иван'], ['age', 25], ['city', 'Москва']]] }
@@ -503,10 +501,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 29,
-            "title": "Глубокое копирование объектов",
+            "title": "Глубокая копия объекта",
             "difficulty": "hard",
-            "description": "Создайте глубокую копию объекта",
-            "initialCode": "function deepCopy(obj) {\n // Создайте глубокую копию\n \n}",
+            "description": "Создайте глубокую копию объекта (включая вложенные объекты).\n\nПример: объект {a: 1, b: {c: 2}} после копирования и изменения копии не должен изменять оригинал.",
+            "initialCode": "function deepCopy(obj) {\n // Создайте глубокую копию объекта\n \n}",
             "solution": "function deepCopy(obj) {\n // Для глубокой копии\n return JSON.parse(JSON.stringify(obj));\n \n // Или используйте structuredClone в современных браузерах\n // return structuredClone ? structuredClone(obj) : JSON.parse(JSON.stringify(obj));\n}",
             "hints": [
                 "JSON.stringify преобразует объект в строку",
@@ -525,26 +523,25 @@ const QUESTIONS_DATA = {
             "id": 30,
             "title": "Деструктуризация объектов и массивов",
             "difficulty": "medium",
-            "description": "Используйте деструктуризацию для извлечения значений",
-            "initialCode": "function destructuring() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n const numbers = [1, 2, 3, 4, 5];\n \n // Используйте деструктуризацию\n \n return [userName, userAge, first, second, ...rest];\n}",
+            "description": "Используйте деструктуризацию для извлечения значений из объекта и массива.\n\nИз объекта {name: 'Иван', age: 25, city: 'Москва'} извлеките name и age.\nИз массива [1, 2, 3, 4, 5] извлеките первые два элемента и остальные в отдельный массив.",
+            "initialCode": "function destructuring() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n const numbers = [1, 2, 3, 4, 5];\n \n // Используйте деструктуризацию:\n // Для объекта: извлеките name как userName, age как userAge\n // Для массива: извлеките first, second, ...rest\n \n return [userName, userAge, first, second, rest];\n}",
             "solution": "function destructuring() {\n const user = {name: 'Иван', age: 25, city: 'Москва'};\n const numbers = [1, 2, 3, 4, 5];\n \n // Деструктуризация объекта\n const {name: userName, age: userAge} = user;\n \n // Деструктуризация массива\n const [first, second, ...rest] = numbers;\n \n return [userName, userAge, first, second, rest];\n}",
             "hints": [
                 "Для объектов используйте {}",
                 "Для массивов используйте []",
-                "rest оператор собирает остальные элементы"
+                "rest оператор ... собирает остальные элементы"
             ],
             "tests": [
                 { "code": "destructuring()", "expected": ['Иван', 25, 1, 2, [3, 4, 5]] }
             ],
             "chapter": "Часть 3: Структуры данных"
         },
-
         {
             "id": 31,
             "title": "Function Declaration",
             "difficulty": "easy",
-            "description": "Создайте функцию declaration, которая возвращает приветствие",
-            "initialCode": "// Используйте function declaration\n \nfunction greet(name) {\n \n}",
+            "description": "Создайте функцию declaration с именем greet, которая принимает имя и возвращает приветствие в формате 'Привет, [имя]!'.",
+            "initialCode": "// Используйте function declaration\n \nfunction greet(name) {\n // Напишите функцию здесь\n \n}",
             "solution": "// Function declaration\nfunction greet(name) {\n return `Привет, ${name}!`;\n}",
             "hints": [
                 "Function declaration поднимается (hoisting)",
@@ -561,7 +558,7 @@ const QUESTIONS_DATA = {
             "id": 32,
             "title": "Function Expression",
             "difficulty": "easy",
-            "description": "Создайте функцию expression для вычисления квадрата числа",
+            "description": "Создайте функцию expression с именем square, которая принимает число и возвращает его квадрат.\n\nВызовите функцию с аргументом 5 и верните результат.",
             "initialCode": "// Используйте function expression\n \n \nreturn square(5);",
             "solution": "// Function expression\nconst square = function(x) {\n return x * x;\n};\n\nreturn square(5);",
             "hints": [
@@ -578,7 +575,7 @@ const QUESTIONS_DATA = {
             "id": 33,
             "title": "Arrow Function",
             "difficulty": "easy",
-            "description": "Создайте стрелочную функцию для сложения двух чисел",
+            "description": "Создайте стрелочную функцию add, которая принимает два числа и возвращает их сумму.\n\nВызовите функцию с аргументами 2 и 3 и верните результат.",
             "initialCode": "// Используйте arrow function\n \n \nreturn add(2, 3);",
             "solution": "// Arrow function\nconst add = (a, b) => a + b;\n\nreturn add(2, 3);",
             "hints": [
@@ -595,8 +592,8 @@ const QUESTIONS_DATA = {
             "id": 34,
             "title": "Параметры по умолчанию",
             "difficulty": "easy",
-            "description": "Создайте функцию с параметрами по умолчанию",
-            "initialCode": "function greetPerson(name, greeting) {\n // Установите greeting по умолчанию\n \n}",
+            "description": "Создайте функцию greetPerson с параметрами по умолчанию. Функция принимает имя и приветствие (по умолчанию 'Привет') и возвращает строку в формате '[приветствие], [имя]!'.",
+            "initialCode": "function greetPerson(name, greeting) {\n // Установите greeting по умолчанию как 'Привет'\n \n}",
             "solution": "function greetPerson(name, greeting = 'Привет') {\n return `${greeting}, ${name}!`;\n}",
             "hints": [
                 "Параметры по умолчанию задаются через =",
@@ -613,8 +610,8 @@ const QUESTIONS_DATA = {
             "id": 35,
             "title": "Rest параметры",
             "difficulty": "medium",
-            "description": "Используйте rest параметры для суммирования любого количества чисел",
-            "initialCode": "function sumAll(...numbers) {\n // Используйте rest параметры\n \n}",
+            "description": "Используйте rest параметры для создания функции sumAll, которая суммирует любое количество чисел.\n\nПример: sumAll(1, 2, 3) → 6",
+            "initialCode": "function sumAll(...numbers) {\n // Используйте rest параметры\n // Верните сумму всех чисел\n \n}",
             "solution": "function sumAll(...numbers) {\n return numbers.reduce((total, num) => total + num, 0);\n}",
             "hints": [
                 "Rest параметры собирают аргументы в массив",
@@ -631,8 +628,8 @@ const QUESTIONS_DATA = {
             "id": 36,
             "title": "Замыкание (Closure)",
             "difficulty": "hard",
-            "description": "Создайте замыкание для счетчика",
-            "initialCode": "function createCounter() {\n // Создайте замыкание\n \n}",
+            "description": "Создайте замыкание для счетчика. Функция createCounter должна возвращать функцию, которая при каждом вызове увеличивает счетчик на 1 и возвращает текущее значение.",
+            "initialCode": "function createCounter() {\n // Создайте замыкание\n // Верните функцию, которая увеличивает счетчик\n \n}",
             "solution": "function createCounter() {\n let count = 0; // Приватная переменная в замыкании\n \n return function() {\n count++;\n return count;\n };\n}",
             "hints": [
                 "Внутренняя функция запоминает окружение",
@@ -646,10 +643,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 37,
-            "title": "Рекурсия",
+            "title": "Рекурсивное вычисление факториала",
             "difficulty": "medium",
-            "description": "Напишите рекурсивную функцию для вычисления факториала",
-            "initialCode": "function factorialRecursive(n) {\n // Используйте рекурсию\n \n}",
+            "description": "Напишите рекурсивную функцию factorialRecursive для вычисления факториала числа n.\n\nФакториал 0 и 1 равен 1.",
+            "initialCode": "function factorialRecursive(n) {\n // Используйте рекурсию\n // Базовый случай: если n <= 1, верните 1\n // Иначе верните n * factorialRecursive(n - 1)\n \n}",
             "solution": "function factorialRecursive(n) {\n if (n <= 1) return 1; // Базовый случай\n return n * factorialRecursive(n - 1); // Рекурсивный вызов\n}",
             "hints": [
                 "Нужен базовый случай (когда остановиться)",
@@ -666,8 +663,8 @@ const QUESTIONS_DATA = {
             "id": 38,
             "title": "Каррирование (Currying)",
             "difficulty": "hard",
-            "description": "Создайте каррированную функцию для умножения",
-            "initialCode": "function multiply(a) {\n // Реализуйте каррирование\n \n}",
+            "description": "Создайте каррированную функцию multiply. Функция должна принимать первый аргумент и возвращать функцию, которая принимает второй аргумент и возвращает произведение.\n\nПример: multiply(2)(3) → 6",
+            "initialCode": "function multiply(a) {\n // Реализуйте каррирование\n // Верните функцию, которая принимает b и возвращает a * b\n \n}",
             "solution": "function multiply(a) {\n return function(b) {\n return a * b;\n };\n}",
             "hints": [
                 "Каррирование преобразует функцию многих аргументов в цепочку",
@@ -684,8 +681,8 @@ const QUESTIONS_DATA = {
             "id": 39,
             "title": "Функция высшего порядка",
             "difficulty": "medium",
-            "description": "Создайте функцию, которая принимает другую функцию как аргумент",
-            "initialCode": "function applyOperation(numbers, operation) {\n // operation - функция\n \n}",
+            "description": "Создайте функцию applyOperation, которая принимает массив чисел и функцию operation, применяет operation к каждому элементу и возвращает новый массив.",
+            "initialCode": "function applyOperation(numbers, operation) {\n // operation - функция\n // Примените operation к каждому элементу numbers\n \n}",
             "solution": "function applyOperation(numbers, operation) {\n return numbers.map(operation);\n}",
             "hints": [
                 "Функции могут принимать другие функции как аргументы",
@@ -702,8 +699,8 @@ const QUESTIONS_DATA = {
             "id": 40,
             "title": "IIFE (Immediately Invoked Function Expression)",
             "difficulty": "medium",
-            "description": "Создайте IIFE для создания приватной области видимости",
-            "initialCode": "// Создайте IIFE\n \n \nreturn result;",
+            "description": "Создайте IIFE для создания приватной области видимости. IIFE должна возвращать объект с методом getSecret, который возвращает приватную переменную.",
+            "initialCode": "// Создайте IIFE\n // Внутри создайте приватную переменную secret\n // Верните объект с методом getSecret\n \n \nreturn result.getSecret();",
             "solution": "const result = (function() {\n // Приватная переменная\n const secret = 'секрет';\n \n // Публичное API\n return {\n getSecret: function() {\n return secret;\n },\n publicVar: 'публично'\n };\n})();\n\nreturn result.getSecret();",
             "hints": [
                 "IIFE выполняется сразу после создания",
@@ -715,13 +712,12 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 4: Функции"
         },
-
         {
             "id": 41,
             "title": "Поиск элементов DOM",
             "difficulty": "easy",
-            "description": "Напишите функцию для поиска элементов разными способами",
-            "initialCode": "function findElements() {\n // В этом задании предполагается, что HTML уже загружен\n // Используйте разные методы поиска\n \n return [byId, byClass, byTag, byQuery];\n}",
+            "description": "Напишите функцию, которая демонстрирует разные методы поиска элементов DOM.\n\nВерните массив с результатами поиска.",
+            "initialCode": "function findElements() {\n // В этом задании предполагается, что HTML уже загружен\n // Используйте разные методы поиска:\n // 1. getElementById\n // 2. getElementsByClassName\n // 3. getElementsByTagName\n // 4. querySelector\n \n return [byId, byClass, byTag, byQuery];\n}",
             "solution": "function findElements() {\n // Разные методы поиска\n const byId = document.getElementById('myId');\n const byClass = document.getElementsByClassName('myClass');\n const byTag = document.getElementsByTagName('div');\n const byQuery = document.querySelector('.container .item');\n \n return [byId?.id || null, byClass.length, byTag.length, byQuery?.className || null];\n}",
             "hints": [
                 "getElementById ищет по id",
@@ -737,8 +733,8 @@ const QUESTIONS_DATA = {
             "id": 42,
             "title": "Изменение содержимого элемента",
             "difficulty": "easy",
-            "description": "Измените текст и HTML элемента",
-            "initialCode": "function changeContent() {\n // Создайте элемент div\n const div = document.createElement('div');\n \n // Измените содержимое\n \n return [div.textContent, div.innerHTML];\n}",
+            "description": "Создайте div элемент и измените его содержимое двумя способами:\n1. С помощью textContent\n2. С помощью innerHTML\n\nВерните массив [textContent, innerHTML].",
+            "initialCode": "function changeContent() {\n // Создайте элемент div\n const div = document.createElement('div');\n \n // Измените содержимое:\n // 1. div.textContent = 'Простой текст'\n // 2. div.innerHTML = '<strong>Жирный текст</strong>'\n \n return [div.textContent, div.innerHTML];\n}",
             "solution": "function changeContent() {\n // Создайте элемент div\n const div = document.createElement('div');\n \n // Измените содержимое\n div.textContent = 'Простой текст';\n div.innerHTML = '<strong>Жирный текст</strong>';\n \n return [div.textContent, div.innerHTML];\n}",
             "hints": [
                 "textContent устанавливает текст",
@@ -754,8 +750,8 @@ const QUESTIONS_DATA = {
             "id": 43,
             "title": "Работа с классами CSS",
             "difficulty": "easy",
-            "description": "Добавьте, удалите и переключите классы элемента",
-            "initialCode": "function manipulateClasses() {\n const div = document.createElement('div');\n \n // Работа с классами\n \n return div.className;\n}",
+            "description": "Создайте div элемент и выполните операции с классами:\n1. Добавьте классы 'active' и 'visible'\n2. Удалите класс 'visible'\n3. Переключите класс 'hidden' два раза\n\nВерните итоговое значение className.",
+            "initialCode": "function manipulateClasses() {\n const div = document.createElement('div');\n \n // Работа с классами:\n // 1. Добавьте 'active' и 'visible'\n // 2. Удалите 'visible'\n // 3. Переключите 'hidden' два раза\n \n return div.className;\n}",
             "solution": "function manipulateClasses() {\n const div = document.createElement('div');\n \n // Работа с классами\n div.classList.add('active', 'visible');\n div.classList.remove('visible');\n div.classList.toggle('hidden');\n div.classList.toggle('hidden');\n \n return div.className;\n}",
             "hints": [
                 "classList.add добавляет классы",
@@ -771,8 +767,8 @@ const QUESTIONS_DATA = {
             "id": 44,
             "title": "Создание и добавление элементов",
             "difficulty": "medium",
-            "description": "Создайте элементы и добавьте их в DOM",
-            "initialCode": "function createAndAppend() {\n const container = document.createElement('div');\n \n // Создайте и добавьте элементы\n \n return container.children.length;\n}",
+            "description": "Создайте два параграфа с текстом и добавьте их в контейнер div.\n\nВерните количество дочерних элементов в контейнере.",
+            "initialCode": "function createAndAppend() {\n const container = document.createElement('div');\n \n // Создайте и добавьте элементы:\n // 1. Создайте p1 с текстом 'Первый параграф'\n // 2. Создайте p2 с текстом 'Второй параграф'\n // 3. Добавьте оба в container\n \n return container.children.length;\n}",
             "solution": "function createAndAppend() {\n const container = document.createElement('div');\n \n // Создайте и добавьте элементы\n const p1 = document.createElement('p');\n p1.textContent = 'Первый параграф';\n \n const p2 = document.createElement('p');\n p2.textContent = 'Второй параграф';\n \n container.appendChild(p1);\n container.appendChild(p2);\n \n return container.children.length;\n}",
             "hints": [
                 "createElement создает новый элемент",
@@ -788,8 +784,8 @@ const QUESTIONS_DATA = {
             "id": 45,
             "title": "Обработчики событий",
             "difficulty": "medium",
-            "description": "Добавьте и удалите обработчик события",
-            "initialCode": "function handleEvents() {\n const button = document.createElement('button');\n let clickCount = 0;\n \n // Добавьте обработчик\n \n // Имитируйте клик\n button.click();\n button.click();\n \n // Удалите обработчик\n \n button.click();\n \n return clickCount;\n}",
+            "description": "Создайте кнопку, добавьте обработчик клика, имитируйте 3 клика, затем удалите обработчик и имитируйте еще один клик.\n\nВерните количество зарегистрированных кликов.",
+            "initialCode": "function handleEvents() {\n const button = document.createElement('button');\n let clickCount = 0;\n \n // Добавьте обработчик клика\n // Имитируйте 2 клика\n // Удалите обработчик\n // Имитируйте еще один клик\n \n return clickCount;\n}",
             "solution": "function handleEvents() {\n const button = document.createElement('button');\n let clickCount = 0;\n \n // Функция обработчика\n function handleClick() {\n clickCount++;\n }\n \n // Добавьте обработчик\n button.addEventListener('click', handleClick);\n \n // Имитируйте клик\n button.click();\n button.click();\n \n // Удалите обработчик\n button.removeEventListener('click', handleClick);\n \n button.click();\n \n return clickCount;\n}",
             "hints": [
                 "addEventListener добавляет обработчик",
@@ -805,8 +801,8 @@ const QUESTIONS_DATA = {
             "id": 46,
             "title": "Делегирование событий",
             "difficulty": "hard",
-            "description": "Используйте делегирование событий для обработки кликов",
-            "initialCode": "function eventDelegation() {\n const ul = document.createElement('ul');\n let clickedItem = '';\n \n // Создайте элементы списка\n for(let i = 1; i <= 3; i++) {\n const li = document.createElement('li');\n li.textContent = `Элемент ${i}`;\n li.dataset.id = i;\n ul.appendChild(li);\n }\n \n // Делегирование событий\n \n // Имитируйте клик по второму элементу\n ul.children[1].click();\n \n return clickedItem;\n}",
+            "description": "Создайте список ul с 3 элементами li. Используйте делегирование событий для обработки кликов на элементах списка.\n\nПри клике на элемент сохраните его data-id в переменную clickedItem.",
+            "initialCode": "function eventDelegation() {\n const ul = document.createElement('ul');\n let clickedItem = '';\n \n // Создайте 3 элемента списка с data-id\n // Делегирование событий на ul\n // Имитируйте клик по второму элементу\n \n return clickedItem;\n}",
             "solution": "function eventDelegation() {\n const ul = document.createElement('ul');\n let clickedItem = '';\n \n // Создайте элементы списка\n for(let i = 1; i <= 3; i++) {\n const li = document.createElement('li');\n li.textContent = `Элемент ${i}`;\n li.dataset.id = i;\n ul.appendChild(li);\n }\n \n // Делегирование событий\n ul.addEventListener('click', function(event) {\n if (event.target.tagName === 'LI') {\n clickedItem = event.target.dataset.id;\n }\n });\n \n // Имитируйте клик по второму элементу\n ul.children[1].click();\n \n return clickedItem;\n}",
             "hints": [
                 "Вешайте обработчик на родительский элемент",
@@ -820,10 +816,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 47,
-            "title": "Формы и валидация",
+            "title": "Валидация формы",
             "difficulty": "medium",
-            "description": "Создайте форму и добавьте валидацию",
-            "initialCode": "function formValidation() {\n const form = document.createElement('form');\n const input = document.createElement('input');\n input.type = 'email';\n form.appendChild(input);\n \n // Добавьте валидацию\n \n return isValid;\n}",
+            "description": "Создайте форму с полем email и добавьте валидацию. Проверьте, что email содержит символ '@'.\n\nИмитируйте отправку формы с валидным email и верните результат валидации.",
+            "initialCode": "function formValidation() {\n const form = document.createElement('form');\n const input = document.createElement('input');\n input.type = 'email';\n form.appendChild(input);\n \n let isValid = false;\n \n // Добавьте валидацию при отправке формы\n // Проверьте, что input.value содержит '@'\n \n return isValid;\n}",
             "solution": "function formValidation() {\n const form = document.createElement('form');\n const input = document.createElement('input');\n input.type = 'email';\n form.appendChild(input);\n \n let isValid = false;\n \n // Добавьте валидацию\n form.addEventListener('submit', function(event) {\n event.preventDefault();\n \n if (input.value.includes('@')) {\n isValid = true;\n } else {\n isValid = false;\n }\n });\n \n // Имитация отправки\n input.value = 'test@example.com';\n form.dispatchEvent(new Event('submit'));\n \n return isValid;\n}",
             "hints": [
                 "preventDefault отменяет стандартное поведение",
@@ -839,12 +835,12 @@ const QUESTIONS_DATA = {
             "id": 48,
             "title": "Анимация с CSS классами",
             "difficulty": "medium",
-            "description": "Добавьте и удалите класс для анимации",
-            "initialCode": "function cssAnimation() {\n const div = document.createElement('div');\n div.style.transition = 'opacity 0.5s';\n \n // Управление анимацией\n \n return [before, after];\n}",
-            "solution": "function cssAnimation() {\n const div = document.createElement('div');\n div.style.transition = 'opacity 0.5s';\n \n // Начальное состояние\n div.style.opacity = '1';\n const before = div.style.opacity;\n \n // Добавьте класс для анимации\n div.classList.add('fade-out');\n div.style.opacity = '0';\n \n const after = div.style.opacity;\n \n return [before, after];\n}",
+            "description": "Создайте div с transition для opacity. Установите opacity: 1, затем добавьте класс для анимации и измените opacity на 0.\n\nВерните массив [opacity до анимации, opacity после анимации].",
+            "initialCode": "function cssAnimation() {\n const div = document.createElement('div');\n div.style.transition = 'opacity 0.5s';\n \n // Управление анимацией:\n // 1. Установите opacity: '1'\n // 2. Запишите начальное значение\n // 3. Установите opacity: '0'\n \n return [before, after];\n}",
+            "solution": "function cssAnimation() {\n const div = document.createElement('div');\n div.style.transition = 'opacity 0.5s';\n \n // Начальное состояние\n div.style.opacity = '1';\n const before = div.style.opacity;\n \n // Анимация\n div.style.opacity = '0';\n \n const after = div.style.opacity;\n \n return [before, after];\n}",
             "hints": [
                 "Используйте CSS transition для анимации",
-                "Меняйте свойства через классы",
+                "Меняйте свойства через стили",
                 "opacity для плавного появления/исчезновения"
             ],
             "tests": [
@@ -854,10 +850,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 49,
-            "title": "Работа с атрибутами данных",
+            "title": "Работа с data-атрибутами",
             "difficulty": "easy",
-            "description": "Установите и получите data-атрибуты",
-            "initialCode": "function dataAttributes() {\n const div = document.createElement('div');\n \n // Работа с data-атрибутами\n \n return [id, name];\n}",
+            "description": "Создайте div элемент, установите data-атрибуты:\n- data-id='123'\n- data-user-name='Иван'\n\nЗатем получите значения этих атрибутов и верните массив [id, name].",
+            "initialCode": "function dataAttributes() {\n const div = document.createElement('div');\n \n // Установите data-атрибуты:\n // data-id='123'\n // data-user-name='Иван'\n // Получите значения\n \n return [id, name];\n}",
             "solution": "function dataAttributes() {\n const div = document.createElement('div');\n \n // Установите data-атрибуты\n div.dataset.id = '123';\n div.dataset.userName = 'Иван';\n \n // Получите data-атрибуты\n const id = div.dataset.id;\n const name = div.dataset.userName;\n \n return [id, name];\n}",
             "hints": [
                 "dataset предоставляет доступ к data-атрибутам",
@@ -873,8 +869,8 @@ const QUESTIONS_DATA = {
             "id": 50,
             "title": "DocumentFragment для оптимизации",
             "difficulty": "hard",
-            "description": "Используйте DocumentFragment для массового добавления элементов",
-            "initialCode": "function useFragment() {\n const container = document.createElement('div');\n \n // Используйте DocumentFragment\n \n return container.children.length;\n}",
+            "description": "Используйте DocumentFragment для массового добавления 100 параграфов в контейнер.\n\nВерните количество добавленных элементов.",
+            "initialCode": "function useFragment() {\n const container = document.createElement('div');\n \n // Используйте DocumentFragment\n // Создайте 100 элементов p\n // Добавьте их во фрагмент\n // Добавьте фрагмент в container\n \n return container.children.length;\n}",
             "solution": "function useFragment() {\n const container = document.createElement('div');\n \n // Создайте DocumentFragment\n const fragment = document.createDocumentFragment();\n \n // Добавьте элементы во фрагмент\n for(let i = 0; i < 100; i++) {\n const p = document.createElement('p');\n p.textContent = `Элемент ${i}`;\n fragment.appendChild(p);\n }\n \n // Добавьте фрагмент в DOM (одна операция)\n container.appendChild(fragment);\n \n return container.children.length;\n}",
             "hints": [
                 "DocumentFragment - виртуальный контейнер",
@@ -886,13 +882,12 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 5: Работа с DOM"
         },
-
         {
             "id": 51,
             "title": "Callback функция",
             "difficulty": "easy",
-            "description": "Создайте функцию, принимающую callback",
-            "initialCode": "function processData(data, callback) {\n // Вызовите callback с результатом\n \n}",
+            "description": "Создайте функцию processData, которая принимает данные и callback функцию. Функция должна обработать данные (преобразовать в верхний регистр) и вызвать callback с результатом.",
+            "initialCode": "function processData(data, callback) {\n // Имитируйте асинхронную обработку\n // Вызовите callback с результатом\n \n}",
             "solution": "function processData(data, callback) {\n // Имитация асинхронной обработки\n setTimeout(() => {\n const result = data.toUpperCase();\n callback(result);\n }, 0);\n}",
             "hints": [
                 "Callback - функция, передаваемая как аргумент",
@@ -908,8 +903,8 @@ const QUESTIONS_DATA = {
             "id": 52,
             "title": "Promise - базовое использование",
             "difficulty": "medium",
-            "description": "Создайте и используйте Promise",
-            "initialCode": "function fetchData() {\n // Верните Promise\n \n}",
+            "description": "Создайте функцию fetchData, которая возвращает Promise. Promise должен успешно завершиться через 100 мс с сообщением 'Данные получены'.",
+            "initialCode": "function fetchData() {\n // Верните Promise\n // Через 100 мс вызовите resolve с сообщением\n \n}",
             "solution": "function fetchData() {\n return new Promise((resolve, reject) => {\n setTimeout(() => {\n const success = true;\n if (success) {\n resolve('Данные получены');\n } else {\n reject('Ошибка');\n }\n }, 100);\n });\n}",
             "hints": [
                 "Promise принимает executor функцию",
@@ -923,9 +918,9 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 53,
-            "title": "Цепочка Promise (then/catch)",
+            "title": "Цепочка Promise",
             "difficulty": "medium",
-            "description": "Создайте цепочку Promise с обработкой ошибок",
+            "description": "Создайте цепочку Promise с обработкой ошибок. Начните с Promise.resolve(10), умножьте на 2, проверьте если значение > 15 - выбросьте ошибку, обработайте ошибку в catch.",
             "initialCode": "function promiseChain() {\n return Promise.resolve(10)\n // Добавьте then и catch\n \n}",
             "solution": "function promiseChain() {\n return Promise.resolve(10)\n .then(value => value * 2)\n .then(value => {\n if (value > 15) {\n throw new Error('Слишком большое');\n }\n return value;\n })\n .catch(error => {\n return 'Ошибка обработана: ' + error.message;\n });\n}",
             "hints": [
@@ -940,10 +935,10 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 54,
-            "title": "Promise.all",
+            "title": "Promise.all для параллельного выполнения",
             "difficulty": "medium",
-            "description": "Используйте Promise.all для параллельного выполнения",
-            "initialCode": "function parallelPromises() {\n const p1 = Promise.resolve(1);\n const p2 = Promise.resolve(2);\n const p3 = Promise.resolve(3);\n \n // Используйте Promise.all\n \n}",
+            "description": "Используйте Promise.all для параллельного выполнения трех промисов и суммирования их результатов.\n\nПромисы: Promise.resolve(1), Promise.resolve(2), Promise.resolve(3).",
+            "initialCode": "function parallelPromises() {\n const p1 = Promise.resolve(1);\n const p2 = Promise.resolve(2);\n const p3 = Promise.resolve(3);\n \n // Используйте Promise.all\n // Верните сумму результатов\n \n}",
             "solution": "function parallelPromises() {\n const p1 = Promise.resolve(1);\n const p2 = Promise.resolve(2);\n const p3 = Promise.resolve(3);\n \n return Promise.all([p1, p2, p3])\n .then(values => values.reduce((sum, val) => sum + val, 0));\n}",
             "hints": [
                 "Promise.all ждет все промисы",
@@ -957,9 +952,9 @@ const QUESTIONS_DATA = {
         },
         {
             "id": 55,
-            "title": "Promise.race",
+            "title": "Promise.race для гонки промисов",
             "difficulty": "hard",
-            "description": "Используйте Promise.race для гонки промисов",
+            "description": "Используйте Promise.race для гонки двух промисов: быстрого (50 мс) и медленного (100 мс).\n\nВерните результат первого завершенного промиса.",
             "initialCode": "function promiseRace() {\n const fast = new Promise(resolve => \n setTimeout(() => resolve('быстрый'), 50)\n );\n const slow = new Promise(resolve => \n setTimeout(() => resolve('медленный'), 100)\n );\n \n // Используйте Promise.race\n \n}",
             "solution": "function promiseRace() {\n const fast = new Promise(resolve => \n setTimeout(() => resolve('быстрый'), 50)\n );\n const slow = new Promise(resolve => \n setTimeout(() => resolve('медленный'), 100)\n );\n \n return Promise.race([fast, slow]);\n}",
             "hints": [
@@ -976,8 +971,8 @@ const QUESTIONS_DATA = {
             "id": 56,
             "title": "Async/await - базовое использование",
             "difficulty": "medium",
-            "description": "Используйте async/await для асинхронного кода",
-            "initialCode": "async function fetchUser() {\n // Используйте async/await\n \n}",
+            "description": "Используйте async/await для асинхронного получения пользователя. Создайте функцию getUser, которая возвращает Promise с объектом пользователя через 100 мс.",
+            "initialCode": "async function fetchUser() {\n // Используйте async/await\n // Имитируйте асинхронный запрос\n // Обработайте ошибки через try/catch\n \n}",
             "solution": "async function fetchUser() {\n // Имитация асинхронного запроса\n const getUser = () => \n new Promise(resolve => \n setTimeout(() => resolve({name: 'Иван', age: 25}), 100)\n );\n \n try {\n const user = await getUser();\n return user.name;\n } catch (error) {\n return 'Ошибка: ' + error.message;\n }\n}",
             "hints": [
                 "async функция всегда возвращает Promise",
@@ -993,8 +988,8 @@ const QUESTIONS_DATA = {
             "id": 57,
             "title": "Обработка ошибок в async/await",
             "difficulty": "medium",
-            "description": "Обработайте ошибки в async функции",
-            "initialCode": "async function riskyOperation() {\n // Добавьте обработку ошибок\n \n}",
+            "description": "Создайте async функцию, которая имитирует рискованную операцию (может завершиться с ошибкой). Обработайте ошибки с помощью try/catch.",
+            "initialCode": "async function riskyOperation() {\n // Добавьте обработку ошибок\n // Имитируйте операцию, которая может завершиться ошибкой\n \n}",
             "solution": "async function riskyOperation() {\n const mightFail = () => \n new Promise((resolve, reject) => {\n const success = Math.random() > 0.5;\n setTimeout(() => {\n if (success) {\n resolve('Успех!');\n } else {\n reject(new Error('Неудача'));\n }\n }, 100);\n });\n \n try {\n const result = await mightFail();\n return result;\n } catch (error) {\n return 'Поймана ошибка: ' + error.message;\n }\n}",
             "hints": [
                 "Используйте try/catch блок",
@@ -1010,9 +1005,9 @@ const QUESTIONS_DATA = {
             "id": 58,
             "title": "Fetch API - GET запрос",
             "difficulty": "medium",
-            "description": "Используйте Fetch API для GET запроса",
-            "initialCode": "async function fetchUsers() {\n // Используйте fetch\n \n}",
-            "solution": "async function fetchUsers() {\n try {\n // Замените на реальный URL или используйте мок\n const response = await fetch('https://jsonplaceholder.typicode.com/users');\n \n if (!response.ok) {\n throw new Error(`HTTP ошибка: ${response.status}`);\n }\n \n const users = await response.json();\n return users.length; // Возвращаем количество пользователей\n } catch (error) {\n return 'Ошибка: ' + error.message;\n }\n}",
+            "description": "Используйте Fetch API для GET запроса к JSONPlaceholder API. Получите список пользователей и верните количество пользователей.",
+            "initialCode": "async function fetchUsers() {\n // Используйте fetch\n // Обработайте ошибки\n // Верните количество пользователей\n \n}",
+            "solution": "async function fetchUsers() {\n try {\n const response = await fetch('https://jsonplaceholder.typicode.com/users');\n \n if (!response.ok) {\n throw new Error(`HTTP ошибка: ${response.status}`);\n }\n \n const users = await response.json();\n return users.length;\n } catch (error) {\n return 'Ошибка: ' + error.message;\n }\n}",
             "hints": [
                 "fetch возвращает Promise",
                 "Проверяйте response.ok",
@@ -1027,8 +1022,8 @@ const QUESTIONS_DATA = {
             "id": 59,
             "title": "Fetch API - POST запрос",
             "difficulty": "hard",
-            "description": "Используйте Fetch API для POST запроса",
-            "initialCode": "async function createUser(userData) {\n // Используйте fetch для POST\n \n}",
+            "description": "Используйте Fetch API для POST запроса создания пользователя. Отправьте JSON данные и верните id созданного пользователя.",
+            "initialCode": "async function createUser(userData) {\n // Используйте fetch для POST\n // Установите заголовки\n // Отправьте JSON данные\n \n}",
             "solution": "async function createUser(userData) {\n try {\n const response = await fetch('https://jsonplaceholder.typicode.com/users', {\n method: 'POST',\n headers: {\n 'Content-Type': 'application/json',\n },\n body: JSON.stringify(userData)\n });\n \n if (!response.ok) {\n throw new Error(`HTTP ошибка: ${response.status}`);\n }\n \n const data = await response.json();\n return data.id || 'Пользователь создан';\n } catch (error) {\n return 'Ошибка: ' + error.message;\n }\n}",
             "hints": [
                 "Укажите method: 'POST'",
@@ -1044,8 +1039,8 @@ const QUESTIONS_DATA = {
             "id": 60,
             "title": "AbortController для отмены запроса",
             "difficulty": "hard",
-            "description": "Используйте AbortController для отмены fetch запроса",
-            "initialCode": "async function cancellableFetch() {\n // Используйте AbortController\n \n}",
+            "description": "Используйте AbortController для отмены fetch запроса. Имитируйте отмену через 10 мс после начала запроса.",
+            "initialCode": "async function cancellableFetch() {\n // Используйте AbortController\n // Создайте signal\n // Отмените запрос через 10 мс\n \n}",
             "solution": "async function cancellableFetch() {\n const controller = new AbortController();\n const signal = controller.signal;\n \n // Запрос с возможностью отмены\n const fetchPromise = fetch('https://jsonplaceholder.typicode.com/users', {\n signal: signal\n });\n \n // Имитация отмены через 10мс\n setTimeout(() => {\n controller.abort();\n }, 10);\n \n try {\n const response = await fetchPromise;\n return 'Запрос завершен';\n } catch (error) {\n if (error.name === 'AbortError') {\n return 'Запрос отменен';\n }\n return 'Другая ошибка: ' + error.message;\n }\n}",
             "hints": [
                 "Создайте AbortController",
@@ -1057,13 +1052,12 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 6: Асинхронность"
         },
-
         {
             "id": 61,
             "title": "Конструктор функции",
             "difficulty": "medium",
-            "description": "Создайте конструктор функции для объектов Person",
-            "initialCode": "function Person(name, age) {\n // Реализуйте конструктор\n \n}",
+            "description": "Создайте конструктор функции Person, который принимает name и age, и добавляет метод greet, возвращающий приветствие.",
+            "initialCode": "function Person(name, age) {\n // Реализуйте конструктор\n // Используйте this\n \n}",
             "solution": "function Person(name, age) {\n this.name = name;\n this.age = age;\n \n this.greet = function() {\n return `Привет, я ${this.name}`;\n };\n}",
             "hints": [
                 "Используйте this для установки свойств",
@@ -1079,7 +1073,7 @@ const QUESTIONS_DATA = {
             "id": 62,
             "title": "Прототипы и наследование",
             "difficulty": "hard",
-            "description": "Создайте наследование через прототипы",
+            "description": "Создайте наследование через прототипы. Animal имеет метод speak, Dog наследует от Animal и добавляет метод bark.",
             "initialCode": "function Animal(name) {\n this.name = name;\n}\n\nAnimal.prototype.speak = function() {\n return `${this.name} издает звук`;\n};\n\nfunction Dog(name, breed) {\n // Наследуйте от Animal\n \n}\n\n// Настройте прототип\n \nreturn new Dog('Бобик', 'овчарка').speak();",
             "solution": "function Animal(name) {\n this.name = name;\n}\n\nAnimal.prototype.speak = function() {\n return `${this.name} издает звук`;\n};\n\nfunction Dog(name, breed) {\n // Наследуйте от Animal\n Animal.call(this, name);\n this.breed = breed;\n}\n\n// Настройте прототип\nDog.prototype = Object.create(Animal.prototype);\nDog.prototype.constructor = Dog;\n\nDog.prototype.bark = function() {\n return `${this.name} лает: Гав!`;\n};\n\nreturn new Dog('Бобик', 'овчарка').speak();",
             "hints": [
@@ -1096,7 +1090,7 @@ const QUESTIONS_DATA = {
             "id": 63,
             "title": "Классы ES6 - базовый синтаксис",
             "difficulty": "easy",
-            "description": "Создайте класс Person с конструктором и методом",
+            "description": "Создайте класс Person с конструктором (принимает name, age) и методами greet (возвращает приветствие) и haveBirthday (увеличивает age на 1).",
             "initialCode": "class Person {\n // Реализуйте класс\n \n}",
             "solution": "class Person {\n constructor(name, age) {\n this.name = name;\n this.age = age;\n }\n \n greet() {\n return `Привет, я ${this.name}, мне ${this.age} лет`;\n }\n \n haveBirthday() {\n this.age++;\n return this.age;\n }\n}",
             "hints": [
@@ -1113,7 +1107,7 @@ const QUESTIONS_DATA = {
             "id": 64,
             "title": "Наследование классов",
             "difficulty": "medium",
-            "description": "Создайте наследование классов Student extends Person",
+            "description": "Создайте наследование классов Student extends Person. Student добавляет свойство major и методы study и переопределяет introduce.",
             "initialCode": "class Person {\n constructor(name, age) {\n this.name = name;\n this.age = age;\n }\n}\n\nclass Student extends Person {\n // Реализуйте наследование\n \n}",
             "solution": "class Person {\n constructor(name, age) {\n this.name = name;\n this.age = age;\n }\n \n introduce() {\n return `Меня зовут ${this.name}`;\n }\n}\n\nclass Student extends Person {\n constructor(name, age, major) {\n super(name, age); // Вызов родительского конструктора\n this.major = major;\n }\n \n study() {\n return `${this.name} изучает ${this.major}`;\n }\n \n // Переопределение метода\n introduce() {\n return `${super.introduce()}, я студент`;\n }\n}",
             "hints": [
@@ -1130,9 +1124,9 @@ const QUESTIONS_DATA = {
             "id": 65,
             "title": "Геттеры и сеттеры",
             "difficulty": "medium",
-            "description": "Добавьте геттеры и сеттеры в класс",
-            "initialCode": "class Rectangle {\n constructor(width, height) {\n this.width = width;\n this.height = height;\n }\n \n // Добавьте геттер area\n \n // Добавьте сеттер для width с валидацией\n \n}",
-            "solution": "class Rectangle {\n constructor(width, height) {\n this._width = width;\n this._height = height;\n }\n \n // Геттер для площади\n get area() {\n return this._width * this._height;\n }\n \n // Геттер для ширины\n get width() {\n return this._width;\n }\n \n // Сеттер для ширины с валидацией\n set width(value) {\n if (value <= 0) {\n throw new Error('Ширина должна быть положительной');\n }\n this._width = value;\n }\n \n // Аналогично для height\n}",
+            "description": "Создайте класс Rectangle с приватными свойствами _width, _height. Добавьте геттер area и сеттер для width с валидацией.",
+            "initialCode": "class Rectangle {\n constructor(width, height) {\n // Используйте приватные свойства\n }\n \n // Добавьте геттер area\n \n // Добавьте геттер и сеттер для width\n \n}",
+            "solution": "class Rectangle {\n constructor(width, height) {\n this._width = width;\n this._height = height;\n }\n \n // Геттер для площади\n get area() {\n return this._width * this._height;\n }\n \n // Геттер для ширины\n get width() {\n return this._width;\n }\n \n // Сеттер для ширины с валидацией\n set width(value) {\n if (value <= 0) {\n throw new Error('Ширина должна быть положительной');\n }\n this._width = value;\n }\n}",
             "hints": [
                 "get создает геттер (вызывается как свойство)",
                 "set создает сеттер (используется при присваивании)",
@@ -1147,9 +1141,9 @@ const QUESTIONS_DATA = {
             "id": 66,
             "title": "Статические методы и свойства",
             "difficulty": "medium",
-            "description": "Добавьте статические методы в класс",
-            "initialCode": "class MathUtils {\n // Добавьте статический метод\n \n}",
-            "solution": "class MathUtils {\n // Статический метод\n static sum(a, b) {\n return a + b;\n }\n \n static multiply(a, b) {\n return a * b;\n }\n \n // Статическое свойство\n static PI = 3.14159;\n \n // Статический метод, использующий другие статические методы\n static circleArea(radius) {\n return this.PI * radius * radius;\n }\n}",
+            "description": "Создайте класс MathUtils со статическими методами sum, multiply, свойством PI и методом circleArea.",
+            "initialCode": "class MathUtils {\n // Добавьте статические методы и свойства\n \n}",
+            "solution": "class MathUtils {\n // Статические методы\n static sum(a, b) {\n return a + b;\n }\n \n static multiply(a, b) {\n return a * b;\n }\n \n // Статическое свойство\n static PI = 3.14159;\n \n // Статический метод, использующий другие статические методы\n static circleArea(radius) {\n return this.PI * radius * radius;\n }\n}",
             "hints": [
                 "static создает метод/свойство класса, а не экземпляра",
                 "Вызывается через имя класса: MathUtils.sum()",
@@ -1164,7 +1158,7 @@ const QUESTIONS_DATA = {
             "id": 67,
             "title": "Приватные поля и методы",
             "difficulty": "hard",
-            "description": "Используйте приватные поля (ES2022)",
+            "description": "Создайте класс BankAccount с приватными полями #balance, #transactionCount. Добавьте методы deposit, withdraw и приватный метод #logTransaction.",
             "initialCode": "class BankAccount {\n // Используйте приватные поля\n \n constructor(initialBalance) {\n \n }\n \n deposit(amount) {\n \n }\n \n get balance() {\n \n }\n}",
             "solution": "class BankAccount {\n // Приватные поля\n #balance;\n #transactionCount = 0;\n \n constructor(initialBalance) {\n this.#balance = initialBalance;\n }\n \n deposit(amount) {\n if (amount <= 0) {\n throw new Error('Сумма должна быть положительной');\n }\n this.#balance += amount;\n this.#transactionCount++;\n return this.#balance;\n }\n \n withdraw(amount) {\n if (amount > this.#balance) {\n throw new Error('Недостаточно средств');\n }\n this.#balance -= amount;\n this.#transactionCount++;\n return this.#balance;\n }\n \n // Геттер для баланса\n get balance() {\n return this.#balance;\n }\n \n // Приватный метод\n #logTransaction(type, amount) {\n console.log(`${type}: ${amount}`);\n }\n}",
             "hints": [
@@ -1181,9 +1175,9 @@ const QUESTIONS_DATA = {
             "id": 68,
             "title": "Полиморфизм",
             "difficulty": "hard",
-            "description": "Продемонстрируйте полиморфизм через переопределение методов",
+            "description": "Создайте иерархию классов Shape, Circle, Square с методом area. Продемонстрируйте полиморфизм через переопределение методов.",
             "initialCode": "class Shape {\n area() {\n return 0;\n }\n}\n\nclass Circle extends Shape {\n constructor(radius) {\n super();\n this.radius = radius;\n }\n \n // Переопределите area\n \n}\n\nclass Square extends Shape {\n constructor(side) {\n super();\n this.side = side;\n }\n \n // Переопределите area\n \n}\n\nreturn [new Circle(5).area(), new Square(4).area()];",
-            "solution": "class Shape {\n area() {\n return 0;\n }\n \n perimeter() {\n return 0;\n }\n}\n\nclass Circle extends Shape {\n constructor(radius) {\n super();\n this.radius = radius;\n }\n \n // Переопределите area\n area() {\n return Math.PI * this.radius * this.radius;\n }\n \n perimeter() {\n return 2 * Math.PI * this.radius;\n }\n}\n\nclass Square extends Shape {\n constructor(side) {\n super();\n this.side = side;\n }\n \n // Переопределите area\n area() {\n return this.side * this.side;\n }\n \n perimeter() {\n return 4 * this.side;\n }\n}\n\n// Полиморфизм: один интерфейс, разные реализации\nfunction printArea(shape) {\n return `Площадь: ${shape.area().toFixed(2)}`;\n}\n\nreturn [printArea(new Circle(5)), printArea(new Square(4))];",
+            "solution": "class Shape {\n area() {\n return 0;\n }\n}\n\nclass Circle extends Shape {\n constructor(radius) {\n super();\n this.radius = radius;\n }\n \n // Переопределите area\n area() {\n return Math.PI * this.radius * this.radius;\n }\n}\n\nclass Square extends Shape {\n constructor(side) {\n super();\n this.side = side;\n }\n \n // Переопределите area\n area() {\n return this.side * this.side;\n }\n}\n\nreturn [new Circle(5).area().toFixed(2), new Square(4).area()];",
             "hints": [
                 "Полиморфизм - разные классы через общий интерфейс",
                 "Переопределяйте методы в наследниках",
@@ -1198,9 +1192,9 @@ const QUESTIONS_DATA = {
             "id": 69,
             "title": "Миксины (Mixins)",
             "difficulty": "hard",
-            "description": "Используйте миксины для композиции функциональности",
+            "description": "Создайте миксины Loggable и Greetable и примените их к классу User.",
             "initialCode": "// Создайте миксины\n \nclass User {\n constructor(name) {\n this.name = name;\n }\n}\n\n// Примените миксины\n \nreturn new User('Иван').sayHello();",
-            "solution": "// Миксин для логирования\nconst Loggable = Base => class extends Base {\n log(message) {\n console.log(`[${new Date().toISOString()}] ${message}`);\n }\n};\n\n// Миксин для приветствия\nconst Greetable = Base => class extends Base {\n sayHello() {\n return `Привет, я ${this.name}`;\n }\n \n sayGoodbye() {\n return `Пока, я ${this.name}`;\n }\n};\n\n// Базовый класс\nclass User {\n constructor(name) {\n this.name = name;\n }\n}\n\n// Примените миксины\nconst UserWithFeatures = Greetable(Loggable(User));\n\nreturn new UserWithFeatures('Иван').sayHello();",
+            "solution": "// Миксин для логирования\nconst Loggable = Base => class extends Base {\n log(message) {\n console.log(`[${new Date().toISOString()}] ${message}`);\n }\n};\n\n// Миксин для приветствия\nconst Greetable = Base => class extends Base {\n sayHello() {\n return `Привет, я ${this.name}`;\n }\n};\n\n// Примените миксины\nconst UserWithFeatures = Greetable(Loggable(User));\n\nreturn new UserWithFeatures('Иван').sayHello();",
             "hints": [
                 "Миксины - способ композиции функциональности",
                 "Используйте функции, возвращающие классы",
@@ -1215,9 +1209,9 @@ const QUESTIONS_DATA = {
             "id": 70,
             "title": "Интерфейсы через Symbol",
             "difficulty": "hard",
-            "description": "Используйте Symbol для создания приватных интерфейсов",
-            "initialCode": "// Создайте приватные методы через Symbol\n \nclass SecretVault {\n constructor(password) {\n \n }\n \n // Публичный метод\n getSecret() {\n \n }\n}",
-            "solution": "// Символы для приватных методов\nconst _checkPassword = Symbol('checkPassword');\nconst _getStoredSecret = Symbol('getStoredSecret');\n\nclass SecretVault {\n constructor(password) {\n this.password = password;\n this.secret = 'Сверхсекретная информация';\n }\n \n // Приватный метод через Symbol\n [_checkPassword](input) {\n return input === this.password;\n }\n \n [_getStoredSecret]() {\n return this.secret;\n }\n \n // Публичный метод\n getSecret(inputPassword) {\n if (this[_checkPassword](inputPassword)) {\n return this[_getStoredSecret]();\n }\n return 'Доступ запрещен';\n }\n}",
+            "description": "Используйте Symbol для создания приватных методов в классе SecretVault.",
+            "initialCode": "// Символы для приватных методов\n \nclass SecretVault {\n constructor(password) {\n \n }\n \n // Публичный метод\n getSecret(inputPassword) {\n \n }\n}",
+            "solution": "// Символы для приватных методов\nconst _checkPassword = Symbol('checkPassword');\nconst _getStoredSecret = Symbol('getStoredSecret');\n\nclass SecretVault {\n constructor(password) {\n this.password = password;\n this.secret = 'Сверхсекретная информация';\n }\n \n // Приватный метод через Symbol\n [_checkPassword](input) {\n return input === this.password;\n }\n \n // Приватный метод через Symbol\n [_getStoredSecret]() {\n return this.secret;\n }\n \n // Публичный метод\n getSecret(inputPassword) {\n if (this[_checkPassword](inputPassword)) {\n return this[_getStoredSecret]();\n }\n return 'Доступ запрещен';\n }\n}",
             "hints": [
                 "Symbol создает уникальные идентификаторы",
                 "Методы с Symbol в имени не видны снаружи",
@@ -1228,14 +1222,13 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 7: ООП в JavaScript"
         },
-
         {
             "id": 71,
             "title": "Spread оператор",
             "difficulty": "easy",
-            "description": "Используйте spread оператор для массивов и объектов",
-            "initialCode": "function spreadExamples() {\n const arr1 = [1, 2, 3];\n const arr2 = [4, 5, 6];\n const obj1 = {a: 1, b: 2};\n const obj2 = {b: 3, c: 4};\n \n // Используйте spread\n \n return [combinedArr, combinedObj, copiedArr];\n}",
-            "solution": "function spreadExamples() {\n const arr1 = [1, 2, 3];\n const arr2 = [4, 5, 6];\n const obj1 = {a: 1, b: 2};\n const obj2 = {b: 3, c: 4};\n \n // Spread для массивов\n const combinedArr = [...arr1, ...arr2, 7];\n \n // Spread для объектов (поздние перезаписывают ранние)\n const combinedObj = {...obj1, ...obj2};\n \n // Копия массива\n const copiedArr = [...arr1];\n \n return [combinedArr, combinedObj, copiedArr];\n}",
+            "description": "Используйте spread оператор для:\n1. Объединения массивов\n2. Объединения объектов\n3. Копирования массива\n\nВерните массив с результатами.",
+            "initialCode": "function spreadExamples() {\n const arr1 = [1, 2, 3];\n const arr2 = [4, 5, 6];\n const obj1 = {a: 1, b: 2};\n const obj2 = {b: 3, c: 4};\n \n // Используйте spread:\n // 1. Объедините arr1, arr2 и добавьте 7\n // 2. Объедините obj1 и obj2\n // 3. Создайте копию arr1\n \n return [combinedArr, combinedObj, copiedArr];\n}",
+            "solution": "function spreadExamples() {\n const arr1 = [1, 2, 3];\n const arr2 = [4, 5, 6];\n const obj1 = {a: 1, b: 2};\n const obj2 = {b: 3, c: 4};\n \n // Spread для массивов\n const combinedArr = [...arr1, ...arr2, 7];\n \n // Spread для объектов\n const combinedObj = {...obj1, ...obj2};\n \n // Копия массива\n const copiedArr = [...arr1];\n \n return [combinedArr, combinedObj, copiedArr];\n}",
             "hints": [
                 "... разворачивает элементы массива/свойства объекта",
                 "Для объектов: свойства справа перезаписывают свойства слева",
@@ -1250,8 +1243,8 @@ const QUESTIONS_DATA = {
             "id": 72,
             "title": "Деструктуризация с значениями по умолчанию",
             "difficulty": "medium",
-            "description": "Используйте деструктуризацию с значениями по умолчанию",
-            "initialCode": "function destructuringWithDefaults() {\n const user = {name: 'Иван', age: 25};\n const numbers = [1, 2];\n \n // Деструктуризация с defaults\n \n return [userName, userAge, userCity, first, second, third];\n}",
+            "description": "Используйте деструктуризацию с значениями по умолчанию для объекта и массива.",
+            "initialCode": "function destructuringWithDefaults() {\n const user = {name: 'Иван', age: 25};\n const numbers = [1, 2];\n \n // Деструктуризация с defaults:\n // Из user: name, age, city (по умолчанию 'Москва')\n // Из numbers: first, second, third (по умолчанию 3)\n \n return [userName, userAge, userCity, first, second, third];\n}",
             "solution": "function destructuringWithDefaults() {\n const user = {name: 'Иван', age: 25};\n const numbers = [1, 2];\n \n // Деструктуризация объекта с defaults\n const {name: userName, age: userAge, city: userCity = 'Москва'} = user;\n \n // Деструктуризация массива с defaults\n const [first, second, third = 3] = numbers;\n \n return [userName, userAge, userCity, first, second, third];\n}",
             "hints": [
                 "Используйте = для значений по умолчанию",
@@ -1267,9 +1260,9 @@ const QUESTIONS_DATA = {
             "id": 73,
             "title": "Опциональная цепочка (Optional Chaining)",
             "difficulty": "easy",
-            "description": "Используйте optional chaining для безопасного доступа",
+            "description": "Используйте optional chaining для безопасного доступа к свойствам объекта.",
             "initialCode": "function optionalChaining() {\n const user = {\n name: 'Иван',\n address: {\n city: 'Москва',\n street: null\n }\n };\n \n const user2 = {};\n \n // Используйте optional chaining\n \n return [city, street, zip, name2, city2];\n}",
-            "solution": "function optionalChaining() {\n const user = {\n name: 'Иван',\n address: {\n city: 'Москва',\n street: null\n }\n };\n \n const user2 = {};\n \n // Optional chaining\n const city = user.address?.city; // 'Москва'\n const street = user.address?.street; // null\n const zip = user.address?.zip?.code; // undefined\n \n const name2 = user2?.name; // undefined\n const city2 = user2?.address?.city ?? 'Неизвестно'; // 'Неизвестно'\n \n return [city, street, zip, name2, city2];\n}",
+            "solution": "function optionalChaining() {\n const user = {\n name: 'Иван',\n address: {\n city: 'Москва',\n street: null\n }\n };\n \n const user2 = {};\n \n // Optional chaining\n const city = user.address?.city;\n const street = user.address?.street;\n const zip = user.address?.zip?.code;\n \n const name2 = user2?.name;\n const city2 = user2?.address?.city ?? 'Неизвестно';\n \n return [city, street, zip, name2, city2];\n}",
             "hints": [
                 "?. останавливает вычисление если значение null/undefined",
                 "Работает для свойств, методов, индексов массивов",
@@ -1284,9 +1277,9 @@ const QUESTIONS_DATA = {
             "id": 74,
             "title": "Генераторы - базовый синтаксис",
             "difficulty": "hard",
-            "description": "Создайте генератор для последовательности чисел",
-            "initialCode": "function* numberGenerator() {\n // Реализуйте генератор\n \n}",
-            "solution": "function* numberGenerator() {\n let num = 1;\n while (true) {\n yield num;\n num++;\n }\n}\n\n// Или с лимитом\nfunction* limitedGenerator(limit) {\n for(let i = 1; i <= limit; i++) {\n yield i;\n }\n}",
+            "description": "Создайте генератор numberGenerator, который генерирует бесконечную последовательность чисел, начиная с 1.",
+            "initialCode": "function* numberGenerator() {\n // Реализуйте генератор\n // Используйте yield\n \n}",
+            "solution": "function* numberGenerator() {\n let num = 1;\n while (true) {\n yield num;\n num++;\n }\n}",
             "hints": [
                 "function* создает генератор",
                 "yield возвращает значение и приостанавливает выполнение",
@@ -1301,7 +1294,7 @@ const QUESTIONS_DATA = {
             "id": 75,
             "title": "Итераторы и for...of",
             "difficulty": "hard",
-            "description": "Создайте собственный итератор",
+            "description": "Создайте класс Range с итератором, который генерирует числа от start до end включительно.",
             "initialCode": "class Range {\n constructor(start, end) {\n this.start = start;\n this.end = end;\n }\n \n // Добавьте итератор\n \n}",
             "solution": "class Range {\n constructor(start, end) {\n this.start = start;\n this.end = end;\n }\n \n // Метод, возвращающий итератор\n [Symbol.iterator]() {\n let current = this.start;\n const end = this.end;\n \n return {\n next() {\n if (current <= end) {\n return {value: current++, done: false};\n }\n return {done: true};\n }\n };\n }\n}",
             "hints": [
@@ -1318,9 +1311,9 @@ const QUESTIONS_DATA = {
             "id": 76,
             "title": "Прокси (Proxy)",
             "difficulty": "hard",
-            "description": "Используйте Proxy для перехвата операций",
-            "initialCode": "function createProtectedObject(target) {\n // Создайте Proxy\n \n}",
-            "solution": "function createProtectedObject(target) {\n return new Proxy(target, {\n get(obj, prop) {\n if (prop in obj) {\n return obj[prop];\n } else {\n return `Свойство \\\"${prop}\\\" не существует`;\n }\n },\n \n set(obj, prop, value) {\n if (prop === 'password') {\n console.log('Попытка изменить пароль отклонена');\n return false; // Запрещаем изменение\n }\n \n if (typeof value === 'string' && value.length > 50) {\n throw new Error('Значение слишком длинное');\n }\n \n obj[prop] = value;\n return true;\n },\n \n deleteProperty(obj, prop) {\n if (prop.startsWith('_')) {\n throw new Error('Нельзя удалять приватные свойства');\n }\n delete obj[prop];\n return true;\n }\n });\n}",
+            "description": "Создайте Proxy для объекта, который перехватывает операции get, set, deleteProperty.",
+            "initialCode": "function createProtectedObject(target) {\n // Создайте Proxy\n // Перехватите get, set, deleteProperty\n \n}",
+            "solution": "function createProtectedObject(target) {\n return new Proxy(target, {\n get(obj, prop) {\n if (prop in obj) {\n return obj[prop];\n } else {\n return `Свойство \\\"${prop}\\\" не существует`;\n }\n },\n \n set(obj, prop, value) {\n if (prop === 'password') {\n console.log('Попытка изменить пароль отклонена');\n return false;\n }\n \n if (typeof value === 'string' && value.length > 50) {\n throw new Error('Значение слишком длинное');\n }\n \n obj[prop] = value;\n return true;\n },\n \n deleteProperty(obj, prop) {\n if (prop.startsWith('_')) {\n throw new Error('Нельзя удалять приватные свойства');\n }\n delete obj[prop];\n return true;\n }\n });\n}",
             "hints": [
                 "Proxy перехватывает операции над объектом",
                 "Можно перехватывать get, set, delete и другие",
@@ -1335,9 +1328,9 @@ const QUESTIONS_DATA = {
             "id": 77,
             "title": "Reflect API",
             "difficulty": "hard",
-            "description": "Используйте Reflect для метапрограммирования",
-            "initialCode": "function reflectExamples() {\n const obj = {a: 1, b: 2};\n \n // Используйте Reflect\n \n return [hasA, getB, props, newObj];\n}",
-            "solution": "function reflectExamples() {\n const obj = {a: 1, b: 2};\n \n // Reflect методы\n const hasA = Reflect.has(obj, 'a'); // true\n const getB = Reflect.get(obj, 'b'); // 2\n const props = Reflect.ownKeys(obj); // ['a', 'b']\n \n // Создание объекта\n const newObj = Reflect.construct(Object, []);\n \n // Установка свойства\n Reflect.set(obj, 'c', 3);\n \n // Удаление свойства\n Reflect.deleteProperty(obj, 'a');\n \n return [hasA, getB, props, Object.keys(newObj)];\n}",
+            "description": "Используйте Reflect для метапрограммирования: has, get, ownKeys, construct, set, deleteProperty.",
+            "initialCode": "function reflectExamples() {\n const obj = {a: 1, b: 2};\n \n // Используйте Reflect методы\n \n return [hasA, getB, props, newObj];\n}",
+            "solution": "function reflectExamples() {\n const obj = {a: 1, b: 2};\n \n // Reflect методы\n const hasA = Reflect.has(obj, 'a');\n const getB = Reflect.get(obj, 'b');\n const props = Reflect.ownKeys(obj);\n \n // Создание объекта\n const newObj = Reflect.construct(Object, []);\n \n // Установка свойства\n Reflect.set(obj, 'c', 3);\n \n // Удаление свойства\n Reflect.deleteProperty(obj, 'a');\n \n return [hasA, getB, props, Object.keys(newObj)];\n}",
             "hints": [
                 "Reflect предоставляет методы для метаопераций",
                 "Аналогичны операторам, но в виде функций",
@@ -1352,9 +1345,9 @@ const QUESTIONS_DATA = {
             "id": 78,
             "title": "WeakMap и WeakSet",
             "difficulty": "hard",
-            "description": "Используйте WeakMap для приватных данных",
+            "description": "Используйте WeakMap для хранения приватных данных класса User и WeakSet для отслеживания удаленных пользователей.",
             "initialCode": "const privateData = new WeakMap();\n\nclass User {\n constructor(name, age) {\n // Храните приватные данные в WeakMap\n \n }\n \n getName() {\n \n }\n \n getAge() {\n \n }\n}",
-            "solution": "const privateData = new WeakMap();\n\nclass User {\n constructor(name, age) {\n // Храните приватные данные в WeakMap\n privateData.set(this, {\n name: name,\n age: age,\n createdAt: new Date()\n });\n }\n \n getName() {\n return privateData.get(this).name;\n }\n \n getAge() {\n return privateData.get(this).age;\n }\n \n // Метод для WeakSet\n static #deletedUsers = new WeakSet();\n \n delete() {\n User.#deletedUsers.add(this);\n // Объект может быть удален сборщиком мусора\n }\n \n static isDeleted(user) {\n return User.#deletedUsers.has(user);\n }\n}",
+            "solution": "const privateData = new WeakMap();\n\nclass User {\n constructor(name, age) {\n // Храните приватные данные в WeakMap\n privateData.set(this, {\n name: name,\n age: age,\n createdAt: new Date()\n });\n }\n \n getName() {\n return privateData.get(this).name;\n }\n \n getAge() {\n return privateData.get(this).age;\n }\n \n // Метод для WeakSet\n static #deletedUsers = new WeakSet();\n \n delete() {\n User.#deletedUsers.add(this);\n }\n \n static isDeleted(user) {\n return User.#deletedUsers.has(user);\n }\n}",
             "hints": [
                 "WeakMap хранит слабые ссылки на ключи",
                 "Если объект удален - запись удаляется из WeakMap",
@@ -1369,16 +1362,16 @@ const QUESTIONS_DATA = {
             "id": 79,
             "title": "Модули ES6 - экспорт",
             "difficulty": "medium",
-            "description": "Создайте модуль с разными типами экспорта",
+            "description": "Создайте модуль math.js с разными типами экспорта: именованные экспорты, экспорт по умолчанию.",
             "initialCode": "// math.js - модуль с математическими функциями\n// Экспортируйте функции\n \n \n \n// Экспорт по умолчанию\n ",
-            "solution": "// math.js - модуль с математическими функциями\n\n// Именованный экспорт\nexport const PI = 3.14159;\n\nexport function sum(a, b) {\n return a + b;\n}\n\nexport function multiply(a, b) {\n return a * b;\n}\n\n// Экспорт нескольких значений\nconst privateVar = 'секрет';\nfunction internal() {\n return 'внутренняя';\n}\n\nexport { privateVar as publicName, internal };\n\n// Экспорт по умолчанию\nexport default class Calculator {\n add(a, b) {\n return a + b;\n }\n \n subtract(a, b) {\n return a - b;\n }\n}",
+            "solution": "// math.js - модуль с математическими функциями\n\n// Именованный экспорт\nexport const PI = 3.14159;\n\nexport function sum(a, b) {\n return a + b;\n}\n\nexport function multiply(a, b) {\n return a * b;\n}\n\n// Экспорт нескольких значений\nconst privateVar = 'секрет';\nfunction internal() {\n return 'внутренняя';\n}\n\nexport { privateVar as publicName, internal };\n\n// Экспорт по умолчанию\nexport default class Calculator {\n add(a, b) {\n return a + b;\n }\n}",
             "hints": [
                 "export создает именованный экспорт",
                 "export default создает экспорт по умолчанию",
                 "as переименовывает при экспорте"
             ],
             "tests": [
-                { "code": "typeof PI", "expected": 'undefined' } // В среде без модулей
+                { "code": "typeof PI", "expected": 'undefined' }
             ],
             "chapter": "Часть 8: Продвинутые концепции"
         },
@@ -1386,26 +1379,25 @@ const QUESTIONS_DATA = {
             "id": 80,
             "title": "Модули ES6 - импорт",
             "difficulty": "medium",
-            "description": "Импортируйте функции из модуля",
+            "description": "Импортируйте функции из модуля math.js разными способами.",
             "initialCode": "// app.js - импорт из math.js\n// Импортируйте функции\n \n \n \nreturn sum(2, 3);",
-            "solution": "// app.js - импорт из math.js\n\n// Импорт именованных экспортов\nimport { PI, sum, multiply } from './math.js';\n\n// Импорт с переименованием\nimport { publicName as secret } from './math.js';\n\n// Импорт всего как объекта\nimport * as math from './math.js';\n\n// Импорт по умолчанию\nimport Calculator from './math.js';\n\n// Использование\nconst calc = new Calculator();\nreturn sum(2, 3);",
+            "solution": "// app.js - импорт из math.js\n\n// Импорт именованных экспортов\nimport { PI, sum, multiply } from './math.js';\n\n// Импорт с переименованием\nimport { publicName as secret } from './math.js';\n\n// Импорт всего как объекта\nimport * as math from './math.js';\n\n// Импорт по умолчанию\nimport Calculator from './math.js';\n\nreturn sum(2, 3);",
             "hints": [
                 "import { name } для именованных импортов",
                 "import defaultExport для импорта по умолчанию",
                 "as переименовывает при импорте"
             ],
             "tests": [
-                { "code": "5", "expected": 5 } // Заглушка
+                { "code": "5", "expected": 5 }
             ],
             "chapter": "Часть 8: Продвинутые концепции"
         },
-
         {
             "id": 81,
             "title": "Модульный паттерн (до ES6)",
             "difficulty": "medium",
-            "description": "Создайте модуль с помощью IIFE",
-            "initialCode": "const CounterModule = (function() {\n // Реализуйте модульный паттерн\n \n})();\n\nreturn CounterModule.getCount();",
+            "description": "Создайте модуль с помощью IIFE, который инкапсулирует счетчик и предоставляет публичное API.",
+            "initialCode": "const CounterModule = (function() {\n // Реализуйте модульный паттерн\n // Создайте приватную переменную count\n // Верните объект с методами\n \n})();\n\nCounterModule.increment();\nCounterModule.increment();\nreturn CounterModule.getCount();",
             "solution": "const CounterModule = (function() {\n // Приватная переменная\n let count = 0;\n \n // Приватная функция\n function log(message) {\n console.log(`[Counter] ${message}`);\n }\n \n // Публичное API\n return {\n increment() {\n count++;\n log(`Увеличено до ${count}`);\n return count;\n },\n \n decrement() {\n count--;\n log(`Уменьшено до ${count}`);\n return count;\n },\n \n getCount() {\n return count;\n },\n \n reset() {\n count = 0;\n log('Сброшено');\n return count;\n }\n };\n})();\n\nCounterModule.increment();\nCounterModule.increment();\nreturn CounterModule.getCount();",
             "hints": [
                 "IIFE создает изолированную область видимости",
@@ -1421,9 +1413,9 @@ const QUESTIONS_DATA = {
             "id": 82,
             "title": "Паттерн Наблюдатель (Observer)",
             "difficulty": "hard",
-            "description": "Реализуйте паттерн Наблюдатель",
-            "initialCode": "class EventEmitter {\n constructor() {\n this.events = {};\n }\n \n // Реализуйте методы\n \n}",
-            "solution": "class EventEmitter {\n constructor() {\n this.events = {};\n }\n \n // Подписка на событие\n on(event, listener) {\n if (!this.events[event]) {\n this.events[event] = [];\n }\n this.events[event].push(listener);\n \n // Возврат функции для отписки\n return () => this.off(event, listener);\n }\n \n // Отписка от события\n off(event, listener) {\n if (!this.events[event]) return;\n \n const index = this.events[event].indexOf(listener);\n if (index !== -1) {\n this.events[event].splice(index, 1);\n }\n }\n \n // Генерация события\n emit(event, ...args) {\n if (!this.events[event]) return;\n \n // Копия массива на случай изменения во время вызова\n const listeners = this.events[event].slice();\n \n for (const listener of listeners) {\n try {\n listener.apply(this, args);\n } catch (error) {\n console.error(`Ошибка в обработчике ${event}:`, error);\n }\n }\n }\n \n // Подписка один раз\n once(event, listener) {\n const wrapper = (...args) => {\n listener.apply(this, args);\n this.off(event, wrapper);\n };\n \n this.on(event, wrapper);\n }\n}",
+            "description": "Реализуйте паттерн Наблюдатель: класс EventEmitter с методами on, off, emit, once.",
+            "initialCode": "class EventEmitter {\n constructor() {\n this.events = {};\n }\n \n // Реализуйте методы on, off, emit, once\n \n}",
+            "solution": "class EventEmitter {\n constructor() {\n this.events = {};\n }\n \n // Подписка на событие\n on(event, listener) {\n if (!this.events[event]) {\n this.events[event] = [];\n }\n this.events[event].push(listener);\n \n // Возврат функции для отписки\n return () => this.off(event, listener);\n }\n \n // Отписка от события\n off(event, listener) {\n if (!this.events[event]) return;\n \n const index = this.events[event].indexOf(listener);\n if (index !== -1) {\n this.events[event].splice(index, 1);\n }\n }\n \n // Генерация события\n emit(event, ...args) {\n if (!this.events[event]) return;\n \n const listeners = this.events[event].slice();\n \n for (const listener of listeners) {\n try {\n listener.apply(this, args);\n } catch (error) {\n console.error(`Ошибка в обработчике ${event}:`, error);\n }\n }\n }\n \n // Подписка один раз\n once(event, listener) {\n const wrapper = (...args) => {\n listener.apply(this, args);\n this.off(event, wrapper);\n };\n \n this.on(event, wrapper);\n }\n}",
             "hints": [
                 "Храните обработчики в объекте {event: [listeners]}",
                 "on добавляет обработчик",
@@ -1438,9 +1430,9 @@ const QUESTIONS_DATA = {
             "id": 83,
             "title": "Паттерн Одиночка (Singleton)",
             "difficulty": "medium",
-            "description": "Реализуйте паттерн Одиночка",
+            "description": "Реализуйте паттерн Одиночка для класса Database.",
             "initialCode": "class Database {\n // Реализуйте Singleton\n \n constructor(config) {\n this.config = config;\n }\n \n query(sql) {\n return `Результат: ${sql}`;\n }\n}",
-            "solution": "class Database {\n static instance = null;\n \n constructor(config) {\n if (Database.instance) {\n return Database.instance;\n }\n \n this.config = config;\n this.connection = this.connect();\n Database.instance = this;\n }\n \n connect() {\n console.log('Подключение к базе...');\n return { connected: true, config: this.config };\n }\n \n query(sql) {\n return `Результат: ${sql}`;\n }\n \n // Статический метод для получения экземпляра\n static getInstance(config) {\n if (!Database.instance) {\n Database.instance = new Database(config);\n }\n return Database.instance;\n }\n}\n\n// Или через замыкание\nconst createSingleton = () => {\n let instance;\n \n return class Database {\n constructor(config) {\n if (instance) {\n return instance;\n }\n instance = this;\n this.config = config;\n }\n };\n};",
+            "solution": "class Database {\n static instance = null;\n \n constructor(config) {\n if (Database.instance) {\n return Database.instance;\n }\n \n this.config = config;\n this.connection = this.connect();\n Database.instance = this;\n }\n \n connect() {\n console.log('Подключение к базе...');\n return { connected: true, config: this.config };\n }\n \n query(sql) {\n return `Результат: ${sql}`;\n }\n \n // Статический метод для получения экземпляра\n static getInstance(config) {\n if (!Database.instance) {\n Database.instance = new Database(config);\n }\n return Database.instance;\n }\n}",
             "hints": [
                 "Храните экземпляр в статическом свойстве",
                 "Проверяйте наличие экземпляра в конструкторе",
@@ -1455,9 +1447,9 @@ const QUESTIONS_DATA = {
             "id": 84,
             "title": "Фабричный метод (Factory)",
             "difficulty": "medium",
-            "description": "Реализуйте фабричный метод для создания объектов",
-            "initialCode": "class VehicleFactory {\n // Реализуйте фабричный метод\n \n}\n\nclass Car {\n drive() {\n return 'Еду на машине';\n }\n}\n\nclass Bike {\n ride() {\n return 'Еду на велосипеде';\n }\n}",
-            "solution": "class VehicleFactory {\n // Фабричный метод\n createVehicle(type, options = {}) {\n switch(type) {\n case 'car':\n return new Car(options.brand, options.model);\n case 'bike':\n return new Bike(options.brand, options.gears);\n case 'truck':\n return new Truck(options.brand, options.capacity);\n default:\n throw new Error(`Неизвестный тип: ${type}`);\n }\n }\n \n // Альтернатива: отдельные методы\n createCar(brand, model) {\n return new Car(brand, model);\n }\n \n createBike(brand, gears) {\n return new Bike(brand, gears);\n }\n}\n\nclass Car {\n constructor(brand = 'Unknown', model = 'Unknown') {\n this.brand = brand;\n this.model = model;\n }\n \n drive() {\n return `Еду на ${this.brand} ${this.model}`;\n }\n}\n\nclass Bike {\n constructor(brand = 'Unknown', gears = 1) {\n this.brand = brand;\n this.gears = gears;\n }\n \n ride() {\n return `Еду на велосипеде ${this.brand} (${this.gears} скоростей)`;\n }\n}",
+            "description": "Реализуйте фабричный метод для создания транспортных средств.",
+            "initialCode": "class VehicleFactory {\n // Реализуйте фабричный метод\n \n}\n\nclass Car {\n constructor(brand, model) {\n this.brand = brand;\n this.model = model;\n }\n \n drive() {\n return 'Еду на машине';\n }\n}\n\nclass Bike {\n constructor(brand, gears) {\n this.brand = brand;\n this.gears = gears;\n }\n \n ride() {\n return 'Еду на велосипеде';\n }\n}",
+            "solution": "class VehicleFactory {\n // Фабричный метод\n createVehicle(type, options = {}) {\n switch(type) {\n case 'car':\n return new Car(options.brand, options.model);\n case 'bike':\n return new Bike(options.brand, options.gears);\n default:\n throw new Error(`Неизвестный тип: ${type}`);\n }\n }\n}\n\nclass Car {\n constructor(brand = 'Unknown', model = 'Unknown') {\n this.brand = brand;\n this.model = model;\n }\n \n drive() {\n return `Еду на ${this.brand} ${this.model}`;\n }\n}\n\nclass Bike {\n constructor(brand = 'Unknown', gears = 1) {\n this.brand = brand;\n this.gears = gears;\n }\n \n ride() {\n return `Еду на велосипеде ${this.brand} (${this.gears} скоростей)`;\n }\n}",
             "hints": [
                 "Фабричный метод создает объекты",
                 "Скрывает детали создания",
@@ -1472,9 +1464,9 @@ const QUESTIONS_DATA = {
             "id": 85,
             "title": "Декоратор (Decorator)",
             "difficulty": "hard",
-            "description": "Реализуйте паттерн Декоратор",
+            "description": "Реализуйте декоратор функции withLogging, который добавляет логирование вызовов.",
             "initialCode": "function withLogging(func) {\n // Реализуйте декоратор\n \n}\n\nfunction expensiveOperation(n) {\n return n * n;\n}",
-            "solution": "// Декоратор функции\nfunction withLogging(func) {\n return function(...args) {\n console.log(`Вызов ${func.name} с аргументами:`, args);\n const start = performance.now();\n const result = func.apply(this, args);\n const end = performance.now();\n console.log(`Результат: ${result}, время: ${(end - start).toFixed(2)}мс`);\n return result;\n };\n}\n\n// Декоратор для класса\nfunction withValidation(target) {\n return class extends target {\n set age(value) {\n if (value < 0 || value > 150) {\n throw new Error('Некорректный возраст');\n }\n super.age = value;\n }\n };\n}\n\n// Пример использования\nfunction expensiveOperation(n) {\n let result = 0;\n for (let i = 0; i < n * 1000000; i++) {\n result += Math.random();\n }\n return result;\n}\n\nconst loggedOperation = withLogging(expensiveOperation);\nreturn loggedOperation(5);",
+            "solution": "// Декоратор функции\nfunction withLogging(func) {\n return function(...args) {\n console.log(`Вызов ${func.name} с аргументами:`, args);\n const start = performance.now();\n const result = func.apply(this, args);\n const end = performance.now();\n console.log(`Результат: ${result}, время: ${(end - start).toFixed(2)}мс`);\n return result;\n };\n}\n\n// Пример использования\nfunction expensiveOperation(n) {\n let result = 0;\n for (let i = 0; i < n * 1000000; i++) {\n result += Math.random();\n }\n return result;\n}\n\nconst loggedOperation = withLogging(expensiveOperation);\nreturn loggedOperation(5);",
             "hints": [
                 "Декоратор оборачивает функцию/класс",
                 "Добавляет новое поведение",
@@ -1489,9 +1481,9 @@ const QUESTIONS_DATA = {
             "id": 86,
             "title": "Стратегия (Strategy)",
             "difficulty": "hard",
-            "description": "Реализуйте паттерн Стратегия",
+            "description": "Реализуйте паттерн Стратегия для разных способов оплаты.",
             "initialCode": "class PaymentContext {\n // Реализуйте паттерн Стратегия\n \n}\n\nclass CreditCardPayment {\n pay(amount) {\n return `Оплата картой: ${amount}`;\n }\n}\n\nclass PayPalPayment {\n pay(amount) {\n return `Оплата PayPal: ${amount}`;\n }\n}",
-            "solution": "// Интерфейс стратегии\nclass PaymentStrategy {\n pay(amount) {\n throw new Error('Метод pay должен быть реализован');\n }\n}\n\n// Конкретные стратегии\nclass CreditCardPayment extends PaymentStrategy {\n constructor(cardNumber, cvv) {\n super();\n this.cardNumber = cardNumber;\n this.cvv = cvv;\n }\n \n pay(amount) {\n // Логика оплаты картой\n return `Оплачено ${amount} руб. картой ${this.cardNumber.slice(-4)}`;\n }\n}\n\nclass PayPalPayment extends PaymentStrategy {\n constructor(email) {\n super();\n this.email = email;\n }\n \n pay(amount) {\n // Логика PayPal\n return `Оплачено ${amount} руб. через PayPal (${this.email})`;\n }\n}\n\nclass CryptoPayment extends PaymentStrategy {\n constructor(walletAddress) {\n super();\n this.walletAddress = walletAddress;\n }\n \n pay(amount) {\n // Логика крипто-оплаты\n return `Оплачено ${amount} руб. криптовалютой на адрес ${this.walletAddress.slice(0, 10)}...`;\n }\n}\n\n// Контекст\nclass PaymentContext {\n constructor(strategy = null) {\n this.strategy = strategy;\n }\n \n setStrategy(strategy) {\n this.strategy = strategy;\n }\n \n executePayment(amount) {\n if (!this.strategy) {\n throw new Error('Стратегия оплаты не установлена');\n }\n return this.strategy.pay(amount);\n }\n}",
+            "solution": "// Интерфейс стратегии\nclass PaymentStrategy {\n pay(amount) {\n throw new Error('Метод pay должен быть реализован');\n }\n}\n\n// Конкретные стратегии\nclass CreditCardPayment extends PaymentStrategy {\n constructor(cardNumber, cvv) {\n super();\n this.cardNumber = cardNumber;\n this.cvv = cvv;\n }\n \n pay(amount) {\n return `Оплачено ${amount} руб. картой ${this.cardNumber.slice(-4)}`;\n }\n}\n\nclass PayPalPayment extends PaymentStrategy {\n constructor(email) {\n super();\n this.email = email;\n }\n \n pay(amount) {\n return `Оплачено ${amount} руб. через PayPal (${this.email})`;\n }\n}\n\n// Контекст\nclass PaymentContext {\n constructor(strategy = null) {\n this.strategy = strategy;\n }\n \n setStrategy(strategy) {\n this.strategy = strategy;\n }\n \n executePayment(amount) {\n if (!this.strategy) {\n throw new Error('Стратегия оплаты не установлена');\n }\n return this.strategy.pay(amount);\n }\n}",
             "hints": [
                 "Стратегия определяет семейство алгоритмов",
                 "Контекст использует стратегию",
@@ -1506,9 +1498,9 @@ const QUESTIONS_DATA = {
             "id": 87,
             "title": "Адаптер (Adapter)",
             "difficulty": "hard",
-            "description": "Реализуйте паттерн Адаптер",
+            "description": "Реализуйте паттерн Адаптер для адаптации старого интерфейса принтера к новому.",
             "initialCode": "// Старый интерфейс\nclass OldPrinter {\n printText(text) {\n console.log(`Печать: ${text}`);\n }\n}\n\n// Новый интерфейс\nclass NewPrinter {\n print(message) {\n console.log(`Новая печать: ${message}`);\n }\n}\n\n// Реализуйте адаптер\n ",
-            "solution": "// Старый интерфейс\nclass OldPrinter {\n printText(text) {\n return `Печать: ${text}`;\n }\n}\n\n// Новый интерфейс\nclass NewPrinter {\n print(message) {\n return `Новая печать: ${message}`;\n }\n}\n\n// Адаптер: преобразует OldPrinter к интерфейсу NewPrinter\nclass PrinterAdapter {\n constructor(oldPrinter) {\n this.oldPrinter = oldPrinter;\n }\n \n // Реализуем новый интерфейс\n print(message) {\n // Адаптация вызова\n const result = this.oldPrinter.printText(message);\n // Возможно дополнительное преобразование\n return result.replace('Печать:', 'Адаптированная печать:');\n }\n}\n\n// Другой пример: адаптер для функций\nfunction oldApiRequest(url, callback) {\n setTimeout(() => {\n callback(null, {data: 'ответ'});\n }, 100);\n}\n\n// Адаптер для Promise API\nfunction adaptToPromise(oldFunction) {\n return function(...args) {\n return new Promise((resolve, reject) => {\n oldFunction(...args, (error, result) => {\n if (error) {\n reject(error);\n } else {\n resolve(result);\n }\n });\n });\n };\n}\n\nconst newApiRequest = adaptToPromise(oldApiRequest);",
+            "solution": "// Старый интерфейс\nclass OldPrinter {\n printText(text) {\n return `Печать: ${text}`;\n }\n}\n\n// Новый интерфейс\nclass NewPrinter {\n print(message) {\n return `Новая печать: ${message}`;\n }\n}\n\n// Адаптер\nclass PrinterAdapter {\n constructor(oldPrinter) {\n this.oldPrinter = oldPrinter;\n }\n \n // Реализуем новый интерфейс\n print(message) {\n const result = this.oldPrinter.printText(message);\n return result.replace('Печать:', 'Адаптированная печать:');\n }\n}",
             "hints": [
                 "Адаптер преобразует один интерфейс в другой",
                 "Позволяет работать со старым кодом через новый интерфейс",
@@ -1523,9 +1515,9 @@ const QUESTIONS_DATA = {
             "id": 88,
             "title": "Промис-пул (Promise Pool)",
             "difficulty": "hard",
-            "description": "Реализуйте пул промисов для ограничения параллельных запросов",
+            "description": "Реализуйте пул промисов для ограничения параллельных запросов.",
             "initialCode": "class PromisePool {\n constructor(maxConcurrent) {\n this.maxConcurrent = maxConcurrent;\n this.queue = [];\n this.running = 0;\n }\n \n // Добавьте задачи в пул\n \n}",
-            "solution": "class PromisePool {\n constructor(maxConcurrent) {\n this.maxConcurrent = maxConcurrent;\n this.queue = [];\n this.running = 0;\n this.results = [];\n }\n \n // Добавление задачи\n add(task) {\n return new Promise((resolve, reject) => {\n this.queue.push({\n task,\n resolve,\n reject\n });\n this._processQueue();\n });\n }\n \n // Запуск всех задач из массива\n async all(tasks) {\n const promises = tasks.map(task => this.add(task));\n return Promise.all(promises);\n }\n \n // Обработка очереди\n _processQueue() {\n // Не запускаем если достигнут лимит или очередь пуста\n if (this.running >= this.maxConcurrent || this.queue.length === 0) {\n return;\n }\n \n this.running++;\n const {task, resolve, reject} = this.queue.shift();\n \n // Выполнение задачи\n Promise.resolve()\n .then(() => task())\n .then(result => {\n resolve(result);\n this.results.push(result);\n })\n .catch(error => {\n reject(error);\n })\n .finally(() => {\n this.running--;\n this._processQueue(); // Проверяем очередь снова\n });\n \n // Запускаем следующую задачу, если есть возможность\n if (this.queue.length > 0) {\n this._processQueue();\n }\n }\n}\n\n// Пример использования\nasync function exampleTask(id) {\n await new Promise(resolve => setTimeout(resolve, 100));\n return `Задача ${id} выполнена`;\n}\n\nconst pool = new PromisePool(2); // Максимум 2 параллельных задачи\nreturn pool.all([\n () => exampleTask(1),\n () => exampleTask(2),\n () => exampleTask(3)\n]);",
+            "solution": "class PromisePool {\n constructor(maxConcurrent) {\n this.maxConcurrent = maxConcurrent;\n this.queue = [];\n this.running = 0;\n this.results = [];\n }\n \n // Добавление задачи\n add(task) {\n return new Promise((resolve, reject) => {\n this.queue.push({\n task,\n resolve,\n reject\n });\n this._processQueue();\n });\n }\n \n // Запуск всех задач из массива\n async all(tasks) {\n const promises = tasks.map(task => this.add(task));\n return Promise.all(promises);\n }\n \n // Обработка очереди\n _processQueue() {\n if (this.running >= this.maxConcurrent || this.queue.length === 0) {\n return;\n }\n \n this.running++;\n const {task, resolve, reject} = this.queue.shift();\n \n // Выполнение задачи\n Promise.resolve()\n .then(() => task())\n .then(result => {\n resolve(result);\n this.results.push(result);\n })\n .catch(error => {\n reject(error);\n })\n .finally(() => {\n this.running--;\n this._processQueue();\n });\n \n if (this.queue.length > 0) {\n this._processQueue();\n }\n }\n}",
             "hints": [
                 "Очередь задач ожидает выполнения",
                 "Запускаем новые задачи когда running < maxConcurrent",
@@ -1540,9 +1532,9 @@ const QUESTIONS_DATA = {
             "id": 89,
             "title": "Мемоизация (Memoization)",
             "difficulty": "medium",
-            "description": "Реализуйте мемоизацию для тяжелых вычислений",
+            "description": "Реализуйте мемоизацию для тяжелых вычислений.",
             "initialCode": "function memoize(func) {\n // Реализуйте мемоизацию\n \n}",
-            "solution": "function memoize(func, resolver) {\n const cache = new Map();\n \n return function(...args) {\n // Генерируем ключ кэша\n const key = resolver ? resolver(...args) : JSON.stringify(args);\n \n // Проверяем кэш\n if (cache.has(key)) {\n return cache.get(key);\n }\n \n // Вычисляем и кэшируем\n const result = func.apply(this, args);\n cache.set(key, result);\n \n return result;\n };\n}\n\n// Пример: мемоизация факториала\nfunction factorial(n) {\n console.log(`Вычисление факториала ${n}`);\n if (n <= 1) return 1;\n return n * factorial(n - 1);\n}\n\nconst memoizedFactorial = memoize(factorial);\n\n// Рекурсивная мемоизация\nfunction memoizeRecursive(func) {\n const cache = new Map();\n \n const memoized = function(...args) {\n const key = JSON.stringify(args);\n \n if (cache.has(key)) {\n return cache.get(key);\n }\n \n // Временная функция для рекурсивных вызовов\n const originalFunc = func;\n func = function(...innerArgs) {\n return memoized(...innerArgs);\n };\n \n const result = originalFunc.apply(this, args);\n cache.set(key, result);\n \n // Восстанавливаем оригинальную функцию\n func = originalFunc;\n \n return result;\n };\n \n return memoized;\n}\n\n// Пример с ограничением размера кэша (LRU)\nfunction memoizeWithLRU(func, maxSize = 100) {\n const cache = new Map();\n const keys = [];\n \n return function(...args) {\n const key = JSON.stringify(args);\n \n if (cache.has(key)) {\n // Обновляем порядок использования\n const index = keys.indexOf(key);\n keys.splice(index, 1);\n keys.push(key);\n return cache.get(key);\n }\n \n // Если кэш полон, удаляем самый старый\n if (keys.length >= maxSize) {\n const oldestKey = keys.shift();\n cache.delete(oldestKey);\n }\n \n // Вычисляем и кэшируем\n const result = func.apply(this, args);\n cache.set(key, result);\n keys.push(key);\n \n return result;\n };\n}",
+            "solution": "function memoize(func, resolver) {\n const cache = new Map();\n \n return function(...args) {\n const key = resolver ? resolver(...args) : JSON.stringify(args);\n \n if (cache.has(key)) {\n return cache.get(key);\n }\n \n const result = func.apply(this, args);\n cache.set(key, result);\n \n return result;\n };\n}",
             "hints": [
                 "Кэшируйте результаты вычислений",
                 "Используйте аргументы как ключ кэша",
@@ -1557,27 +1549,26 @@ const QUESTIONS_DATA = {
             "id": 90,
             "title": "Дебаунс и троттлинг",
             "difficulty": "medium",
-            "description": "Реализуйте дебаунс и троттлинг для оптимизации событий",
+            "description": "Реализуйте дебаунс и троттлинг для оптимизации событий.",
             "initialCode": "function debounce(func, delay) {\n // Реализуйте debounce\n \n}\n\nfunction throttle(func, limit) {\n // Реализуйте throttle\n \n}",
-            "solution": "// Дебаунс: выполнение после паузы\nfunction debounce(func, delay, immediate = false) {\n let timeout;\n \n return function(...args) {\n const context = this;\n \n const later = function() {\n timeout = null;\n if (!immediate) {\n func.apply(context, args);\n }\n };\n \n const callNow = immediate && !timeout;\n \n clearTimeout(timeout);\n timeout = setTimeout(later, delay);\n \n if (callNow) {\n func.apply(context, args);\n }\n };\n}\n\n// Троттлинг: выполнение не чаще чем limit\nfunction throttle(func, limit) {\n let inThrottle;\n let lastFunc;\n let lastRan;\n \n return function(...args) {\n const context = this;\n \n if (!inThrottle) {\n func.apply(context, args);\n lastRan = Date.now();\n inThrottle = true;\n } else {\n clearTimeout(lastFunc);\n \n lastFunc = setTimeout(function() {\n if (Date.now() - lastRan >= limit) {\n func.apply(context, args);\n lastRan = Date.now();\n }\n }, limit - (Date.now() - lastRan));\n }\n };\n}\n\n// Упрощенный throttle\nfunction simpleThrottle(func, limit) {\n let lastCall = 0;\n \n return function(...args) {\n const now = Date.now();\n \n if (now - lastCall >= limit) {\n lastCall = now;\n return func.apply(this, args);\n }\n };\n}\n\n// Пример использования\nlet count = 0;\nconst increment = () => count++;\n\nconst debouncedIncrement = debounce(increment, 100);\nconst throttledIncrement = throttle(increment, 100);\n\n// Имитация быстрых вызовов\nfor (let i = 0; i < 10; i++) {\n debouncedIncrement();\n throttledIncrement();\n}\n\nsetTimeout(() => count, 200);",
+            "solution": "// Дебаунс: выполнение после паузы\nfunction debounce(func, delay, immediate = false) {\n let timeout;\n \n return function(...args) {\n const context = this;\n \n const later = function() {\n timeout = null;\n if (!immediate) {\n func.apply(context, args);\n }\n };\n \n const callNow = immediate && !timeout;\n \n clearTimeout(timeout);\n timeout = setTimeout(later, delay);\n \n if (callNow) {\n func.apply(context, args);\n }\n };\n}\n\n// Троттлинг: выполнение не чаще чем limit\nfunction throttle(func, limit) {\n let inThrottle;\n let lastFunc;\n let lastRan;\n \n return function(...args) {\n const context = this;\n \n if (!inThrottle) {\n func.apply(context, args);\n lastRan = Date.now();\n inThrottle = true;\n } else {\n clearTimeout(lastFunc);\n \n lastFunc = setTimeout(function() {\n if (Date.now() - lastRan >= limit) {\n func.apply(context, args);\n lastRan = Date.now();\n }\n }, limit - (Date.now() - lastRan));\n }\n };\n}",
             "hints": [
                 "Debounce: выполнение после паузы в вызовах",
                 "Throttle: выполнение не чаще указанного интервала",
                 "Используйте setTimeout и clearTimeout"
             ],
             "tests": [
-                { "code": "let calls = 0; const fn = () => calls++; const debounced = debounce(fn, 50); debounced(); debounced(); setTimeout(() => calls, 100)", "expected": 0 } // Заглушка
+                { "code": "let calls = 0; const fn = () => calls++; const debounced = debounce(fn, 50); debounced(); debounced(); setTimeout(() => calls, 100)", "expected": 0 }
             ],
             "chapter": "Часть 9: Практические паттерны"
         },
-
         {
             "id": 91,
             "title": "Обработка ошибок с try-catch",
             "difficulty": "easy",
-            "description": "Напишите функцию с обработкой ошибок",
+            "description": "Напишите функцию safeParseJSON, которая безопасно парсит JSON строку и возвращает объект или null при ошибке.",
             "initialCode": "function safeParseJSON(jsonString) {\n // Обработайте ошибки парсинга JSON\n \n}",
-            "solution": "function safeParseJSON(jsonString) {\n try {\n return JSON.parse(jsonString);\n } catch (error) {\n // Логирование ошибки\n console.error('Ошибка парсинга JSON:', error.message);\n \n // Возврат значения по умолчанию\n return null;\n \n // Или повторное выбрасывание с дополнительной информацией\n // throw new Error(`Невалидный JSON: ${error.message}`);\n }\n}",
+            "solution": "function safeParseJSON(jsonString) {\n try {\n return JSON.parse(jsonString);\n } catch (error) {\n console.error('Ошибка парсинга JSON:', error.message);\n return null;\n }\n}",
             "hints": [
                 "Используйте try-catch для перехвата ошибок",
                 "Логируйте ошибки для отладки",
@@ -1593,9 +1584,9 @@ const QUESTIONS_DATA = {
             "id": 92,
             "title": "Валидация входных данных",
             "difficulty": "medium",
-            "description": "Напишите функцию валидации пользовательских данных",
+            "description": "Напишите функцию validateUserData для валидации данных пользователя.",
             "initialCode": "function validateUserData(data) {\n // Валидируйте данные пользователя\n \n}",
-            "solution": "function validateUserData(data) {\n const errors = [];\n \n // Проверка имени\n if (!data.name || typeof data.name !== 'string') {\n errors.push('Имя обязательно и должно быть строкой');\n } else if (data.name.trim().length < 2) {\n errors.push('Имя должно содержать минимум 2 символа');\n } else if (data.name.length > 50) {\n errors.push('Имя слишком длинное (макс. 50 символов)');\n }\n \n // Проверка email\n const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n if (!data.email || !emailRegex.test(data.email)) {\n errors.push('Введите корректный email');\n }\n \n // Проверка возраста\n if (data.age !== undefined) {\n const age = Number(data.age);\n if (isNaN(age) || !Number.isInteger(age)) {\n errors.push('Возраст должен быть целым числом');\n } else if (age < 0 || age > 150) {\n errors.push('Возраст должен быть от 0 до 150');\n }\n }\n \n // Проверка пароля\n if (data.password) {\n if (data.password.length < 8) {\n errors.push('Пароль должен быть минимум 8 символов');\n }\n if (!/[A-Z]/.test(data.password)) {\n errors.push('Пароль должен содержать заглавную букву');\n }\n if (!/[0-9]/.test(data.password)) {\n errors.push('Пароль должен содержать цифру');\n }\n }\n \n return {\n isValid: errors.length === 0,\n errors: errors\n };\n}",
+            "solution": "function validateUserData(data) {\n const errors = [];\n \n // Проверка имени\n if (!data.name || typeof data.name !== 'string') {\n errors.push('Имя обязательно и должно быть строкой');\n } else if (data.name.trim().length < 2) {\n errors.push('Имя должно содержать минимум 2 символа');\n } else if (data.name.length > 50) {\n errors.push('Имя слишком длинное (макс. 50 символов)');\n }\n \n // Проверка email\n const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n if (!data.email || !emailRegex.test(data.email)) {\n errors.push('Введите корректный email');\n }\n \n // Проверка возраста\n if (data.age !== undefined) {\n const age = Number(data.age);\n if (isNaN(age) || !Number.isInteger(age)) {\n errors.push('Возраст должен быть целым числом');\n } else if (age < 0 || age > 150) {\n errors.push('Возраст должен быть от 0 до 150');\n }\n }\n \n return {\n isValid: errors.length === 0,\n errors: errors\n };\n}",
             "hints": [
                 "Проверяйте типы данных",
                 "Используйте регулярные выражения для сложных проверок",
@@ -1610,9 +1601,9 @@ const QUESTIONS_DATA = {
             "id": 93,
             "title": "Оптимизация циклов",
             "difficulty": "medium",
-            "description": "Оптимизируйте выполнение циклов",
+            "description": "Оптимизируйте выполнение циклов разными способами.",
             "initialCode": "function optimizeLoops() {\n const largeArray = Array.from({length: 10000}, (_, i) => i);\n let sum = 0;\n \n // Оптимизируйте цикл\n for (let i = 0; i < largeArray.length; i++) {\n sum += largeArray[i];\n }\n \n return sum;\n}",
-            "solution": "function optimizeLoops() {\n const largeArray = Array.from({length: 10000}, (_, i) => i);\n let sum = 0;\n \n // Оптимизация 1: кэширование длины\n const len = largeArray.length;\n for (let i = 0; i < len; i++) {\n sum += largeArray[i];\n }\n \n // Оптимизация 2: обратный цикл (иногда быстрее)\n let sum2 = 0;\n for (let i = largeArray.length - 1; i >= 0; i--) {\n sum2 += largeArray[i];\n }\n \n // Оптимизация 3: while цикл\n let sum3 = 0;\n let j = 0;\n while (j < largeArray.length) {\n sum3 += largeArray[j++];\n }\n \n // Оптимизация 4: встроенные методы (часто быстрее и читаемее)\n const sum4 = largeArray.reduce((acc, val) => acc + val, 0);\n \n // Оптимизация 5: избегайте вложенных циклов, если возможно\n // Используйте Set или Map для O(1) поиска\n \n return [sum, sum2, sum3, sum4];\n}",
+            "solution": "function optimizeLoops() {\n const largeArray = Array.from({length: 10000}, (_, i) => i);\n let sum = 0;\n \n // Оптимизация 1: кэширование длины\n const len = largeArray.length;\n for (let i = 0; i < len; i++) {\n sum += largeArray[i];\n }\n \n // Оптимизация 2: обратный цикл\n let sum2 = 0;\n for (let i = largeArray.length - 1; i >= 0; i--) {\n sum2 += largeArray[i];\n }\n \n // Оптимизация 3: while цикл\n let sum3 = 0;\n let j = 0;\n while (j < largeArray.length) {\n sum3 += largeArray[j++];\n }\n \n // Оптимизация 4: встроенные методы\n const sum4 = largeArray.reduce((acc, val) => acc + val, 0);\n \n return [sum, sum2, sum3, sum4];\n}",
             "hints": [
                 "Кэшируйте длину массива перед циклом",
                 "Рассмотрите обратный цикл",
@@ -1627,9 +1618,9 @@ const QUESTIONS_DATA = {
             "id": 94,
             "title": "Избегайте мутаций",
             "difficulty": "medium",
-            "description": "Напишите иммутабельные функции",
+            "description": "Напишите иммутабельные функции вместо мутирующих.",
             "initialCode": "// Мутирующая функция (плохо)\nfunction addItemToCart(cart, item) {\n cart.push(item);\n return cart;\n}\n\n// Напишите иммутабельную версию\n ",
-            "solution": "// Мутирующая функция (плохо)\nfunction addItemToCart(cart, item) {\n cart.push(item);\n return cart;\n}\n\n// Иммутабельная версия (хорошо)\nfunction addItemToCartImmutable(cart, item) {\n // Возвращаем новый массив\n return [...cart, item];\n}\n\n// Иммутабельное обновление объекта\nfunction updateUserImmutable(user, updates) {\n return {\n ...user, // Копируем все свойства\n ...updates // Перезаписываем обновленными\n };\n}\n\n// Иммутабельное удаление элемента\nfunction removeItemImmutable(cart, itemId) {\n return cart.filter(item => item.id !== itemId);\n}\n\n// Иммутабельное обновление элемента в массиве\nfunction updateItemImmutable(cart, itemId, updates) {\n return cart.map(item => \n item.id === itemId \n ? { ...item, ...updates } // Новый объект с обновлениями\n : item\n );\n}\n\n// Глубокая иммутабельность\nfunction deepUpdateImmutable(obj, path, value) {\n if (path.length === 0) return value;\n \n const [first, ...rest] = path;\n \n if (Array.isArray(obj)) {\n return obj.map((item, index) => \n index === first ? deepUpdateImmutable(item, rest, value) : item\n );\n } else if (typeof obj === 'object' && obj !== null) {\n return {\n ...obj,\n [first]: deepUpdateImmutable(obj[first] || {}, rest, value)\n };\n }\n \n return obj;\n}",
+            "solution": "// Мутирующая функция (плохо)\nfunction addItemToCart(cart, item) {\n cart.push(item);\n return cart;\n}\n\n// Иммутабельная версия (хорошо)\nfunction addItemToCartImmutable(cart, item) {\n return [...cart, item];\n}\n\n// Иммутабельное обновление объекта\nfunction updateUserImmutable(user, updates) {\n return {\n ...user,\n ...updates\n };\n}\n\n// Иммутабельное удаление элемента\nfunction removeItemImmutable(cart, itemId) {\n return cart.filter(item => item.id !== itemId);\n}",
             "hints": [
                 "Используйте spread оператор для копирования",
                 "Возвращайте новые объекты/массивы",
@@ -1644,16 +1635,16 @@ const QUESTIONS_DATA = {
             "id": 95,
             "title": "Ленивая загрузка (Lazy Loading)",
             "difficulty": "hard",
-            "description": "Реализуйте ленивую загрузку для тяжелых модулей",
+            "description": "Реализуйте ленивую загрузку для тяжелых модулей.",
             "initialCode": "function createLazyLoader() {\n // Реализуйте ленивую загрузку\n \n}",
-            "solution": "// Ленивая загрузка модуля\nconst lazyModule = (importFn) => {\n let module = null;\n let loadPromise = null;\n \n return {\n // Загружает модуль при первом вызове\n async load() {\n if (module) return module;\n \n if (!loadPromise) {\n loadPromise = importFn().then(m => {\n module = m;\n return module;\n });\n }\n \n return loadPromise;\n },\n \n // Прокси для доступа к экспортам\n get exports() {\n return new Proxy({}, {\n get(target, prop) {\n if (module && prop in module) {\n return module[prop];\n }\n \n throw new Error(`Свойство ${prop} недоступно до загрузки модуля`);\n }\n });\n }\n };\n};\n\n// Пример использования\nconst heavyMath = lazyModule(() => \n import('./heavy-math.js').catch(() => ({\n add: (a, b) => a + b,\n multiply: (a, b) => a * b\n }))\n);\n\n// Ленивая загрузка изображений\nfunction lazyLoadImages() {\n const images = document.querySelectorAll('img[data-src]');\n \n const observer = new IntersectionObserver((entries) => {\n entries.forEach(entry => {\n if (entry.isIntersecting) {\n const img = entry.target;\n img.src = img.dataset.src;\n img.removeAttribute('data-src');\n observer.unobserve(img);\n }\n });\n }, {\n rootMargin: '50px' // Начинаем загрузку заранее\n });\n \n images.forEach(img => observer.observe(img));\n}\n\n// Ленивая инициализация\nfunction createLazyInitializer(initializer) {\n let initialized = false;\n let value;\n \n return {\n get() {\n if (!initialized) {\n value = initializer();\n initialized = true;\n }\n return value;\n },\n \n set(newValue) {\n value = newValue;\n initialized = true;\n }\n };\n}\n\n// Пример: ленивая инициализация подключения к БД\nconst databaseConnection = createLazyInitializer(() => {\n console.log('Инициализация подключения к БД...');\n return { query: () => 'результат' };\n});",
+            "solution": "// Ленивая загрузка модуля\nconst lazyModule = (importFn) => {\n let module = null;\n let loadPromise = null;\n \n return {\n async load() {\n if (module) return module;\n \n if (!loadPromise) {\n loadPromise = importFn().then(m => {\n module = m;\n return module;\n });\n }\n \n return loadPromise;\n },\n \n get exports() {\n return new Proxy({}, {\n get(target, prop) {\n if (module && prop in module) {\n return module[prop];\n }\n \n throw new Error(`Свойство ${prop} недоступно до загрузки модуля`);\n }\n });\n }\n };\n};",
             "hints": [
                 "Загружайте ресурсы только когда нужны",
                 "Используйте Proxy для отложенного доступа",
                 "IntersectionObserver для ленивой загрузки изображений"
             ],
             "tests": [
-                { "code": "const lazy = createLazyInitializer(() => 42); lazy.get()", "expected": 42 }
+                { "code": "const lazy = (() => { let value; return { get: () => value || (value = 42) }; })(); lazy.get()", "expected": 42 }
             ],
             "chapter": "Часть 10: Советы и лучшие практики"
         },
@@ -1661,9 +1652,9 @@ const QUESTIONS_DATA = {
             "id": 96,
             "title": "Кэширование запросов",
             "difficulty": "hard",
-            "description": "Реализуйте кэширование для API запросов",
+            "description": "Реализуйте кэширование для API запросов.",
             "initialCode": "function createCachedFetch() {\n // Реализуйте кэширование fetch запросов\n \n}",
-            "solution": "function createCachedFetch(cacheTime = 5 * 60 * 1000) { // 5 минут по умолчанию\n const cache = new Map();\n \n return async function cachedFetch(url, options = {}) {\n const cacheKey = JSON.stringify({url, options});\n \n // Проверяем кэш\n const cached = cache.get(cacheKey);\n if (cached) {\n const {data, timestamp} = cached;\n \n // Проверяем свежесть кэша\n if (Date.now() - timestamp < cacheTime) {\n console.log('Возвращаем из кэша:', url);\n return data.clone ? data.clone() : data;\n } else {\n console.log('Кэш устарел:', url);\n cache.delete(cacheKey);\n }\n }\n \n // Выполняем запрос\n console.log('Выполняем запрос:', url);\n const response = await fetch(url, options);\n \n // Клонируем response для кэширования\n const responseToCache = response.clone();\n \n // Кэшируем\n cache.set(cacheKey, {\n data: responseToCache,\n timestamp: Date.now()\n });\n \n // Очистка старых записей\n cleanupCache(cache, cacheTime);\n \n return response;\n };\n}\n\nfunction cleanupCache(cache, cacheTime) {\n const now = Date.now();\n for (const [key, value] of cache.entries()) {\n if (now - value.timestamp > cacheTime * 2) { // Удаляем очень старые\n cache.delete(key);\n }\n }\n}\n\n// Более продвинутая версия с разными стратегиями\nclass FetchCache {\n constructor(strategy = 'time', options = {}) {\n this.cache = new Map();\n this.strategy = strategy;\n this.options = {\n maxSize: 100,\n maxAge: 5 * 60 * 1000, // 5 минут\n ...options\n };\n }\n \n async fetch(url, options = {}) {\n const key = this._createKey(url, options);\n \n // Проверка кэша\n if (this.cache.has(key)) {\n const entry = this.cache.get(key);\n \n if (this._isValid(entry)) {\n this._updateAccess(key);\n return entry.response.clone();\n } else {\n this.cache.delete(key);\n }\n }\n \n // Выполнение запроса\n const response = await fetch(url, options);\n const responseToCache = response.clone();\n \n // Сохранение в кэш\n this._set(key, responseToCache);\n \n return response;\n }\n \n _createKey(url, options) {\n return `${url}:${JSON.stringify(options)}`;\n }\n \n _isValid(entry) {\n const now = Date.now();\n \n if (this.strategy === 'time') {\n return now - entry.timestamp < this.options.maxAge;\n }\n \n return true;\n }\n \n _set(key, response) {\n // LRU eviction\n if (this.cache.size >= this.options.maxSize) {\n const oldestKey = this.cache.keys().next().value;\n this.cache.delete(oldestKey);\n }\n \n this.cache.set(key, {\n response,\n timestamp: Date.now(),\n accessed: Date.now()\n });\n }\n \n _updateAccess(key) {\n const entry = this.cache.get(key);\n if (entry) {\n entry.accessed = Date.now();\n // Перемещаем в конец Map (Map сохраняет порядок вставки)\n this.cache.delete(key);\n this.cache.set(key, entry);\n }\n }\n \n clear() {\n this.cache.clear();\n }\n}",
+            "solution": "function createCachedFetch(cacheTime = 5 * 60 * 1000) {\n const cache = new Map();\n \n return async function cachedFetch(url, options = {}) {\n const cacheKey = JSON.stringify({url, options});\n \n // Проверяем кэш\n const cached = cache.get(cacheKey);\n if (cached) {\n const {data, timestamp} = cached;\n \n if (Date.now() - timestamp < cacheTime) {\n console.log('Возвращаем из кэша:', url);\n return data.clone ? data.clone() : data;\n } else {\n console.log('Кэш устарел:', url);\n cache.delete(cacheKey);\n }\n }\n \n // Выполняем запрос\n console.log('Выполняем запрос:', url);\n const response = await fetch(url, options);\n \n // Клонируем response для кэширования\n const responseToCache = response.clone();\n \n // Кэшируем\n cache.set(cacheKey, {\n data: responseToCache,\n timestamp: Date.now()\n });\n \n return response;\n };\n}",
             "hints": [
                 "Кэшируйте response.clone()",
                 "Учитывайте время жизни кэша",
@@ -1678,9 +1669,9 @@ const QUESTIONS_DATA = {
             "id": 97,
             "title": "Безопасность: экранирование HTML",
             "difficulty": "medium",
-            "description": "Напишите функцию для безопасного вывода HTML",
+            "description": "Напишите функцию для безопасного вывода HTML.",
             "initialCode": "function escapeHTML(html) {\n // Экранируйте опасные символы HTML\n \n}",
-            "solution": "function escapeHTML(html) {\n if (typeof html !== 'string') {\n return String(html);\n }\n \n return html\n .replace(/&/g, '&amp;')\n .replace(/</g, '&lt;')\n .replace(/>/g, '&gt;')\n .replace(/\"/g, '&quot;')\n .replace(/'/g, '&#x27;')\n .replace(/\\//g, '&#x2F;');\n}\n\n// Альтернатива: использование textContent вместо innerHTML\nfunction safeSetElementContent(element, content) {\n if (element.textContent !== undefined) {\n element.textContent = content;\n } else {\n // Для старых браузеров\n element.innerText = content;\n }\n}\n\n// Безопасное создание элементов\nfunction createSafeElement(tag, attributes = {}, text = '') {\n const element = document.createElement(tag);\n \n // Безопасная установка атрибутов\n for (const [key, value] of Object.entries(attributes)) {\n if (key.startsWith('on')) {\n // Не позволяем установить обработчики событий из ненадежных данных\n continue;\n }\n \n if (key === 'href' || key === 'src') {\n // Валидация URL\n const url = String(value);\n if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {\n continue; // Пропускаем опасные URL\n }\n }\n \n element.setAttribute(key, escapeHTML(value));\n }\n \n // Безопасное добавление текста\n if (text) {\n safeSetElementContent(element, text);\n }\n \n return element;\n}\n\n// Санитизация HTML (разрешает безопасные теги)\nfunction sanitizeHTML(html, allowedTags = ['b', 'i', 'u', 'em', 'strong']) {\n const temp = document.createElement('div');\n temp.innerHTML = html;\n \n // Удаляем опасные теги и атрибуты\n const elements = temp.getElementsByTagName('*');\n for (let i = elements.length - 1; i >= 0; i--) {\n const el = elements[i];\n \n // Проверяем разрешенные теги\n if (!allowedTags.includes(el.tagName.toLowerCase())) {\n el.parentNode.removeChild(el);\n continue;\n }\n \n // Удаляем опасные атрибуты\n for (let j = el.attributes.length - 1; j >= 0; j--) {\n const attr = el.attributes[j];\n if (attr.name.startsWith('on')) {\n el.removeAttribute(attr.name);\n }\n }\n }\n \n return temp.innerHTML;\n}",
+            "solution": "function escapeHTML(html) {\n if (typeof html !== 'string') {\n return String(html);\n }\n \n return html\n .replace(/&/g, '&amp;')\n .replace(/</g, '&lt;')\n .replace(/>/g, '&gt;')\n .replace(/\"/g, '&quot;')\n .replace(/'/g, '&#x27;')\n .replace(/\\//g, '&#x2F;');\n}",
             "hints": [
                 "Экранируйте &, <, >, \", '",
                 "Используйте textContent вместо innerHTML",
@@ -1698,9 +1689,9 @@ const QUESTIONS_DATA = {
             "id": 98,
             "title": "Профилирование производительности",
             "difficulty": "hard",
-            "description": "Напишите утилиты для профилирования кода",
+            "description": "Напишите утилиты для профилирования кода.",
             "initialCode": "function profilePerformance(func, iterations = 1000) {\n // Измерьте производительность функции\n \n}",
-            "solution": "function profilePerformance(func, iterations = 1000, ...args) {\n // Разогрев\n for (let i = 0; i < 10; i++) {\n func(...args);\n }\n \n // Измерение\n const start = performance.now();\n \n for (let i = 0; i < iterations; i++) {\n func(...args);\n }\n \n const end = performance.now();\n const totalTime = end - start;\n const avgTime = totalTime / iterations;\n \n return {\n totalTime: `${totalTime.toFixed(2)}ms`,\n avgTime: `${avgTime.toFixed(4)}ms`,\n iterations,\n opsPerSecond: `${((iterations / totalTime) * 1000).toFixed(0)} ops/sec`\n };\n}\n\n// Профилировщик с памятью\nfunction profileWithMemory(func, ...args) {\n if (typeof performance !== 'undefined' && performance.memory) {\n const startMemory = performance.memory.usedJSHeapSize;\n const startTime = performance.now();\n \n const result = func(...args);\n \n const endTime = performance.now();\n const endMemory = performance.memory.usedJSHeapSize;\n \n return {\n result,\n time: endTime - startTime,\n memoryUsed: endMemory - startMemory,\n memoryUsedMB: ((endMemory - startMemory) / 1024 / 1024).toFixed(2)\n };\n } else {\n // Fallback для браузеров без memory API\n const startTime = performance.now();\n const result = func(...args);\n const endTime = performance.now();\n \n return {\n result,\n time: endTime - startTime\n };\n }\n}\n\n// Сравнение производительности нескольких функций\nfunction comparePerformance(functions, iterations = 1000, ...args) {\n const results = [];\n \n for (const [name, func] of Object.entries(functions)) {\n const profile = profilePerformance(func, iterations, ...args);\n results.push({\n name,\n ...profile\n });\n }\n \n // Сортировка по времени\n results.sort((a, b) => {\n const aTime = parseFloat(a.avgTime);\n const bTime = parseFloat(b.avgTime);\n return aTime - bTime;\n });\n \n return results;\n}\n\n// Бенчмарк с прогресс-баром (для консоли)\nasync function benchmarkWithProgress(func, iterations = 1000, ...args) {\n console.log('Запуск бенчмарка...');\n const results = [];\n \n for (let i = 0; i < iterations; i++) {\n const start = performance.now();\n func(...args);\n const end = performance.now();\n results.push(end - start);\n \n // Прогресс\n if (i % 100 === 0) {\n const progress = ((i / iterations) * 100).toFixed(1);\n console.log(`Прогресс: ${progress}%`);\n }\n }\n \n const stats = {\n min: Math.min(...results),\n max: Math.max(...results),\n avg: results.reduce((a, b) => a + b, 0) / results.length,\n median: results.sort((a, b) => a - b)[Math.floor(results.length / 2)]\n };\n \n console.log('Результаты:', stats);\n return stats;\n}",
+            "solution": "function profilePerformance(func, iterations = 1000, ...args) {\n // Разогрев\n for (let i = 0; i < 10; i++) {\n func(...args);\n }\n \n // Измерение\n const start = performance.now();\n \n for (let i = 0; i < iterations; i++) {\n func(...args);\n }\n \n const end = performance.now();\n const totalTime = end - start;\n const avgTime = totalTime / iterations;\n \n return {\n totalTime: `${totalTime.toFixed(2)}ms`,\n avgTime: `${avgTime.toFixed(4)}ms`,\n iterations,\n opsPerSecond: `${((iterations / totalTime) * 1000).toFixed(0)} ops/sec`\n };\n}",
             "hints": [
                 "Используйте performance.now() для точного измерения",
                 "Делайте разогрев перед измерением",
@@ -1715,9 +1706,9 @@ const QUESTIONS_DATA = {
             "id": 99,
             "title": "Тестирование кода",
             "difficulty": "medium",
-            "description": "Напишите простой фреймворк для тестирования",
+            "description": "Напишите простой фреймворк для тестирования.",
             "initialCode": "function createTestSuite() {\n // Создайте простой фреймворк для тестирования\n \n}",
-            "solution": "// Простой фреймворк для тестирования\nclass TestSuite {\n constructor() {\n this.tests = [];\n this.results = [];\n this.beforeEachFn = null;\n this.afterEachFn = null;\n }\n \n // Добавление теста\n test(name, fn) {\n this.tests.push({name, fn});\n }\n \n // Хук перед каждым тестом\n beforeEach(fn) {\n this.beforeEachFn = fn;\n }\n \n // Хук после каждого теста\n afterEach(fn) {\n this.afterEachFn = fn;\n }\n \n // Запуск всех тестов\n async run() {\n console.log(`Запуск ${this.tests.length} тестов...`);\n \n for (const test of this.tests) {\n // Выполнение beforeEach\n if (this.beforeEachFn) {\n try {\n this.beforeEachFn();\n } catch (error) {\n console.error(`Ошибка в beforeEach для теста ${test.name}:`, error);\n }\n }\n \n // Выполнение теста\n const start = performance.now();\n let passed = false;\n let error = null;\n \n try {\n await test.fn();\n passed = true;\n } catch (e) {\n error = e;\n passed = false;\n }\n \n const end = performance.now();\n const duration = end - start;\n \n // Сохранение результата\n this.results.push({\n name: test.name,\n passed,\n error,\n duration\n });\n \n // Вывод результата\n const status = passed ? '✅' : '❌';\n console.log(`${status} ${test.name} (${duration.toFixed(2)}ms)`);\n \n if (error) {\n console.error(`  Ошибка: ${error.message}`);\n console.error(error.stack);\n }\n \n // Выполнение afterEach\n if (this.afterEachFn) {\n try {\n this.afterEachFn();\n } catch (e) {\n console.error(`Ошибка в afterEach для теста ${test.name}:`, e);\n }\n }\n }\n \n // Статистика\n const passedCount = this.results.filter(r => r.passed).length;\n const failedCount = this.results.length - passedCount;\n \n console.log(`\\nРезультаты: ${passedCount} пройдено, ${failedCount} не пройдено`);\n \n return {\n passed: failedCount === 0,\n results: this.results\n };\n }\n}\n\n// Утверждения (assertions)\nfunction expect(value) {\n return {\n toBe(expected) {\n if (value !== expected) {\n throw new Error(`Ожидалось ${expected}, получено ${value}`);\n }\n },\n \n toEqual(expected) {\n if (JSON.stringify(value) !== JSON.stringify(expected)) {\n throw new Error(`Ожидалось ${JSON.stringify(expected)}, получено ${JSON.stringify(value)}`);\n }\n },\n \n toBeTruthy() {\n if (!value) {\n throw new Error(`Ожидалось truthy значение, получено ${value}`);\n }\n },\n \n toBeFalsy() {\n if (value) {\n throw new Error(`Ожидалось falsy значение, получено ${value}`);\n }\n },\n \n toThrow(expectedMessage) {\n try {\n value();\n throw new Error('Ожидалось исключение, но его не было');\n } catch (error) {\n if (expectedMessage && !error.message.includes(expectedMessage)) {\n throw new Error(`Ожидалось исключение с сообщением \"${expectedMessage}\", получено \"${error.message}\"`);\n }\n }\n }\n };\n}\n\n// Пример использования\nconst suite = new TestSuite();\n\nsuite.test('Сложение чисел', () => {\n expect(2 + 2).toBe(4);\n});\n\nsuite.test('Массивы', () => {\n expect([1, 2, 3]).toEqual([1, 2, 3]);\n});\n\nsuite.test('Исключения', () => {\n expect(() => { throw new Error('Тестовая ошибка'); }).toThrow('Тестовая');\n});\n\nreturn suite.run();",
+            "solution": "// Простой фреймворк для тестирования\nclass TestSuite {\n constructor() {\n this.tests = [];\n this.results = [];\n }\n \n // Добавление теста\n test(name, fn) {\n this.tests.push({name, fn});\n }\n \n // Запуск всех тестов\n async run() {\n console.log(`Запуск ${this.tests.length} тестов...`);\n \n for (const test of this.tests) {\n const start = performance.now();\n let passed = false;\n let error = null;\n \n try {\n await test.fn();\n passed = true;\n } catch (e) {\n error = e;\n passed = false;\n }\n \n const end = performance.now();\n const duration = end - start;\n \n this.results.push({\n name: test.name,\n passed,\n error,\n duration\n });\n \n const status = passed ? '✅' : '❌';\n console.log(`${status} ${test.name} (${duration.toFixed(2)}ms)`);\n }\n \n // Статистика\n const passedCount = this.results.filter(r => r.passed).length;\n const failedCount = this.results.length - passedCount;\n \n console.log(`\\nРезультаты: ${passedCount} пройдено, ${failedCount} не пройдено`);\n \n return {\n passed: failedCount === 0,\n results: this.results\n };\n }\n}",
             "hints": [
                 "Храните тесты в массиве",
                 "Используйте try-catch для перехвата ошибок",
@@ -1732,9 +1723,9 @@ const QUESTIONS_DATA = {
             "id": 100,
             "title": "Документация JSDoc",
             "difficulty": "easy",
-            "description": "Напишите документацию для функции в формате JSDoc",
+            "description": "Напишите документацию для функции в формате JSDoc.",
             "initialCode": "/**\n * Вычисляет площадь круга\n */\nfunction circleArea(radius) {\n return Math.PI * radius * radius;\n}\n\n// Дополните документацию",
-            "solution": "/**\n * Вычисляет площадь круга по заданному радиусу\n * \n * @param {number} radius - Радиус круга. Должен быть положительным числом.\n * @returns {number} Площадь круга.\n * @throws {TypeError} Если радиус не является числом.\n * @throws {RangeError} Если радиус отрицательный.\n * \n * @example\n * // Возвращает 78.53981633974483\n * circleArea(5);\n * \n * @example\n * // Выбрасывает RangeError\n * circleArea(-1);\n */\nfunction circleArea(radius) {\n if (typeof radius !== 'number') {\n throw new TypeError('Радиус должен быть числом');\n }\n \n if (radius < 0) {\n throw new RangeError('Радиус не может быть отрицательным');\n }\n \n return Math.PI * radius * radius;\n}\n\n/**\n * Класс для работы с пользователями\n * @class\n */\nclass User {\n /**\n * Создает нового пользователя\n * @constructor\n * @param {string} name - Имя пользователя\n * @param {number} age - Возраст пользователя\n * @param {Object} [options] - Дополнительные опции\n * @param {string} [options.email] - Email пользователя\n * @param {string[]} [options.roles=[]] - Роли пользователя\n */\n constructor(name, age, options = {}) {\n this.name = name;\n this.age = age;\n this.email = options.email || '';\n this.roles = options.roles || [];\n }\n \n /**\n * Проверяет, является ли пользователь взрослым\n * @returns {boolean} true если возраст >= 18\n */\n isAdult() {\n return this.age >= 18;\n }\n \n /**\n * Добавляет роль пользователю\n * @param {string} role - Название роли\n * @returns {User} this для чейнинга\n * @chainable\n */\n addRole(role) {\n if (!this.roles.includes(role)) {\n this.roles.push(role);\n }\n return this;\n }\n}\n\n/**\n * Тип для пользовательских данных\n * @typedef {Object} UserData\n * @property {string} name - Имя пользователя\n * @property {number} age - Возраст\n * @property {string} [email] - Email (опционально)\n */\n\n/**\n * Создает пользователя из данных\n * @param {UserData} data - Данные пользователя\n * @returns {User} Новый пользователь\n */\nfunction createUserFromData(data) {\n return new User(data.name, data.age, {email: data.email});\n}",
+            "solution": "/**\n * Вычисляет площадь круга по заданному радиусу\n * \n * @param {number} radius - Радиус круга. Должен быть положительным числом.\n * @returns {number} Площадь круга.\n * @throws {TypeError} Если радиус не является числом.\n * @throws {RangeError} Если радиус отрицательный.\n * \n * @example\n * // Возвращает 78.53981633974483\n * circleArea(5);\n * \n * @example\n * // Выбрасывает RangeError\n * circleArea(-1);\n */\nfunction circleArea(radius) {\n if (typeof radius !== 'number') {\n throw new TypeError('Радиус должен быть числом');\n }\n \n if (radius < 0) {\n throw new RangeError('Радиус не может быть отрицательным');\n }\n \n return Math.PI * radius * radius;\n}",
             "hints": [
                 "@param описывает параметры",
                 "@returns описывает возвращаемое значение",
@@ -1746,14 +1737,13 @@ const QUESTIONS_DATA = {
             ],
             "chapter": "Часть 10: Советы и лучшие практики"
         },
-
         {
             "id": 101,
             "title": "Базовые типы TypeScript",
             "difficulty": "easy",
-            "description": "Определите типы для переменных",
+            "description": "Определите типы для переменных: number, string, boolean, array, object.",
             "initialCode": "// Определите типы для переменных\nlet age;\nlet name;\nlet isStudent;\nlet scores;\nlet user;",
-            "solution": "// Базовые типы TypeScript\nlet age: number = 25;\nlet name: string = 'Иван';\nlet isStudent: boolean = true;\nlet scores: number[] = [90, 85, 95];\nlet user: {name: string, age: number} = {name: 'Анна', age: 30};\n\n// Другие типы\nlet nothing: null = null;\nlet notDefined: undefined = undefined;\nlet id: string | number = 'abc123'; // Union type\nid = 123; // Можно присвоить число\n\n// Tuple\nlet person: [string, number] = ['Иван', 25];\n// person[0] = 30; // Ошибка: должно быть string\n\n// Enum\nenum Color {\n Red = 'RED',\n Green = 'GREEN',\n Blue = 'BLUE'\n}\nlet favoriteColor: Color = Color.Red;\n\n// Any (избегайте)\nlet anything: any = 'может быть чем угодно';\nanything = 42;\nanything = true;\n\n// Unknown (безопасный any)\nlet unknownValue: unknown = 'неизвестно';\n// unknownValue.toUpperCase(); // Ошибка: нужно проверить тип\nif (typeof unknownValue === 'string') {\n console.log(unknownValue.toUpperCase()); // OK\n}\n\n// Never\nfunction throwError(message: string): never {\n throw new Error(message);\n}\n\n// Void\nfunction logMessage(message: string): void {\n console.log(message);\n}\n\nreturn [typeof age, typeof name, typeof isStudent, scores.length, user.name];",
+            "solution": "// Базовые типы TypeScript\nlet age: number = 25;\nlet name: string = 'Иван';\nlet isStudent: boolean = true;\nlet scores: number[] = [90, 85, 95];\nlet user: {name: string, age: number} = {name: 'Анна', age: 30};\n\nreturn [typeof age, typeof name, typeof isStudent, scores.length, user.name];",
             "hints": [
                 "number для чисел",
                 "string для строк",
@@ -1770,9 +1760,9 @@ const QUESTIONS_DATA = {
             "id": 102,
             "title": "Интерфейсы TypeScript",
             "difficulty": "medium",
-            "description": "Создайте интерфейсы для объектов",
+            "description": "Создайте интерфейс User и используйте его для типизации объекта.",
             "initialCode": "// Создайте интерфейс User\n \n \nconst user: User = {\n name: 'Иван',\n age: 25,\n email: 'ivan@example.com'\n};\n\nreturn user.name;",
-            "solution": "// Базовый интерфейс\ninterface User {\n name: string;\n age: number;\n email?: string; // Опциональное свойство\n readonly id: number; // Только для чтения\n}\n\n// Использование интерфейса\nconst user: User = {\n name: 'Иван',\n age: 25,\n email: 'ivan@example.com',\n id: 1\n};\n\n// user.id = 2; // Ошибка: readonly\n\n// Интерфейс с методами\ninterface Person {\n name: string;\n age: number;\n \n // Метод\n greet(): string;\n \n // Метод с параметром\n say(message: string): void;\n}\n\nconst person: Person = {\n name: 'Анна',\n age: 30,\n greet() {\n return `Привет, я ${this.name}`;\n },\n say(message: string) {\n console.log(`${this.name} говорит: ${message}`);\n }\n};\n\n// Наследование интерфейсов\ninterface Employee extends Person {\n employeeId: number;\n department: string;\n \n // Переопределение метода\n greet(): string; // Может возвращать более конкретный тип\n}\n\nconst employee: Employee = {\n name: 'Петр',\n age: 35,\n employeeId: 123,\n department: 'IT',\n greet() {\n return `Привет, я ${this.name} из отдела ${this.department}`;\n },\n say(message: string) {\n console.log(`Сотрудник говорит: ${message}`);\n }\n};\n\n// Интерфейс для функции\ninterface MathOperation {\n (x: number, y: number): number;\n}\n\nconst add: MathOperation = (a, b) => a + b;\nconst multiply: MathOperation = (a, b) => a * b;\n\n// Интерфейс для индексируемых типов\ninterface StringArray {\n [index: number]: string;\n}\n\nconst names: StringArray = ['Иван', 'Анна', 'Петр'];\n// names[0] = 123; // Ошибка: должно быть string\n\nreturn [user.name, person.greet(), employee.greet(), add(2, 3)];",
+            "solution": "// Интерфейс\ninterface User {\n name: string;\n age: number;\n email?: string; // Опциональное свойство\n readonly id: number; // Только для чтения\n}\n\n// Использование интерфейса\nconst user: User = {\n name: 'Иван',\n age: 25,\n email: 'ivan@example.com',\n id: 1\n};\n\nreturn user.name;",
             "hints": [
                 "interface определяет структуру объекта",
                 "? делает свойство опциональным",
@@ -1788,14 +1778,13 @@ const QUESTIONS_DATA = {
             "id": 103,
             "title": "Классы в TypeScript",
             "difficulty": "medium",
-            "description": "Создайте классы с типами",
+            "description": "Создайте класс Person с типами и модификаторами доступа.",
             "initialCode": "class Person {\n // Добавьте типы и модификаторы доступа\n \n constructor(name, age) {\n \n }\n \n greet() {\n \n }\n}",
-            "solution": "class Person {\n // Публичные свойства (по умолчанию)\n name: string;\n age: number;\n \n // Приватное свойство\n private ssn: string;\n \n // Защищенное свойство (доступно в наследниках)\n protected nickname: string;\n \n // Статическое свойство\n static species: string = 'Homo sapiens';\n \n // Свойство только для чтения\n readonly id: number;\n \n constructor(name: string, age: number, ssn: string) {\n this.name = name;\n this.age = age;\n this.ssn = ssn;\n this.nickname = name.toLowerCase();\n this.id = Math.random();\n }\n \n // Публичный метод\n greet(): string {\n return `Привет, я ${this.name}, мне ${this.age} лет`;\n }\n \n // Приватный метод\n private getFormattedSSN(): string {\n return `XXX-XX-${this.ssn.slice(-4)}`;\n }\n \n // Защищенный метод\n protected getNickname(): string {\n return this.nickname;\n }\n \n // Статический метод\n static getSpecies(): string {\n return this.species;\n }\n \n // Геттер\n get formattedSSN(): string {\n return this.getFormattedSSN();\n }\n \n // Сеттер\n set newNickname(value: string) {\n if (value.length < 2) {\n throw new Error('Никнейм слишком короткий');\n }\n this.nickname = value;\n }\n}\n\n// Наследование\nclass Employee extends Person {\n employeeId: number;\n department: string;\n \n constructor(\n name: string, \n age: number, \n ssn: string,\n employeeId: number,\n department: string\n ) {\n // Вызов родительского конструктора\n super(name, age, ssn);\n this.employeeId = employeeId;\n this.department = department;\n }\n \n // Переопределение метода\n greet(): string {\n // Вызов родительского метода\n const parentGreeting = super.greet();\n return `${parentGreeting}, работаю в отделе ${this.department}`;\n }\n \n // Метод с доступом к protected свойству\n getEmployeeNickname(): string {\n return `Сотрудник: ${this.getNickname()}`; // Доступно т.к. protected\n // this.ssn // Ошибка: private\n }\n}\n\n// Абстрактный класс\nabstract class Shape {\n constructor(public color: string) {}\n \n // Абстрактный метод (должен быть реализован в наследниках)\n abstract getArea(): number;\n \n // Конкретный метод\n getColor(): string {\n return this.color;\n }\n}\n\nclass Circle extends Shape {\n constructor(color: string, public radius: number) {\n super(color);\n }\n \n // Реализация абстрактного метода\n getArea(): number {\n return Math.PI * this.radius * this.radius;\n }\n}\n\nconst person = new Person('Иван', 25, '123-45-6789');\nconst employee = new Employee('Анна', 30, '987-65-4321', 123, 'IT');\nconst circle = new Circle('red', 5);\n\nreturn [\n person.greet(),\n employee.greet(),\n employee.getEmployeeNickname(),\n Person.species,\n circle.getArea().toFixed(2)\n];",
+            "solution": "class Person {\n // Публичные свойства\n name: string;\n age: number;\n \n // Приватное свойство\n private ssn: string;\n \n // Защищенное свойство\n protected nickname: string;\n \n constructor(name: string, age: number, ssn: string) {\n this.name = name;\n this.age = age;\n this.ssn = ssn;\n this.nickname = name.toLowerCase();\n }\n \n // Публичный метод\n greet(): string {\n return `Привет, я ${this.name}, мне ${this.age} лет`;\n }\n \n // Приватный метод\n private getFormattedSSN(): string {\n return `XXX-XX-${this.ssn.slice(-4)}`;\n }\n}\n\nconst person = new Person('Иван', 25, '123-45-6789');\nreturn person.greet();",
             "hints": [
                 "private: доступ только внутри класса",
                 "protected: доступ в классе и наследниках",
-                "public: доступ везде (по умолчанию)",
-                "abstract: должен быть реализован в наследниках"
+                "public: доступ везде (по умолчанию)"
             ],
             "tests": [
                 { "code": "class Test {name: string = 'test'}; new Test().name", "expected": 'test' }
@@ -1806,14 +1795,13 @@ const QUESTIONS_DATA = {
             "id": 104,
             "title": "Generics в TypeScript",
             "difficulty": "hard",
-            "description": "Используйте generics для обобщенных типов",
+            "description": "Используйте generics для обобщенных типов.",
             "initialCode": "// Создайте generic функцию\nfunction identity(arg) {\n return arg;\n}\n\n// Создайте generic класс\n ",
-            "solution": "// Generic функция\nfunction identity<T>(arg: T): T {\n return arg;\n}\n\n// Использование с явным указанием типа\nconst str = identity<string>('текст'); // string\nconst num = identity<number>(42); // number\n\n// Использование с выводом типа\nconst inferredStr = identity('текст'); // string\nconst inferredNum = identity(42); // number\n\n// Generic с несколькими параметрами\nfunction pair<K, V>(key: K, value: V): [K, V] {\n return [key, value];\n}\n\nconst stringNumberPair = pair<string, number>('age', 25); // [string, number]\nconst numberBooleanPair = pair(1, true); // [number, boolean] (вывод типа)\n\n// Generic класс\nclass Box<T> {\n private value: T;\n \n constructor(value: T) {\n this.value = value;\n }\n \n getValue(): T {\n return this.value;\n }\n \n setValue(value: T): void {\n this.value = value;\n }\n}\n\nconst numberBox = new Box<number>(10);\nconst stringBox = new Box('текст'); // Вывод типа: Box<string>\n\n// Ограничения generic (constraints)\ninterface HasLength {\n length: number;\n}\n\nfunction logLength<T extends HasLength>(arg: T): T {\n console.log(`Длина: ${arg.length}`);\n return arg;\n}\n\nlogLength('строка'); // OK, строка имеет length\nlogLength([1, 2, 3]); // OK, массив имеет length\n// logLength(42); // Ошибка: число не имеет length\n\n// Generic с ключами объекта\nfunction getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {\n return obj[key];\n}\n\nconst person = {name: 'Иван', age: 25};\nconst name = getProperty(person, 'name'); // string\nconst age = getProperty(person, 'age'); // number\n// const unknown = getProperty(person, 'email'); // Ошибка: 'email' не существует\n\n// Generic интерфейсы\ninterface Repository<T> {\n findById(id: number): T | null;\n save(entity: T): T;\n delete(id: number): boolean;\n findAll(): T[];\n}\n\nclass UserRepository implements Repository<User> {\n findById(id: number): User | null {\n return null; // Реализация\n }\n \n save(user: User): User {\n return user; // Реализация\n }\n \n delete(id: number): boolean {\n return true; // Реализация\n }\n \n findAll(): User[] {\n return []; // Реализация\n }\n}\n\n// Utility types\ninterface User {\n id: number;\n name: string;\n age: number;\n email?: string;\n}\n\n// Partial: все свойства опциональны\ntype PartialUser = Partial<User>;\nconst partialUser: PartialUser = {name: 'Иван'}; // OK\n\n// Readonly: все свойства только для чтения\ntype ReadonlyUser = Readonly<User>;\nconst readonlyUser: ReadonlyUser = {id: 1, name: 'Иван', age: 25};\n// readonlyUser.name = 'Петр'; // Ошибка\n\n// Pick: выбирает конкретные свойства\ntype UserNameAndAge = Pick<User, 'name' | 'age'>;\nconst nameAndAge: UserNameAndAge = {name: 'Иван', age: 25};\n\n// Omit: исключает свойства\ntype UserWithoutEmail = Omit<User, 'email'>;\nconst userWithoutEmail: UserWithoutEmail = {id: 1, name: 'Иван', age: 25};\n\nreturn [\n identity('test'),\n pair('key', 'value'),\n numberBox.getValue(),\n name\n];",
+            "solution": "// Generic функция\nfunction identity<T>(arg: T): T {\n return arg;\n}\n\n// Generic класс\nclass Box<T> {\n private value: T;\n \n constructor(value: T) {\n this.value = value;\n }\n \n getValue(): T {\n return this.value;\n }\n}\n\nconst numberBox = new Box<number>(10);\nconst stringBox = new Box('текст');\n\nreturn [\n identity('test'),\n identity(5),\n numberBox.getValue(),\n stringBox.getValue()\n];",
             "hints": [
                 "<T> определяет generic параметр",
                 "extends добавляет ограничения",
-                "keyof получает ключи типа",
-                "T[K] получает тип свойства"
+                "keyof получает ключи типа"
             ],
             "tests": [
                 { "code": "function identity<T>(x: T): T { return x; } identity(5)", "expected": 5 }
@@ -1824,14 +1812,13 @@ const QUESTIONS_DATA = {
             "id": 105,
             "title": "Типы для функций в TypeScript",
             "difficulty": "medium",
-            "description": "Определите типы для функций",
+            "description": "Определите типы для функций.",
             "initialCode": "// Определите типы для функций\nfunction add(a, b) {\n return a + b;\n}\n\nconst multiply = (a, b) => a * b;\n\n// Тип для функции обратного вызова\n ",
-            "solution": "// Явное указание типов параметров и возвращаемого значения\nfunction add(a: number, b: number): number {\n return a + b;\n}\n\n// Стрелочная функция с типами\nconst multiply = (a: number, b: number): number => a * b;\n\n// Функция с опциональным параметром\nfunction greet(name: string, greeting?: string): string {\n return `${greeting || 'Привет'}, ${name}!`;\n}\n\n// Функция с параметром по умолчанию\nfunction createUser(name: string, age: number = 18): {name: string, age: number} {\n return {name, age};\n}\n\n// Функция с rest параметрами\nfunction sum(...numbers: number[]): number {\n return numbers.reduce((total, num) => total + num, 0);\n}\n\n// Тип для функции\ntype MathOperation = (x: number, y: number) => number;\n\nconst divide: MathOperation = (a, b) => a / b;\n\n// Функция, возвращающая функцию\nfunction createMultiplier(factor: number): MathOperation {\n return (x) => x * factor;\n}\n\nconst double = createMultiplier(2);\nconst triple = createMultiplier(3);\n\n// Перегрузки функций (function overloads)\nfunction processInput(input: string): string;\nfunction processInput(input: number): number;\nfunction processInput(input: string | number): string | number {\n if (typeof input === 'string') {\n return input.toUpperCase();\n }\n return input * input;\n}\n\n// Тип для функции обратного вызова\ntype Callback<T> = (error: Error | null, result: T) => void;\n\nfunction fetchData(callback: Callback<string>): void {\n setTimeout(() => {\n callback(null, 'данные');\n }, 100);\n}\n\n// Асинхронная функция\nasync function fetchUser(id: number): Promise<{id: number, name: string}> {\n return new Promise(resolve => {\n setTimeout(() => {\n resolve({id, name: 'Иван'});\n }, 100);\n });\n}\n\n// Функция с this параметром\ninterface Counter {\n count: number;\n increment(): void;\n}\n\nfunction createCounter(): Counter {\n return {\n count: 0,\n increment(this: Counter) {\n this.count++;\n }\n };\n}\n\n// Функция-конструктор\ntype Constructor<T> = new (...args: any[]) => T;\n\nclass Animal {\n constructor(public name: string) {}\n}\n\nfunction createAnimal(ctor: Constructor<Animal>, name: string): Animal {\n return new ctor(name);\n}\n\nconst animal = createAnimal(Animal, 'Кот');\n\nreturn [\n add(2, 3),\n multiply(4, 5),\n greet('Иван'),\n sum(1, 2, 3),\n double(5),\n processInput('hello'),\n processInput(5)\n];",
+            "solution": "// Явное указание типов\nfunction add(a: number, b: number): number {\n return a + b;\n}\n\n// Стрелочная функция с типами\nconst multiply = (a: number, b: number): number => a * b;\n\n// Тип для функции\ntype MathOperation = (x: number, y: number) => number;\n\nconst divide: MathOperation = (a, b) => a / b;\n\n// Тип для функции обратного вызова\ntype Callback<T> = (error: Error | null, result: T) => void;\n\nreturn [\n add(2, 3),\n multiply(4, 5),\n divide(10, 2)\n];",
             "hints": [
                 "function name(param: type): returnType",
                 "(param: type) => returnType для стрелочных функций",
-                "type Name = (params) => returnType для типов функций",
-                "async function(): Promise<type> для асинхронных функций"
+                "type Name = (params) => returnType для типов функций"
             ],
             "tests": [
                 { "code": "function add(a: number, b: number): number { return a + b; } add(2, 3)", "expected": 5 }
@@ -1842,9 +1829,9 @@ const QUESTIONS_DATA = {
             "id": 106,
             "title": "Утилитарные типы TypeScript",
             "difficulty": "hard",
-            "description": "Используйте утилитарные типы",
+            "description": "Используйте утилитарные типы.",
             "initialCode": "interface User {\n id: number;\n name: string;\n age: number;\n email?: string;\n}\n\n// Создайте типы с помощью utility types\n ",
-            "solution": "interface User {\n id: number;\n name: string;\n age: number;\n email?: string;\n address?: {\n city: string;\n street: string;\n };\n}\n\n// 1. Partial<T> - все свойства становятся опциональными\ntype PartialUser = Partial<User>;\nconst partialUser: PartialUser = {\n name: 'Иван' // Можно задать только name\n};\n\n// 2. Required<T> - все свойства становятся обязательными\ntype RequiredUser = Required<User>;\nconst requiredUser: RequiredUser = {\n id: 1,\n name: 'Иван',\n age: 25,\n email: 'ivan@example.com',\n address: {city: 'Москва', street: 'Ленина'}\n};\n\n// 3. Readonly<T> - все свойства только для чтения\ntype ReadonlyUser = Readonly<User>;\nconst readonlyUser: ReadonlyUser = {\n id: 1,\n name: 'Иван',\n age: 25\n};\n// readonlyUser.name = 'Петр'; // Ошибка\n\n// 4. Record<K, T> - создает тип с ключами K и значениями T\ntype UserRoles = Record<string, string[]>;\nconst roles: UserRoles = {\n admin: ['read', 'write', 'delete'],\n user: ['read']\n};\n\ntype UserDictionary = Record<number, User>;\nconst usersById: UserDictionary = {\n 1: {id: 1, name: 'Иван', age: 25},\n 2: {id: 2, name: 'Анна', age: 30}\n};\n\n// 5. Pick<T, K> - выбирает свойства K из T\ntype UserNameAndAge = Pick<User, 'name' | 'age'>;\nconst nameAndAge: UserNameAndAge = {\n name: 'Иван',\n age: 25\n};\n\n// 6. Omit<T, K> - исключает свойства K из T\ntype UserWithoutId = Omit<User, 'id'>;\nconst userWithoutId: UserWithoutId = {\n name: 'Иван',\n age: 25,\n email: 'ivan@example.com'\n};\n\n// 7. Exclude<T, U> - исключает из T типы, которые можно присвоить U\ntype AllowedTypes = string | number | boolean;\ntype OnlyStrings = Exclude<AllowedTypes, number | boolean>; // string\n\n// 8. Extract<T, U> - извлекает из T типы, которые можно присвоить U\ntype PossibleTypes = string | number | User;\ntype OnlyObjects = Extract<PossibleTypes, object>; // User\n\n// 9. NonNullable<T> - удаляет null и undefined из T\ntype MaybeString = string | null | undefined;\ntype DefinitelyString = NonNullable<MaybeString>; // string\n\n// 10. Parameters<T> - получает типы параметров функции\ntype Func = (a: number, b: string) => boolean;\ntype FuncParams = Parameters<Func>; // [number, string]\n\n// 11. ReturnType<T> - получает тип возвращаемого значения\ntype FuncReturn = ReturnType<Func>; // boolean\n\n// 12. ConstructorParameters<T> - параметры конструктора класса\ntype AnimalConstructorParams = ConstructorParameters<typeof Animal>; // [string]\n\n// 13. InstanceType<T> - тип экземпляра класса\ntype AnimalInstance = InstanceType<typeof Animal>; // Animal\n\n// 14. ThisParameterType<T> - тип this параметра\nfunction sayHello(this: User) {\n return `Привет, я ${this.name}`;\n}\ntype ThisType = ThisParameterType<typeof sayHello>; // User\n\n// 15. OmitThisParameter<T> - удаляет this параметр\ntype WithoutThis = OmitThisParameter<typeof sayHello>; // () => string\n\n// 16. ThisType<T> - задает тип this в объекте\ninterface UserMethods {\n getName(): string;\n}\n\ntype UserWithMethods = User & ThisType<UserMethods>;\n\nconst userWithMethods: UserWithMethods = {\n id: 1,\n name: 'Иван',\n age: 25,\n getName() {\n return this.name; // this имеет тип UserMethods & User\n }\n};\n\n// Собственные utility types\ntype Nullable<T> = T | null | undefined;\ntype Maybe<T> = T | undefined;\ntype ValueOf<T> = T[keyof T];\n\ntype UserValues = ValueOf<User>; // number | string | {city: string, street: string} | undefined\n\n// Conditional types\ntype IsString<T> = T extends string ? true : false;\ntype A = IsString<string>; // true\ntype B = IsString<number>; // false\n\ntype ArrayElement<T> = T extends (infer U)[] ? U : never;\ntype Element = ArrayElement<string[]>; // string\ntype Element2 = ArrayElement<User[]>; // User\n\ntype PromiseValue<T> = T extends Promise<infer U> ? U : never;\ntype Value = PromiseValue<Promise<string>>; // string\n\n// Mapped types\ntype Optionalize<T> = {\n [K in keyof T]?: T[K];\n};\n\ntype Readonlyify<T> = {\n readonly [K in keyof T]: T[K];\n};\n\ntype Getters<T> = {\n [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];\n};\n\ntype UserGetters = Getters<UserNameAndAge>;\n// {\n// getName: () => string;\n// getAge: () => number;\n// }\n\nreturn [\n partialUser.name,\n requiredUser.name,\n nameAndAge.name,\n userWithoutId.name\n];",
+            "solution": "interface User {\n id: number;\n name: string;\n age: number;\n email?: string;\n}\n\n// Utility types\n// Partial<T> - все свойства становятся опциональными\ntype PartialUser = Partial<User>;\n\n// Required<T> - все свойства становятся обязательными\ntype RequiredUser = Required<User>;\n\n// Readonly<T> - все свойства только для чтения\ntype ReadonlyUser = Readonly<User>;\n\n// Pick<T, K> - выбирает свойства K из T\ntype UserNameAndAge = Pick<User, 'name' | 'age'>;\n\n// Omit<T, K> - исключает свойства K из T\ntype UserWithoutId = Omit<User, 'id'>;\n\nreturn 'Utility types готовы';",
             "hints": [
                 "Partial делает все свойства опциональными",
                 "Required делает все свойства обязательными",
@@ -1860,14 +1847,13 @@ const QUESTIONS_DATA = {
             "id": 107,
             "title": "Декораторы в TypeScript",
             "difficulty": "hard",
-            "description": "Используйте декораторы для метапрограммирования",
+            "description": "Используйте декораторы для метапрограммирования.",
             "initialCode": "// Создайте декораторы для классов и методов\n ",
-            "solution": "// Декоратор класса\nfunction sealed(constructor: Function) {\n Object.seal(constructor);\n Object.seal(constructor.prototype);\n}\n\n// Декоратор класса с параметрами\nfunction logger(prefix: string) {\n return function(constructor: Function) {\n console.log(`${prefix}: ${constructor.name} создан`);\n };\n}\n\n// Декоратор метода\nfunction enumerable(value: boolean) {\n return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {\n descriptor.enumerable = value;\n };\n}\n\n// Декоратор свойства\nfunction format(formatString: string) {\n return function(target: any, propertyKey: string) {\n let value = target[propertyKey];\n \n const getter = function() {\n return value;\n };\n \n const setter = function(newVal: any) {\n value = `${formatString} ${newVal}`;\n };\n \n Object.defineProperty(target, propertyKey, {\n get: getter,\n set: setter,\n enumerable: true,\n configurable: true\n });\n };\n}\n\n// Декоратор параметра\nfunction validate(min: number, max: number) {\n return function(target: any, propertyKey: string, parameterIndex: number) {\n // Сохраняем метаданные валидации\n const existingValidations = Reflect.getOwnMetadata('validations', target, propertyKey) || [];\n existingValidations.push({\n parameterIndex,\n min,\n max\n });\n Reflect.defineMetadata('validations', existingValidations, target, propertyKey);\n };\n}\n\n// Декоратор доступа\nfunction configurable(value: boolean) {\n return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {\n descriptor.configurable = value;\n };\n}\n\n// Декоратор фабрика для отслеживания вызовов\nfunction trackCalls() {\n return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {\n const originalMethod = descriptor.value;\n let callCount = 0;\n \n descriptor.value = function(...args: any[]) {\n callCount++;\n console.log(`Метод ${propertyKey} вызван ${callCount} раз`);\n return originalMethod.apply(this, args);\n };\n \n // Добавляем метод для получения счетчика\n descriptor.value.getCallCount = () => callCount;\n \n return descriptor;\n };\n}\n\n// Применение декораторов\n@logger('Класс')\n@sealed\nclass Person {\n @format('Господин')\n name: string;\n \n private _age: number;\n \n constructor(name: string, @validate(0, 150) age: number) {\n this.name = name;\n this._age = age;\n }\n \n @enumerable(false)\n @trackCalls()\n greet(@validate(1, 10) times: number = 1): string {\n return `Привет, я ${this.name}! `.repeat(times).trim();\n }\n \n @configurable(false)\n get age(): number {\n return this._age;\n }\n \n set age(value: number) {\n if (value < 0 || value > 150) {\n throw new Error('Некорректный возраст');\n }\n this._age = value;\n }\n \n // Статический метод с декоратором\n @trackCalls()\n static create(name: string, age: number): Person {\n return new Person(name, age);\n }\n}\n\n// Декоратор для внедрения зависимости\nfunction inject(service: string) {\n return function(target: any, propertyKey: string) {\n // В реальном приложении здесь была бы логика DI\n let value: any;\n \n const getter = function() {\n if (!value) {\n // Создание сервиса\n switch(service) {\n case 'Logger':\n value = {\n log: (msg: string) => console.log(msg)\n };\n break;\n case 'ApiService':\n value = {\n fetch: () => Promise.resolve('данные')\n };\n break;\n }\n }\n return value;\n };\n \n Object.defineProperty(target, propertyKey, {\n get: getter,\n enumerable: true,\n configurable: true\n });\n };\n}\n\nclass UserController {\n @inject('Logger')\n private logger: any;\n \n @inject('ApiService')\n private api: any;\n \n async getUsers() {\n this.logger.log('Запрос пользователей');\n const data = await this.api.fetch();\n return data;\n }\n}\n\n// Экспериментальные декораторы (нужна настройка в tsconfig.json)\n// {\n// \"experimentalDecorators\": true,\n// \"emitDecoratorMetadata\": true\n// }\n\nconst person = new Person('Иван', 25);\nperson.greet();\nperson.greet();\n\nconst greetMethod = person.greet as any;\nconst callCount = greetMethod.getCallCount ? greetMethod.getCallCount() : 0;\n\nreturn [\n person.name,\n person.greet(2),\n callCount\n];",
+            "solution": "// Декоратор класса\nfunction sealed(constructor: Function) {\n Object.seal(constructor);\n Object.seal(constructor.prototype);\n}\n\n// Декоратор метода\nfunction enumerable(value: boolean) {\n return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {\n descriptor.enumerable = value;\n };\n}\n\n// Применение декораторов\n@sealed\nclass Person {\n name: string;\n \n constructor(name: string) {\n this.name = name;\n }\n \n @enumerable(false)\n greet() {\n return `Привет, я ${this.name}`;\n }\n}\n\nconst person = new Person('Иван');\nreturn person.greet();",
             "hints": [
                 "Декоратор класса получает конструктор",
                 "Декоратор метода получает target, propertyKey, descriptor",
-                "Декоратор свойства получает target, propertyKey",
-                "Декоратор параметра получает target, propertyKey, parameterIndex"
+                "Декоратор свойства получает target, propertyKey"
             ],
             "tests": [
                 { "code": "function testDecorator(target: any) { target.decorated = true; } @testDecorator class Test {} (Test as any).decorated", "expected": true }
@@ -1878,14 +1864,13 @@ const QUESTIONS_DATA = {
             "id": 108,
             "title": "Продвинутые типы TypeScript",
             "difficulty": "hard",
-            "description": "Используйте продвинутые типы",
-            "initialCode": "// Используйте conditional types, mapped types, template literal types\n ",
-            "solution": "// 1. Conditional Types (Условные типы)\ntype IsArray<T> = T extends any[] ? true : false;\n\ntype A = IsArray<number[]>; // true\ntype B = IsArray<string>; // false\n\n// Distributive conditional types\ntype ToArray<T> = T extends any ? T[] : never;\ntype StrOrNumArray = ToArray<string | number>; // string[] | number[]\n\n// Infer keyword\ntype ElementType<T> = T extends (infer U)[] ? U : T;\ntype E1 = ElementType<string[]>; // string\ntype E2 = ElementType<number>; // number\n\ntype ReturnType2<T> = T extends (...args: any[]) => infer R ? R : any;\ntype R1 = ReturnType2<() => string>; // string\ntype R2 = ReturnType2<(x: number) => number>; // number\n\n// 2. Mapped Types (Отображаемые типы)\ntype Readonly2<T> = {\n readonly [K in keyof T]: T[K];\n};\n\ntype Optional2<T> = {\n [K in keyof T]?: T[K];\n};\n\n// Modifiers: + и -\ntype Concrete2<T> = {\n -readonly [K in keyof T]: T[K];\n};\n\ntype Required2<T> = {\n [K in keyof T]-?: T[K];\n};\n\n// Key remapping\ntype Getters2<T> = {\n [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];\n};\n\ninterface User2 {\n name: string;\n age: number;\n}\n\ntype UserGetters2 = Getters2<User2>;\n// {\n// getName: () => string;\n// getAge: () => number;\n// }\n\n// Фильтрация ключей\ntype MethodsOnly<T> = {\n [K in keyof T as T[K] extends Function ? K : never]: T[K];\n};\n\n// 3. Template Literal Types (Типы шаблонных литералов)\ntype EventName = 'click' | 'hover' | 'drag';\ntype HandlerName = `on${Capitalize<EventName>}`;\n// 'onClick' | 'onHover' | 'onDrag'\n\ntype GetterName<T extends string> = `get${Capitalize<T>}`;\ntype SetterName<T extends string> = `set${Capitalize<T>}`;\n\ntype Name = 'name' | 'age';\ntype NameAccessors = GetterName<Name> | SetterName<Name>;\n// 'getName' | 'getAge' | 'setName' | 'setAge'\n\n// Интеллектуальные строковые типы\ntype CSSUnits = 'px' | 'em' | 'rem' | '%';\ntype CSSProperty = `margin${Capitalize<CSSUnits>}` | `padding${Capitalize<CSSUnits>}`;\n// 'marginPx' | 'marginEm' | 'marginRem' | 'margin%' | 'paddingPx' | ...\n\n// 4. Recursive Types (Рекурсивные типы)\ntype Json = \n | string\n | number\n | boolean\n | null\n | Json[]\n | {[key: string]: Json};\n\nconst json: Json = {\n name: 'Иван',\n age: 25,\n tags: ['admin', 'user'],\n metadata: {\n created: '2024-01-01',\n active: true\n }\n};\n\n// 5. Branded Types (Брендированные типы)\ntype UserId = number & { readonly brand: unique symbol };\ntype ProductId = number & { readonly brand: unique symbol };\n\nfunction createUserId(id: number): UserId {\n return id as UserId;\n}\n\nfunction createProductId(id: number): ProductId {\n return id as ProductId;\n}\n\nconst userId = createUserId(1);\nconst productId = createProductId(1);\n\n// userId === productId // Ошибка типов, хотя оба number\n\n// 6. Type Guards (Защитники типов)\nfunction isString(value: any): value is string {\n return typeof value === 'string';\n}\n\nfunction process(value: string | number) {\n if (isString(value)) {\n // TypeScript знает, что value - string\n return value.toUpperCase();\n } else {\n // TypeScript знает, что value - number\n return value.toFixed(2);\n }\n}\n\n// 7. Assertion Functions (Функции утверждения)\nfunction assertIsString(value: any): asserts value is string {\n if (typeof value !== 'string') {\n throw new Error('Значение не является строкой');\n }\n}\n\nfunction assert(condition: any, msg?: string): asserts condition {\n if (!condition) {\n throw new Error(msg);\n }\n}\n\n// 8. Indexed Access Types (Типы доступа по индексу)\ntype User3 = {\n id: number;\n name: string;\n address: {\n city: string;\n street: string;\n };\n};\n\ntype UserIdType = User3['id']; // number\ntype UserAddress = User3['address']; // {city: string; street: string}\ntype UserAddressCity = User3['address']['city']; // string\n\n// Все значения\ntype UserValues3 = User3[keyof User3]; // number | string | {city: string; street: string}\n\n// 9. Const Assertions (Константные утверждения)\nconst colors = ['red', 'green', 'blue'] as const;\ntype Color = typeof colors[number]; // 'red' | 'green' | 'blue'\n\nconst user = {\n name: 'Иван',\n age: 25\n} as const;\n// user.name = 'Петр'; // Ошибка: readonly\n\ntype ReadonlyUser = typeof user;\n// {\n// readonly name: 'Иван';\n// readonly age: 25;\n// }\n\n// 10. Satisfies Operator (Оператор satisfies)\nconst config = {\n port: 3000,\n host: 'localhost',\n retry: true\n} satisfies {\n port: number;\n host: string;\n retry?: boolean;\n};\n\n// config.port.toFixed(); // OK\n// config.host.toUpperCase(); // OK\n// config.unknown; // Ошибка\n\nreturn [\n process('hello'),\n process(3.14159),\n colors.join(', '),\n config.port\n];",
+            "description": "Используйте conditional types, mapped types.",
+            "initialCode": "// Используйте conditional types, mapped types\n ",
+            "solution": "// Conditional Types\ntype IsArray<T> = T extends any[] ? true : false;\n\ntype A = IsArray<number[]>; // true\ntype B = IsArray<string>; // false\n\n// Mapped Types\ntype Readonly2<T> = {\n readonly [K in keyof T]: T[K];\n};\n\ntype Optional2<T> = {\n [K in keyof T]?: T[K];\n};\n\ninterface User2 {\n name: string;\n age: number;\n}\n\ntype ReadonlyUser = Readonly2<User2>;\ntype OptionalUser = Optional2<User2>;\n\nreturn 'Продвинутые типы готовы';",
             "hints": [
                 "T extends U ? X : Y для условных типов",
                 "[K in keyof T] для mapped types",
-                "`text${T}` для template literal types",
-                "as const для константных утверждений"
+                "`text${T}` для template literal types"
             ],
             "tests": [
                 { "code": "type Test<T> = T extends string ? 'string' : 'not string'; type R = Test<'hello'>", "expected": 'string' }
@@ -1896,14 +1881,13 @@ const QUESTIONS_DATA = {
             "id": 109,
             "title": "TypeScript с библиотеками",
             "difficulty": "hard",
-            "description": "Используйте TypeScript с внешними библиотеками",
+            "description": "Используйте TypeScript с внешними библиотеками.",
             "initialCode": "// Определите типы для работы с DOM API\n// Определите типы для fetch API\n ",
-            "solution": "// 1. Типы для DOM API\n// TypeScript включает типы для DOM из коробки\n\n// Элементы\nconst div: HTMLDivElement = document.createElement('div');\nconst input: HTMLInputElement = document.createElement('input');\nconst button: HTMLButtonElement = document.createElement('button');\nconst form: HTMLFormElement = document.createElement('form');\n\n// События\nbutton.addEventListener('click', (event: MouseEvent) => {\n console.log(event.clientX, event.clientY);\n});\n\ninput.addEventListener('input', (event: Event) => {\n const target = event.target as HTMLInputElement;\n console.log(target.value);\n});\n\nform.addEventListener('submit', (event: SubmitEvent) => {\n event.preventDefault();\n // Обработка формы\n});\n\n// 2. Типы для Fetch API\nasync function fetchWithTypes<T>(url: string, options?: RequestInit): Promise<T> {\n const response = await fetch(url, options);\n \n if (!response.ok) {\n throw new Error(`HTTP error ${response.status}: ${response.statusText}`);\n }\n \n return response.json() as Promise<T>;\n}\n\n// Использование с типами\ninterface User {\n id: number;\n name: string;\n email: string;\n}\n\ninterface Post {\n id: number;\n title: string;\n body: string;\n userId: number;\n}\n\nasync function getUsers(): Promise<User[]> {\n return fetchWithTypes<User[]>('https://jsonplaceholder.typicode.com/users');\n}\n\nasync function createUser(user: Omit<User, 'id'>): Promise<User> {\n return fetchWithTypes<User>('https://jsonplaceholder.typicode.com/users', {\n method: 'POST',\n headers: {\n 'Content-Type': 'application/json'\n },\n body: JSON.stringify(user)\n });\n}\n\n// 3. Типы для localStorage\nfunction saveToLocalStorage<T>(key: string, value: T): void {\n localStorage.setItem(key, JSON.stringify(value));\n}\n\nfunction loadFromLocalStorage<T>(key: string, defaultValue: T): T {\n const item = localStorage.getItem(key);\n if (item === null) {\n return defaultValue;\n }\n \n try {\n return JSON.parse(item) as T;\n } catch {\n return defaultValue;\n }\n}\n\n// 4. Типы для setTimeout/setInterval\nlet timeoutId: number;\nlet intervalId: number;\n\nfunction startTimer(callback: () => void, delay: number): number {\n timeoutId = setTimeout(callback, delay);\n return timeoutId;\n}\n\nfunction startInterval(callback: () => void, interval: number): number {\n intervalId = setInterval(callback, interval);\n return intervalId;\n}\n\n// 5. Типы для Web Workers\n// worker.ts\ndeclare function postMessage(message: any): void;\n\n// main.ts\nconst worker = new Worker('worker.js');\n\nworker.onmessage = (event: MessageEvent) => {\n const data = event.data;\n console.log('Получено от worker:', data);\n};\n\nworker.postMessage({type: 'start', data: [1, 2, 3]});\n\n// 6. Типы для Geolocation API\nfunction getCurrentPosition(): Promise<GeolocationPosition> {\n return new Promise((resolve, reject) => {\n if (!navigator.geolocation) {\n reject(new Error('Geolocation не поддерживается'));\n return;\n }\n \n navigator.geolocation.getCurrentPosition(resolve, reject);\n });\n}\n\n// 7. Типы для Canvas API\nfunction drawOnCanvas(canvas: HTMLCanvasElement) {\n const ctx = canvas.getContext('2d');\n \n if (!ctx) {\n throw new Error('Canvas context не доступен');\n }\n \n // TypeScript знает типы для CanvasRenderingContext2D\n ctx.fillStyle = 'red';\n ctx.fillRect(10, 10, 100, 100);\n \n ctx.beginPath();\n ctx.arc(200, 200, 50, 0, Math.PI * 2);\n ctx.stroke();\n \n // Градиенты\n const gradient = ctx.createLinearGradient(0, 0, 200, 0);\n gradient.addColorStop(0, 'red');\n gradient.addColorStop(1, 'blue');\n ctx.fillStyle = gradient;\n ctx.fillRect(300, 10, 200, 100);\n}\n\n// 8. Типы для Audio API\nfunction playAudio(url: string): HTMLAudioElement {\n const audio = new Audio(url);\n audio.play();\n \n audio.addEventListener('ended', () => {\n console.log('Аудио завершено');\n });\n \n return audio;\n}\n\n// 9. Типы для Drag and Drop API\nfunction makeDraggable(element: HTMLElement) {\n element.draggable = true;\n \n element.addEventListener('dragstart', (event: DragEvent) => {\n if (!event.dataTransfer) return;\n event.dataTransfer.setData('text/plain', element.id);\n });\n}\n\nfunction makeDropzone(element: HTMLElement) {\n element.addEventListener('dragover', (event: DragEvent) => {\n event.preventDefault();\n });\n \n element.addEventListener('drop', (event: DragEvent) => {\n event.preventDefault();\n if (!event.dataTransfer) return;\n \n const data = event.dataTransfer.getData('text/plain');\n console.log('Перетащено:', data);\n });\n}\n\n// 10. Типы для Intersection Observer API\nfunction createObserver(element: Element, callback: IntersectionObserverCallback) {\n const observer = new IntersectionObserver(callback, {\n threshold: 0.5\n });\n \n observer.observe(element);\n return observer;\n}\n\n// 11. Типы для Resize Observer API\nfunction observeResize(element: Element, callback: ResizeObserverCallback) {\n const observer = new ResizeObserver(callback);\n observer.observe(element);\n return observer;\n}\n\n// 12. Типы для Mutation Observer API\nfunction observeMutations(element: Node, callback: MutationCallback) {\n const observer = new MutationObserver(callback);\n observer.observe(element, {\n childList: true,\n attributes: true,\n subtree: true\n });\n return observer;\n}\n\n// 13. Типы для Performance API\nfunction measurePerformance(name: string, callback: () => void) {\n performance.mark(`${name}-start`);\n callback();\n performance.mark(`${name}-end`);\n \n performance.measure(name, `${name}-start`, `${name}-end`);\n \n const measure = performance.getEntriesByName(name)[0];\n console.log(`${name}: ${measure.duration.toFixed(2)}ms`);\n}\n\n// 14. Собственные декларации типов\n// types.d.ts\ndeclare module 'my-library' {\n export function myFunction(): string;\n export const myConstant: number;\n export interface MyInterface {\n prop: string;\n }\n}\n\n// Использование\n// import { myFunction } from 'my-library';\n\n// 15. Глобальные декларации\ndeclare global {\n interface Window {\n myGlobalFunction: () => void;\n }\n \n interface Document {\n myDocumentMethod: () => string;\n }\n}\n\n// Теперь TypeScript знает об этих расширениях\n// window.myGlobalFunction = () => console.log('Hello');\n// document.myDocumentMethod = () => 'Hello';\n\nreturn 'TypeScript с библиотеками готов';",
+            "solution": "// Типы для DOM API\nconst div: HTMLDivElement = document.createElement('div');\nconst button: HTMLButtonElement = document.createElement('button');\n\nbutton.addEventListener('click', (event: MouseEvent) => {\n console.log(event.clientX, event.clientY);\n});\n\n// Типы для Fetch API\nasync function fetchWithTypes<T>(url: string): Promise<T> {\n const response = await fetch(url);\n \n if (!response.ok) {\n throw new Error(`HTTP error ${response.status}`);\n }\n \n return response.json() as Promise<T>;\n}\n\ninterface User {\n id: number;\n name: string;\n}\n\n// Использование\nasync function getUsers(): Promise<User[]> {\n return fetchWithTypes<User[]>('https://jsonplaceholder.typicode.com/users');\n}\n\nreturn 'TypeScript с библиотеками готов';",
             "hints": [
                 "TypeScript включает типы для DOM API",
                 "Используйте generics для fetch: Promise<T>",
-                "Создавайте декларации типов для внешних библиотек",
-                "declare global для расширения глобальных типов"
+                "Создавайте декларации типов для внешних библиотек"
             ],
             "tests": [
                 { "code": "const div: HTMLDivElement = document.createElement('div'); div.tagName", "expected": 'DIV' }
@@ -1914,14 +1898,13 @@ const QUESTIONS_DATA = {
             "id": 110,
             "title": "Миграция JS проекта на TypeScript",
             "difficulty": "hard",
-            "description": "Напишите скрипт миграции JS кода на TypeScript",
+            "description": "Напишите скрипт миграции JS кода на TypeScript.",
             "initialCode": "// JavaScript код\nfunction calculateTotal(items) {\n return items.reduce((total, item) => total + item.price, 0);\n}\n\nfunction getUserById(id, users) {\n return users.find(user => user.id === id);\n}\n\n// Конвертируйте в TypeScript\n ",
-            "solution": "// 1. Начало миграции\n// tsconfig.json\n{\n \"compilerOptions\": {\n \"target\": \"ES2020\",\n \"module\": \"ESNext\",\n \"lib\": [\"ES2020\", \"DOM\"],\n \"strict\": true,\n \"esModuleInterop\": true,\n \"skipLibCheck\": true,\n \"forceConsistentCasingInFileNames\": true,\n \"outDir\": \"./dist\",\n \"rootDir\": \"./src\"\n },\n \"include\": [\"src/**/*\"],\n \"exclude\": [\"node_modules\", \"dist\"]\n}\n\n// 2. Переименование файлов .js -> .ts\n// calculator.js -> calculator.ts\n// Перемещение в src/\n\n// 3. Постепенная миграция с any\n// Первый шаг: добавление any для быстрой компиляции\n\n// Исходный JavaScript\nfunction calculateTotal(items) {\n return items.reduce((total, item) => total + item.price, 0);\n}\n\n// TypeScript с any\nfunction calculateTotalAny(items: any[]): any {\n return items.reduce((total: any, item: any) => total + item.price, 0);\n}\n\n// 4. Постепенная типизация\ninterface Item {\n id: number;\n name: string;\n price: number;\n category?: string; // Опциональное свойство\n}\n\nfunction calculateTotalTyped(items: Item[]): number {\n return items.reduce((total, item) => total + item.price, 0);\n}\n\n// 5. Типизация функции с параметрами\ninterface User {\n id: number;\n name: string;\n email: string;\n age?: number;\n}\n\nfunction getUserById(id: number, users: User[]): User | undefined {\n return users.find(user => user.id === id);\n}\n\n// 6. Типизация классов\nclass ShoppingCart {\n private items: Item[] = [];\n \n addItem(item: Item): void {\n this.items.push(item);\n }\n \n removeItem(itemId: number): void {\n this.items = this.items.filter(item => item.id !== itemId);\n }\n \n getTotal(): number {\n return calculateTotalTyped(this.items);\n }\n \n getItems(): Item[] {\n return [...this.items]; // Возвращаем копию\n }\n}\n\n// 7. Типизация асинхронных функций\nasync function fetchProducts(): Promise<Item[]> {\n try {\n const response = await fetch('/api/products');\n if (!response.ok) {\n throw new Error(`HTTP error ${response.status}`);\n }\n return await response.json();\n } catch (error) {\n console.error('Ошибка загрузки продуктов:', error);\n return [];\n }\n}\n\n// 8. Типизация событий DOM\nfunction setupEventListeners() {\n const button = document.getElementById('buy-button');\n const input = document.getElementById('quantity-input') as HTMLInputElement;\n \n if (!button || !input) return;\n \n button.addEventListener('click', (event: MouseEvent) => {\n event.preventDefault();\n \n const quantity = parseInt(input.value, 10);\n if (isNaN(quantity) || quantity <= 0) {\n alert('Введите корректное количество');\n return;\n }\n \n buyProduct(quantity);\n });\n}\n\nfunction buyProduct(quantity: number): void {\n console.log(`Покупка ${quantity} товаров`);\n}\n\n// 9. Типизация утилитарных функций\nfunction debounce<T extends (...args: any[]) => any>(\n func: T,\n delay: number\n): (...args: Parameters<T>) => void {\n let timeoutId: number;\n \n return function(...args: Parameters<T>) {\n clearTimeout(timeoutId);\n timeoutId = setTimeout(() => func.apply(this, args), delay);\n };\n}\n\n// 10. Типизация конфигурации\ninterface AppConfig {\n apiUrl: string;\n timeout: number;\n retryAttempts: number;\n features: {\n darkMode: boolean;\n notifications: boolean;\n };\n}\n\nconst config: AppConfig = {\n apiUrl: 'https://api.example.com',\n timeout: 5000,\n retryAttempts: 3,\n features: {\n darkMode: true,\n notifications: false\n }\n};\n\n// 11. Типизация с discriminated unions\ntype Notification = \n | { type: 'success'; message: string; duration?: number }\n | { type: 'error'; message: string; code: number }\n | { type: 'info'; message: string; icon: string };\n\nfunction showNotification(notification: Notification): void {\n switch (notification.type) {\n case 'success':\n console.log(`✅ ${notification.message}`);\n break;\n case 'error':\n console.log(`❌ ${notification.message} (код: ${notification.code})`);\n break;\n case 'info':\n console.log(`ℹ️ ${notification.message}`);\n break;\n }\n}\n\n// 12. Типизация с enum\nenum UserRole {\n Admin = 'admin',\n Editor = 'editor',\n Viewer = 'viewer'\n}\n\ninterface UserWithRole extends User {\n role: UserRole;\n permissions: string[];\n}\n\n// 13. Экспорт/импорт типов\n// types.ts\nexport interface Product {\n id: number;\n name: string;\n price: number;\n}\n\nexport type DiscountCode = string;\n\nexport { User, Item };\n\n// app.ts\nimport { Product, DiscountCode, User } from './types';\n\n// 14. Утилиты для миграции\nfunction assertNever(value: never): never {\n throw new Error(`Неожиданное значение: ${value}`);\n}\n\nfunction safeParseJSON<T>(json: string, defaultValue: T): T {\n try {\n return JSON.parse(json) as T;\n } catch {\n return defaultValue;\n }\n}\n\n// 15. Скрипт миграции\n// package.json\n{\n \"scripts\": {\n \"migrate\": \"npx @typescript-eslint/parser --fix\",\n \"type-check\": \"tsc --noEmit\",\n \"build\": \"tsc\",\n \"dev\": \"tsc --watch\"\n }\n}\n\n// Миграция:\n// 1. Установить TypeScript: npm install -D typescript\n// 2. Создать tsconfig.json\n// 3. Переименовать .js -> .ts\n// 4. Добавить базовые типы с any\n// 5. Постепенно заменять any конкретными типами\n// 6. Включить strict mode\n// 7. Добавить проверки типов в CI/CD\n\nreturn {\n calculateTotal: calculateTotalTyped,\n getUserById,\n cart: new ShoppingCart(),\n config\n};",
+            "solution": "// Типизированный TypeScript код\n\ninterface Item {\n id: number;\n name: string;\n price: number;\n}\n\nfunction calculateTotal(items: Item[]): number {\n return items.reduce((total, item) => total + item.price, 0);\n}\n\ninterface User {\n id: number;\n name: string;\n age?: number;\n}\n\nfunction getUserById(id: number, users: User[]): User | undefined {\n return users.find(user => user.id === id);\n}\n\n// Пример использования\nconst items: Item[] = [\n {id: 1, name: 'Товар 1', price: 100},\n {id: 2, name: 'Товар 2', price: 200}\n];\n\nconst users: User[] = [\n {id: 1, name: 'Иван', age: 25},\n {id: 2, name: 'Анна'}\n];\n\nreturn [\n calculateTotal(items),\n getUserById(1, users)?.name\n];",
             "hints": [
                 "Начните с any и постепенно заменяйте конкретными типами",
                 "Создайте интерфейсы для основных структур данных",
-                "Используйте strict mode для максимальной безопасности типов",
-                "Экспортируйте типы для повторного использования"
+                "Используйте strict mode для максимальной безопасности типов"
             ],
             "tests": [
                 { "code": "interface Item {price: number}; function calculateTotal(items: Item[]): number { return items.reduce((t, i) => t + i.price, 0); } calculateTotal([{price: 10}, {price: 20}])", "expected": 30 }

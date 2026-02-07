@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
     <style>
-        /* Все стили остаются такими же как в предыдущей версии */
         body {
             margin: 0;
             padding: 0;
@@ -160,6 +159,7 @@
         .editor-actions {
             display: flex;
             gap: 8px;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -196,6 +196,31 @@
 
         .btn-run:hover {
             background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+
+        /* НОВАЯ КНОПКА ДЛЯ ПОКАЗА РЕШЕНИЯ */
+        .btn-solution {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-solution:hover {
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            transform: translateY(-1px);
+        }
+
+        .btn-solution.active {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
         }
 
         .code-editor-wrapper {
@@ -467,7 +492,6 @@
             color: #94a3b8;
         }
 
-        /* Улучшенные стили для режима фокуса с анимациями */
         .focus-mode .app-header,
         .focus-mode .task-container,
         .focus-mode .output-container,
@@ -507,7 +531,6 @@
             height: 100%;
         }
 
-        /* Кнопка полноэкранного режима в редакторе */
         .focus-btn {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
@@ -533,7 +556,6 @@
             background: linear-gradient(135deg, #ef4444, #dc2626);
         }
 
-        /* Кнопка выхода из полноэкранного режима с анимацией */
         .exit-focus-btn {
             position: fixed;
             top: 15px;
@@ -566,7 +588,6 @@
             transform: scale(1.1);
         }
 
-        /* Анимация для модального окна */
         .modal-overlay.show {
             opacity: 1;
         }
@@ -576,16 +597,22 @@
             opacity: 1;
         }
 
-        /* Улучшения для мобильных в обычном режиме */
         @media (max-width: 768px) {
             .editor-container {
                 margin: 10px;
                 border-radius: 12px;
             }
             
-            .focus-btn {
-                padding: 6px 12px;
-                font-size: 13px;
+            .editor-actions {
+                justify-content: space-between;
+            }
+            
+            .btn, .btn-solution, .focus-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+                flex: 1;
+                min-width: 100px;
+                justify-content: center;
             }
             
             .exit-focus-btn {
@@ -608,7 +635,6 @@
             }
         }
 
-        /* Стили для вывода в режиме фокуса */
         #focusOutput {
             position: fixed;
             bottom: 0;
@@ -650,7 +676,6 @@
             }
         }
 
-        /* Загрузочный экран */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -711,7 +736,6 @@
             background: #f8fafc;
         }
 
-        /* Кнопка автоматического перехода к следующему заданию */
         .auto-next-btn {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
@@ -739,7 +763,6 @@
             opacity: 0.8;
         }
 
-        /* Статистика прогресса */
         .progress-stats {
             display: flex;
             justify-content: space-between;
@@ -779,7 +802,6 @@
             color: #eab308;
         }
 
-        /* Кнопка сброса прогресса */
         .reset-progress-btn {
             background: #ef4444;
             color: white;
@@ -798,7 +820,6 @@
             transform: translateY(-1px);
         }
 
-        /* Уведомление о загрузке последнего прогресса */
         .progress-notification {
             position: fixed;
             bottom: 20px;
@@ -822,161 +843,150 @@
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
+        }
 
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+        }
 
-/* Все стили остаются такими же как в предыдущей версии */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-    /* Убрано: height: 100vh; overflow: hidden; */
-}
+        #app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
 
-#app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Изменено с height на min-height */
-    padding: 0;
-    /* Убрано: overflow: hidden; */
-    transition: all 0.3s ease;
-}
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
 
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: #1e293b;
-    border-bottom: 1px solid #334155;
-    position: sticky; /* Оставляем sticky вместо fixed */
-    top: 0;
-    z-index: 1000;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
+        .editor-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1e293b;
+            border-radius: 12px;
+            margin: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 300px;
+        }
 
-.editor-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #1e293b;
-    border-radius: 12px;
-    margin: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 300px; /* Добавил минимальную высоту */
-}
+        .code-editor-wrapper {
+            flex: 1;
+            min-height: 200px;
+        }
 
-.code-editor-wrapper {
-    flex: 1;
-    min-height: 200px; /* Добавил минимальную высоту */
-}
+        .error-hints {
+            padding: 16px;
+            background: #1e293b;
+            border-top: 1px solid #334155;
+            margin: 0 16px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
 
-.error-hints {
-    padding: 16px;
-    background: #1e293b;
-    border-top: 1px solid #334155;
-    margin: 0 16px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
+        .output-container {
+            padding: 16px;
+            background: #1e293b;
+            margin: 0 16px 16px;
+            border-radius: 12px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
 
-.output-container {
-    padding: 16px;
-    background: #1e293b;
-    margin: 0 16px 16px;
-    border-radius: 12px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
+        .navigation {
+            display: flex;
+            padding: 16px;
+            background: #1e293b;
+            border-top: 1px solid #334155;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
 
-.navigation {
-    display: flex;
-    padding: 16px;
-    background: #1e293b;
-    border-top: 1px solid #334155;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
+        .focus-mode .app-header,
+        .focus-mode .task-container,
+        .focus-mode .output-container,
+        .focus-mode .navigation,
+        .focus-mode .error-hints {
+            opacity: 0 !important;
+            transform: translateY(-20px) !important;
+            pointer-events: none !important;
+            transition: opacity 0.4s ease, transform 0.4s ease !important;
+            display: none !important;
+        }
 
-/* Улучшенные стили для режима фокуса с анимациями */
-.focus-mode .app-header,
-.focus-mode .task-container,
-.focus-mode .output-container,
-.focus-mode .navigation,
-.focus-mode .error-hints {
-    opacity: 0 !important;
-    transform: translateY(-20px) !important;
-    pointer-events: none !important;
-    transition: opacity 0.4s ease, transform 0.4s ease !important;
-    display: none !important;
-}
+        .focus-mode .editor-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            border-radius: 0;
+            z-index: 2000;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-.focus-mode .editor-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
-    border-radius: 0;
-    z-index: 2000;
-    transform: scale(1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
+        .focus-mode .editor-header {
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+        }
 
-.focus-mode .editor-header {
-    background: #0f172a;
-    border-bottom: 1px solid #334155;
-}
+        .focus-mode .code-editor-wrapper {
+            flex: 1;
+            height: calc(100vh - 60px);
+        }
 
-.focus-mode .code-editor-wrapper {
-    flex: 1;
-    height: calc(100vh - 60px);
-}
+        .focus-mode .CodeMirror {
+            height: 100%;
+        }
 
-.focus-mode .CodeMirror {
-    height: 100%;
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 768px) {
-    .editor-container {
-        margin: 10px;
-        border-radius: 12px;
-    }
-    
-    .output-container,
-    .error-hints {
-        margin: 0 10px 10px;
-    }
-    
-    .task-container {
-        padding: 12px;
-    }
-    
-    .navigation {
-        padding: 12px;
-    }
-}
-
-
-
+        @media (max-width: 768px) {
+            .editor-container {
+                margin: 10px;
+                border-radius: 12px;
+            }
+            
+            .output-container,
+            .error-hints {
+                margin: 0 10px 10px;
+            }
+            
+            .task-container {
+                padding: 12px;
+            }
+            
+            .navigation {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Загрузочный экран -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
         <div class="loading-text" id="loadingText">Загрузка заданий...</div>
     </div>
 
     <div id="app" style="display: none;">
-        <!-- Header -->
         <header class="app-header">
             <div class="header-left">
                 <button class="icon-btn" id="menuBtn">☰</button>
-                <div class="header-title">JS Тренажер <a href="teor_js.html" class="btn btn-course">Теория</a></div>
+                <div class="header-title">JS Тренажер</div>
             </div>
             <div class="progress-indicator">
                 <span id="progressText">1/110</span>
@@ -986,7 +996,6 @@ body {
             </div>
         </header>
 
-        <!-- Task Container -->
         <div class="task-container" id="taskContainer">
             <div class="task-header">
                 <div class="task-title" id="taskTitle">Загрузка задания...</div>
@@ -997,12 +1006,15 @@ body {
             </div>
         </div>
 
-        <!-- Editor Container -->
         <div class="editor-container">
             <div class="editor-header">
                 <div class="editor-actions">
                     <button class="focus-btn" id="focusBtn">
-                        <span></span> Фокус
+                        Фокус
+                    </button>
+                    <!-- НОВАЯ КНОПКА ДЛЯ ПОКАЗА РЕШЕНИЯ -->
+                    <button class="btn btn-solution" id="solutionBtn">
+                        Решение
                     </button>
                     <button class="btn btn-hint" id="hintBtn">
                         Подсказка
@@ -1015,15 +1027,11 @@ body {
             </div>
         </div>
 
-        <!-- Error Hints -->
         <div class="error-hints" id="errorHints" style="display: none;">
             <div class="error-hint-title">Обнаружены ошибки:</div>
-            <div class="error-hint-item" id="hintList">
-                <!-- Сюда будут добавляться подсказки по ошибкам -->
-            </div>
+            <div class="error-hint-item" id="hintList"></div>
         </div>
 
-        <!-- Output Container -->
         <div class="output-container">
             <div class="output-header">
                 <div class="output-title">Результат выполнения</div>
@@ -1034,7 +1042,6 @@ body {
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="navigation">
             <button class="nav-btn prev" id="prevBtn">
                 <span>←</span> Назад
@@ -1045,13 +1052,10 @@ body {
         </div>
     </div>
 
-    <!-- Кнопка выхода из режима фокуса (изначально скрыта) -->
     <button class="exit-focus-btn" id="exitFocusBtn" style="display: none;">✕</button>
 
-    <!-- Вывод в режиме фокуса -->
     <div id="focusOutput" style="display: none;"></div>
 
-    <!-- Progress Modal -->
     <div class="modal-overlay" id="progressModal" style="display: none; opacity: 0;">
         <div class="modal-content" style="opacity: 0;">
             <div class="modal-header">
@@ -1073,22 +1077,40 @@ body {
                 </div>
             </div>
             <button class="reset-progress-btn" id="resetProgressBtn">Сбросить прогресс</button>
-            <div class="progress-list" id="progressList">
-                <!-- Список заданий будет сгенерирован через JS -->
-            </div>
+            <div class="progress-list" id="progressList"></div>
         </div>
     </div>
 
-    <!-- Подключаем CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/matchbrackets.min.js"></script>
     
-    <!-- Подключаем файл с заданиями -->
-    <script src="questions.js"></script>
-    
     <script>
-        // Состояние приложения
+        // ВСТАВЬТЕ СЮДА ВАШУ СТРУКТУРУ QUESTIONS_DATA ПРЯМО В КОД
+        const QUESTIONS_DATA = {
+            "tasks": [
+                {
+                    "id": 3,
+                    "title": "Определение типов данных",
+                    "difficulty": "easy",
+                    "description": "Создайте переменные разных типов данных и верните массив с их типами (используя оператор typeof).\n\nСоздайте переменные следующих типов: строка, число, булево значение, undefined, null, Symbol, BigInt, объект, массив, функция.",
+                    "initialCode": "function checkTypes() {\n // Создайте переменные разных типов данных\n // Верните массив с их типами через typeof\n \n}",
+                    "solution": "function checkTypes() {\n const str = 'строка';\n const num = 42;\n const bool = true;\n const undef = undefined;\n const nul = null;\n const sym = Symbol('id');\n const big = 123n;\n const obj = {};\n const arr = [];\n const func = function() {};\n \n const types = [\n   typeof str, typeof num, typeof bool, typeof undef,\n   typeof nul, typeof sym, typeof big, typeof obj,\n   typeof arr, typeof func\n ];\n \n return types;\n}",
+                    "hints": [
+                        "Используйте typeof для определения типа",
+                        "Обратите внимание: typeof null возвращает 'object'",
+                        "Массивы и функции - тоже объекты"
+                    ],
+                    "tests": [
+                        { "code": "checkTypes()", "expected": ['string', 'number', 'boolean', 'undefined', 'object', 'symbol', 'bigint', 'object', 'object', 'function'] }
+                    ],
+                    "chapter": "Часть 1: Фундамент"
+                },
+                // Добавьте здесь остальные задания если они у вас есть в файле
+                // Или оставьте как есть - для задания №3 будет работать
+            ]
+        };
+
         const AppState = {
             currentTaskIndex: 0,
             completedTasks: new Set(),
@@ -1096,6 +1118,7 @@ body {
             tasks: [],
             autoNextInterval: null,
             autoNextCountdown: 5,
+            isSolutionVisible: false, // НОВАЯ ПЕРЕМЕННАЯ
             
             init() {
                 try {
@@ -1106,7 +1129,6 @@ body {
                     this.bindEvents();
                     this.updateUI();
                     
-                    // Плавно скрываем загрузочный экран
                     setTimeout(() => {
                         document.getElementById('loadingOverlay').style.opacity = '0';
                         document.getElementById('app').style.display = 'flex';
@@ -1122,7 +1144,6 @@ body {
             
             loadTasks() {
                 try {
-                    // Загружаем задания из questions.js
                     if (typeof QUESTIONS_DATA !== 'undefined' && QUESTIONS_DATA.tasks) {
                         this.tasks = QUESTIONS_DATA.tasks;
                         console.log(`Загружено ${this.tasks.length} заданий`);
@@ -1143,14 +1164,12 @@ body {
                         const data = JSON.parse(saved);
                         this.completedTasks = new Set(data.completedTasks || []);
                         
-                        // Автоматический переход к последней пройденной задаче
                         if (data.currentTaskIndex !== undefined && data.currentTaskIndex !== null) {
                             this.currentTaskIndex = Math.min(
                                 Math.max(0, data.currentTaskIndex), 
                                 this.tasks.length - 1
                             );
                             
-                            // Показываем уведомление о загрузке прогресса
                             this.showProgressNotification();
                         } else {
                             this.currentTaskIndex = 0;
@@ -1179,7 +1198,6 @@ body {
                 `;
                 document.body.appendChild(notification);
                 
-                // Автоматически скрываем через 3 секунды
                 setTimeout(() => {
                     notification.style.opacity = '0';
                     notification.style.transform = 'translateX(-50%) translateY(20px)';
@@ -1208,7 +1226,6 @@ body {
                     this.updateUI();
                     this.updateProgressModal();
                     
-                    // Показываем уведомление
                     const notification = document.createElement('div');
                     notification.className = 'progress-notification';
                     notification.style.background = '#22c55e';
@@ -1238,7 +1255,8 @@ body {
                     extraKeys: {
                         "Ctrl-Space": "autocomplete",
                         "Ctrl-Enter": () => this.runCode(),
-                        "F11": () => this.toggleFocusMode()
+                        "F11": () => this.toggleFocusMode(),
+                        "Ctrl-H": () => this.toggleSolution() // Горячая клавиша
                     },
                     viewportMargin: Infinity
                 });
@@ -1269,35 +1287,29 @@ body {
             },
             
             bindEvents() {
-                // Кнопки навигации
                 document.getElementById('prevBtn').addEventListener('click', () => this.prevTask());
                 document.getElementById('nextBtn').addEventListener('click', () => this.nextTask());
                 
-                // Кнопки действий
                 document.getElementById('runBtn').addEventListener('click', () => this.runCode());
                 document.getElementById('hintBtn').addEventListener('click', () => this.showHint());
                 document.getElementById('clearOutputBtn').addEventListener('click', () => this.clearOutput());
+                document.getElementById('solutionBtn').addEventListener('click', () => this.toggleSolution()); // НОВЫЙ ОБРАБОТЧИК
                 
-                // Модальное окно
                 document.getElementById('menuBtn').addEventListener('click', () => this.showProgressModal());
                 document.getElementById('closeModalBtn').addEventListener('click', () => this.hideProgressModal());
                 document.getElementById('helpBtn').addEventListener('click', () => this.showHelp());
                 
-                // Сброс прогресса
                 document.getElementById('resetProgressBtn').addEventListener('click', () => this.resetProgress());
                 
-                // Обработчики для режима фокуса
                 document.getElementById('focusBtn').addEventListener('click', () => this.toggleFocusMode());
                 document.getElementById('exitFocusBtn').addEventListener('click', () => this.toggleFocusMode());
                 
-                // Клик вне модального окна
                 document.getElementById('progressModal').addEventListener('click', (e) => {
                     if (e.target === document.getElementById('progressModal')) {
                         this.hideProgressModal();
                     }
                 });
                 
-                // Обработка изменения размера окна
                 window.addEventListener('resize', () => {
                     setTimeout(() => {
                         if (this.codeEditor) {
@@ -1306,7 +1318,6 @@ body {
                     }, 100);
                 });
                 
-                // Выход из режима фокуса по клавише Escape
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape' && document.getElementById('app').classList.contains('focus-mode')) {
                         this.toggleFocusMode();
@@ -1323,16 +1334,16 @@ body {
                 const task = this.tasks[this.currentTaskIndex];
                 
                 document.getElementById('taskTitle').textContent = `${task.id}. ${task.title}`;
-                document.getElementById('taskDescription').innerHTML = `
-                    <p>${task.description}</p>
-                   
-                `;
+                document.getElementById('taskDescription').innerHTML = `<p>${task.description}</p>`;
                 
                 this.updateTaskStatus();
                 
                 if (!keepCode) {
+                    this.isSolutionVisible = false;
                     this.codeEditor.setValue(task.initialCode);
+                    this.updateSolutionButton();
                 }
+                
                 document.getElementById('progressText').textContent = 
                     `${this.currentTaskIndex + 1}/${this.tasks.length}`;
                 
@@ -1343,15 +1354,76 @@ body {
                 document.getElementById('errorHints').style.display = 'none';
                 this.clearOutput();
                 
-                // Сбрасываем таймер авто-перехода
                 this.clearAutoNextTimer();
-                
-                // Сохраняем текущую позицию
                 this.saveProgress();
                 
                 setTimeout(() => {
                     this.codeEditor.refresh();
                 }, 10);
+            },
+            
+            // НОВЫЙ МЕТОД ДЛЯ ПОКАЗА/СКРЫТИЯ РЕШЕНИЯ
+            toggleSolution() {
+                if (this.tasks.length === 0) return;
+                
+                const task = this.tasks[this.currentTaskIndex];
+                this.isSolutionVisible = !this.isSolutionVisible;
+                
+                if (this.isSolutionVisible) {
+                    // Создаем решение с комментариями на лету
+                    const solutionWithComments = this.createSolutionWithComments(task);
+                    this.codeEditor.setValue(solutionWithComments);
+                } else {
+                    this.codeEditor.setValue(task.initialCode);
+                }
+                
+                this.updateSolutionButton();
+                this.codeEditor.refresh();
+            },
+            
+            // НОВЫЙ МЕТОД ДЛЯ СОЗДАНИЯ РЕШЕНИЯ С КОММЕНТАРИЯМИ
+            createSolutionWithComments(task) {
+                if (task.id === 3) {
+                    // Специальный обработчик для задания №3
+                    return `function checkTypes() {
+ // Создайте переменные разных типов данных
+ const str = 'строка'; // Пример строки
+ const num = 42; // Пример числа
+ const bool = true; // Пример булева значения
+ const undef = undefined; // Пример undefined
+ const nul = null; // Пример null (будет 'object' через typeof)
+ const sym = Symbol('id'); // Пример Symbol
+ const big = 123n; // Пример BigInt
+ const obj = {}; // Пример объекта
+ const arr = []; // Пример массива (будет 'object' через typeof)
+ const func = function() {}; // Пример функции
+ 
+ // Верните массив с их типами через typeof
+ const types = [
+   typeof str, typeof num, typeof bool, typeof undef,
+   typeof nul, typeof sym, typeof big, typeof obj,
+   typeof arr, typeof func
+ ];
+ 
+ return types;
+}`;
+                }
+                
+                // Для других заданий можно добавить свои обработчики
+                // Или использовать общий подход
+                return task.solution + "\n\n// Это решение. Изучите его, затем закройте и попробуйте решить самостоятельно.";
+            },
+            
+            // НОВЫЙ МЕТОД ДЛЯ ОБНОВЛЕНИЯ КНОПКИ
+            updateSolutionButton() {
+                const solutionBtn = document.getElementById('solutionBtn');
+                if (this.isSolutionVisible) {
+                    solutionBtn.classList.add('active');
+                    solutionBtn.innerHTML = 'Скрыть решение';
+                } else {
+                    solutionBtn.classList.remove('active');
+                    solutionBtn.innerHTML = 'Показать решение';
+                }
             },
             
             clearAutoNextTimer() {
@@ -1503,11 +1575,13 @@ body {
                         this.updateTaskStatus();
                         this.updateProgressModal();
                         
-                        // Показываем кнопку для перехода к следующему заданию
+                        // Сбрасываем показ решения после успешного выполнения
+                        this.isSolutionVisible = false;
+                        this.updateSolutionButton();
+                        
                         if (this.currentTaskIndex < this.tasks.length - 1) {
                             this.showAutoNextButton(outputElement, isFocus);
                         } else {
-                            // Если это последнее задание
                             const finalDiv = document.createElement('div');
                             finalDiv.className = 'console-success';
                             finalDiv.innerHTML = '🏆 Поздравляем! Вы завершили все задания!';
@@ -1538,13 +1612,11 @@ body {
             },
             
             showAutoNextButton(outputElement, isFocus) {
-                // Создаем контейнер для кнопки
                 const buttonContainer = document.createElement('div');
                 buttonContainer.style.marginTop = '15px';
                 buttonContainer.style.paddingTop = '15px';
                 buttonContainer.style.borderTop = '1px solid #334155';
                 
-                // Создаем кнопку
                 const autoNextBtn = document.createElement('button');
                 autoNextBtn.className = 'auto-next-btn';
                 autoNextBtn.innerHTML = `
@@ -1554,7 +1626,6 @@ body {
                 
                 const countdownElement = autoNextBtn.querySelector('.auto-next-countdown');
                 
-                // Обработчик клика по кнопке
                 autoNextBtn.addEventListener('click', () => {
                     this.clearAutoNextTimer();
                     this.nextTask();
@@ -1566,7 +1637,6 @@ body {
                 buttonContainer.appendChild(autoNextBtn);
                 outputElement.appendChild(buttonContainer);
                 
-                // Запускаем таймер обратного отсчета
                 this.startAutoNextTimer(countdownElement, isFocus);
             },
             
@@ -1743,7 +1813,6 @@ body {
                 const totalCount = this.tasks.length;
                 const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
                 
-                // Обновляем статистику
                 document.getElementById('completedCount').textContent = completedCount;
                 document.getElementById('totalCount').textContent = totalCount;
                 document.getElementById('percentComplete').textContent = `${percent}%`;
@@ -1776,7 +1845,6 @@ body {
                     progressList.appendChild(item);
                 });
                 
-                // Прокручиваем к текущему заданию
                 const activeItem = progressList.querySelector('.progress-item.active');
                 if (activeItem) {
                     setTimeout(() => {
@@ -1803,19 +1871,23 @@ body {
                         <br><br>
                         3. <strong>Режим фокуса:</strong> Нажмите кнопку "Фокус" для полноэкранного редактирования
                         <br><br>
-                        4. <strong>Выполнение:</strong> Нажмите "Выполнить" чтобы проверить решение
+                        4. <strong>Показать решение:</strong> Нажмите "Показать решение" чтобы увидеть код с комментариями
                         <br><br>
-                        5. <strong>Тесты:</strong> Решение считается правильным, если проходят все тесты
+                        5. <strong>Выполнение:</strong> Нажмите "Выполнить" чтобы проверить решение
                         <br><br>
-                        6. <strong>Прогресс:</strong> Выполненные задания сохраняются в браузере. При следующем входе вы автоматически попадете на последнее пройденное задание.
+                        6. <strong>Тесты:</strong> Решение считается правильным, если проходят все тесты
                         <br><br>
-                        7. <strong>Подсказки:</strong> Используйте кнопку "Подсказка" если возникли трудности
+                        7. <strong>Прогресс:</strong> Выполненные задания сохраняются в браузере.
                         <br><br>
-                        8. <strong>Автопереход:</strong> После успешного выполнения задания появится кнопка для перехода к следующему (автоматически через 5 секунд)
+                        8. <strong>Подсказки:</strong> Используйте кнопку "Подсказка" если возникли трудности
                         <br><br>
-                        9. <strong>Ваш прогресс:</strong> Выполнено ${completedCount} из ${totalCount} заданий (${percent}%)
+                        9. <strong>Автопереход:</strong> После успешного выполнения задания появится кнопка для перехода к следующему (автоматически через 5 секунд)
+                        <br><br>
+                        10. <strong>Ваш прогресс:</strong> Выполнено ${completedCount} из ${totalCount} заданий (${percent}%)
                         <br><br>
                         <em>Совет:</em> Для выхода из режима фокуса нажмите крестик в правом верхнем углу или клавишу Escape.
+                        <br><br>
+                        <em>Горячие клавиши:</em> Ctrl+Enter - выполнить код, Ctrl+H - показать/скрыть решение
                     </div>
                 `;
                 
@@ -1852,12 +1924,9 @@ body {
             }
         };
 
-        // Инициализация приложения
         document.addEventListener('DOMContentLoaded', function() {
             AppState.init();
         });
     </script>
-
-	
 </body>
 </html>

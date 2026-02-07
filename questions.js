@@ -23,7 +23,7 @@ const QUESTIONS_DATA = {
             "id": 2,
             "title": "Разница между var, let и const",
             "difficulty": "easy",
-            "description": "Объявите переменные: используйте var для глобальной, let для изменяемой и const для константы. Верните массив с их значениями.",
+            "description": "Объявите три переменные:\n1. var с именем globalVar и значением 'глобальная'\n2. let с именем mutableVar и начальным значением 'изменяемая', затем измените её на 'измененная'\n3. const с именем constantVar и значением 'константа'\n\nВерните массив [globalVar, mutableVar, constantVar]",
             "initialCode": "function declareVariables() {\n // Объявите переменные здесь\n \n return [globalVar, mutableVar, constantVar];\n}",
             "solution": "function declareVariables() {\n var globalVar = 'глобальная';\n let mutableVar = 'изменяемая';\n const constantVar = 'константа';\n \n mutableVar = 'измененная';\n // constantVar = 'новая' // Error\n \n return [globalVar, mutableVar, constantVar];\n}",
             "hints": [

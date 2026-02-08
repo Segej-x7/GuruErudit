@@ -327,6 +327,22 @@
             font-style: italic;
         }
 
+        .nav-back {
+            color: #ffffff; /* Белый цвет текста и иконки */
+            text-decoration: none; /* Убираем подчеркивание */
+            /* Добавляем плавный переход для эффекта hover */
+            transition: opacity 0.2s ease;
+            text-indent: 20px;
+        }
+
+        /* Эффект при наведении (например, легкое затемнение) */
+        .nav-back--white:hover {
+            opacity: 0.8;
+        }
+
+
+
+
         .hint-type.string { color: #ce9178; }
         .hint-type.number { color: #b5cea8; }
         .hint-type.boolean { color: #569cd6; }
@@ -343,7 +359,7 @@
             <div class="header-content">
                 <nav>
                     <a href="index_js.html" class="nav-back">
-                        <i class="fas fa-arrow-left"></i> Назад к курсу
+                        <i class="fas fa-arrow-left"></i><p>Назад к курсу</p>
                     </a>
                 </nav>
             </div>
@@ -356,7 +372,6 @@
             <button class="stop" onclick="stopExecution()">⏹️ Остановить</button>
             <button onclick="clearConsole()">🗑️ Очистить</button>
             <button onclick="toggleConsole()">📋 Консоль</button>
-            <button onclick="toggleFullscreen()">⛶ Полный экран</button>
             <div class="spacer"></div>
             <div class="status" id="status">Готов. Нажмите Ctrl+Space для автодополнения</div>
         </div>

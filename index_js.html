@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>FullStack JavaScript | Guruerudit</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,6 +46,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html {
@@ -61,6 +62,8 @@
             font-weight: 400;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            width: 100%;
+            min-width: 320px;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -75,27 +78,29 @@
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 20px;
         }
 
         /* Хедер */
         header {
-            padding: 28px 0;
+            padding: 20px 0;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.3);
             transition: var(--transition-smooth);
+            width: 100%;
+            overflow: hidden;
         }
 
         .header-scrolled {
-            padding: 18px 0;
+            padding: 15px 0;
             box-shadow: var(--box-shadow-sm);
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.99);
         }
 
         .header-content {
@@ -103,44 +108,50 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
+            width: 100%;
         }
 
         .logo {
             font-family: 'Manrope', sans-serif;
-            font-size: 34px;
+            font-size: 28px;
             font-weight: 900;
             color: var(--primary);
             display: flex;
             align-items: center;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
             position: relative;
             text-decoration: none;
             z-index: 1001;
+            white-space: nowrap;
+            max-width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .logo span {
             color: var(--secondary);
             position: relative;
-            margin-left: 4px;
+            margin-left: 2px;
         }
 
         .logo span::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: -3px;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: var(--gradient-accent);
             border-radius: 2px;
         }
 
         .logo i {
-            margin-right: 14px;
-            font-size: 32px;
+            margin-right: 10px;
+            font-size: 26px;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
         }
 
         nav {
@@ -151,7 +162,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 44px;
+            gap: 30px;
         }
 
         nav ul li a {
@@ -161,8 +172,9 @@
             font-size: 16px;
             transition: var(--transition-fast);
             position: relative;
-            padding: 8px 0;
-            letter-spacing: 0.3px;
+            padding: 6px 0;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
         }
 
         nav ul li a:hover {
@@ -175,7 +187,7 @@
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
+            height: 2px;
             background: var(--gradient-accent);
             transition: var(--transition-fast);
             border-radius: 2px;
@@ -197,26 +209,28 @@
         .header-buttons {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 38px;
+            padding: 14px 28px;
             border-radius: var(--border-radius-sm);
             text-decoration: none;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
             transition: var(--transition-fast);
             cursor: pointer;
             border: none;
             font-family: 'Inter', sans-serif;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
             position: relative;
             overflow: hidden;
             z-index: 1;
+            white-space: nowrap;
+            min-height: 48px;
         }
 
         .btn::before {
@@ -238,12 +252,12 @@
         .btn-primary {
             background: var(--gradient-secondary);
             color: var(--light);
-            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.25);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2);
         }
 
         .btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(124, 58, 237, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
         }
 
         .btn-secondary {
@@ -255,41 +269,20 @@
 
         .btn-secondary:hover {
             background: rgba(15, 23, 42, 0.05);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
         }
 
         .btn-accent {
             background: var(--gradient-accent);
             color: var(--primary);
             font-weight: 800;
-            box-shadow: 0 12px 30px rgba(245, 158, 11, 0.25);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
         }
 
         .btn-accent:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(245, 158, 11, 0.35);
-        }
-
-        .btn-js {
-            background: var(--gradient-js);
-            color: #323330;
-            font-weight: 800;
-            box-shadow: 0 12px 30px rgba(247, 223, 30, 0.25);
-        }
-
-        .btn-react {
-            background: var(--gradient-react);
-            color: var(--primary);
-            font-weight: 800;
-            box-shadow: 0 12px 30px rgba(97, 218, 251, 0.25);
-        }
-
-        .btn-node {
-            background: var(--gradient-node);
-            color: var(--light);
-            font-weight: 800;
-            box-shadow: 0 12px 30px rgba(51, 153, 51, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.3);
         }
 
         /* Мобильное меню */
@@ -298,7 +291,7 @@
             flex-direction: column;
             justify-content: space-between;
             width: 30px;
-            height: 24px;
+            height: 22px;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -317,7 +310,7 @@
         }
 
         .mobile-menu-btn.active span:nth-child(1) {
-            transform: translateY(10px) rotate(45deg);
+            transform: translateY(9px) rotate(45deg);
         }
 
         .mobile-menu-btn.active span:nth-child(2) {
@@ -325,17 +318,119 @@
         }
 
         .mobile-menu-btn.active span:nth-child(3) {
-            transform: translateY(-10px) rotate(-45deg);
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Мобильная навигация */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--light);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            background: var(--light);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .mobile-nav-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 14px 0;
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 600;
+            font-size: 17px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition-fast);
+            width: 100%;
+        }
+
+        .mobile-nav ul li a:hover,
+        .mobile-nav ul li a.active {
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .mobile-nav-buttons .btn {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
         }
 
         /* ГЕРОЙ КУРСА */
         .course-hero {
-            padding: 200px 0 120px;
+            padding: 160px 0 80px;
             position: relative;
             overflow: hidden;
             background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
-            margin-top: 100px;
+            margin-top: 80px;
             text-align: center;
+            width: 100%;
         }
 
         .course-hero-circle {
@@ -348,25 +443,25 @@
         }
 
         .course-hero-circle-1 {
-            width: 600px;
-            height: 600px;
+            width: 300px;
+            height: 300px;
             background: var(--gradient-js);
-            top: -300px;
-            left: -100px;
+            top: -150px;
+            left: -50px;
         }
 
         .course-hero-circle-2 {
-            width: 500px;
-            height: 500px;
+            width: 250px;
+            height: 250px;
             background: var(--gradient-react);
-            bottom: -250px;
-            right: -100px;
+            bottom: -125px;
+            right: -50px;
             animation-delay: 1s;
         }
 
         .course-hero-circle-3 {
-            width: 400px;
-            height: 400px;
+            width: 200px;
+            height: 200px;
             background: var(--gradient-node);
             top: 50%;
             left: 50%;
@@ -378,34 +473,37 @@
         .course-badge {
             display: inline-flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             color: var(--primary);
-            padding: 12px 28px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 32px;
+            margin-bottom: 25px;
             box-shadow: var(--box-shadow-sm);
             border: 1px solid rgba(226, 232, 240, 0.5);
             animation: float-uniform 3s ease-in-out infinite;
-            transform-style: preserve-3d;
             z-index: 1;
             position: relative;
+            white-space: nowrap;
         }
 
         .course-badge i {
-            margin-right: 10px;
+            margin-right: 8px;
             color: var(--accent);
+            font-size: 16px;
         }
 
         .course-hero h1 {
-            font-size: 68px;
-            margin-bottom: 24px;
+            font-size: 36px;
+            margin-bottom: 20px;
             color: var(--primary);
-            line-height: 1.05;
+            line-height: 1.1;
             position: relative;
             z-index: 1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .course-hero .highlight {
@@ -413,118 +511,126 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             position: relative;
-            display: inline-block;
+            display: inline;
         }
 
         .course-hero .highlight::after {
             content: '';
             position: absolute;
-            bottom: 8px;
+            bottom: 5px;
             left: 0;
             width: 100%;
-            height: 12px;
+            height: 8px;
             background: var(--gradient-js);
             opacity: 0.2;
             z-index: -1;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
         .course-hero p {
-            font-size: 22px;
+            font-size: 18px;
             color: var(--gray-dark);
-            margin-bottom: 48px;
-            max-width: 800px;
+            margin-bottom: 40px;
+            max-width: 100%;
             margin-left: auto;
             margin-right: auto;
             font-weight: 400;
             line-height: 1.6;
             position: relative;
             z-index: 1;
+            word-wrap: break-word;
         }
 
         /* МОДУЛИ КУРСА */
         .course-modules {
-            padding: 120px 0;
+            padding: 80px 0;
             position: relative;
             background: var(--light);
+            width: 100%;
         }
 
         .course-modules::before {
             content: '';
             position: absolute;
-            width: 150%;
-            height: 400px;
+            width: 200%;
+            height: 300px;
             background: var(--gradient-primary);
             border-radius: 50%;
-            top: -200px;
-            left: -25%;
+            top: -150px;
+            left: -50%;
             opacity: 0.03;
             z-index: 0;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 50px;
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         .section-header h2 {
-            font-size: 56px;
+            font-size: 32px;
             color: var(--primary);
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             position: relative;
             display: inline-block;
+            word-wrap: break-word;
+            padding: 0 10px;
         }
 
         .section-header h2::after {
             content: '';
             position: absolute;
-            bottom: -20px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 6px;
+            width: 80px;
+            height: 4px;
             background: var(--gradient-accent);
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
         .section-header p {
             color: var(--gray);
-            max-width: 700px;
-            margin: 40px auto 0;
-            font-size: 20px;
+            max-width: 100%;
+            margin: 30px auto 0;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.6;
+            padding: 0 10px;
         }
 
         /* Кнопки модулей */
         .modules-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 25px;
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         .module-card {
             background: var(--light);
-            border-radius: var(--border-radius-lg);
+            border-radius: var(--border-radius-md);
             overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition-smooth);
+            box-shadow: var(--box-shadow-sm);
+            transition: var(--transition-fast);
             height: 100%;
             display: flex;
             flex-direction: column;
             border: 1px solid var(--gray-light);
             position: relative;
             text-align: center;
-            padding: 50px 40px;
+            padding: 30px 20px;
+            width: 100%;
         }
 
         .module-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: var(--box-shadow-lg);
+            transform: translateY(-8px);
+            box-shadow: var(--box-shadow);
             border-color: transparent;
         }
 
@@ -534,7 +640,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 6px;
+            height: 4px;
             z-index: 2;
         }
 
@@ -555,22 +661,22 @@
         }
 
         .module-icon {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 32px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 1;
-            transition: var(--transition-smooth);
-            font-size: 44px;
+            transition: var(--transition-fast);
+            font-size: 36px;
         }
 
         .module-card:hover .module-icon {
-            transform: scale(1.1) rotate(10deg);
+            transform: scale(1.05) rotate(5deg);
         }
 
         .js-module .module-icon {
@@ -594,28 +700,30 @@
         }
 
         .module-card h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 22px;
+            margin-bottom: 15px;
             color: var(--primary);
             line-height: 1.3;
+            word-wrap: break-word;
         }
 
         .module-card p {
             color: var(--gray);
-            font-size: 16px;
-            margin-bottom: 28px;
+            font-size: 15px;
+            margin-bottom: 20px;
             flex-grow: 1;
             line-height: 1.6;
+            word-wrap: break-word;
         }
 
         .module-btn {
             display: inline-block;
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border-radius: var(--border-radius-sm);
             text-decoration: none;
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
             transition: var(--transition-fast);
             text-align: center;
             margin-top: auto;
@@ -642,17 +750,18 @@
         }
 
         .module-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         /* ФУТЕР */
         footer {
             background: var(--gradient-primary);
             color: var(--light);
-            padding: 100px 0 50px;
+            padding: 60px 0 30px;
             position: relative;
             overflow: hidden;
+            width: 100%;
         }
 
         .footer-circles {
@@ -673,35 +782,36 @@
         }
 
         .footer-circle-1 {
-            width: 600px;
-            height: 600px;
-            top: -300px;
-            right: -200px;
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
         }
 
         .footer-circle-2 {
-            width: 400px;
-            height: 400px;
-            bottom: -200px;
-            left: -100px;
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -50px;
             background: var(--gradient-secondary);
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: 1.5fr repeat(3, 1fr);
-            gap: 60px;
+            grid-template-columns: 1fr;
+            gap: 40px;
             position: relative;
             z-index: 1;
-            margin-bottom: 80px;
+            margin-bottom: 40px;
+            width: 100%;
         }
 
         .footer-column h3 {
-            font-size: 22px;
-            margin-bottom: 32px;
+            font-size: 20px;
+            margin-bottom: 25px;
             color: var(--light);
             position: relative;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
 
         .footer-column h3::after {
@@ -709,7 +819,7 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 50px;
+            width: 40px;
             height: 3px;
             background: var(--gradient-accent);
             border-radius: 2px;
@@ -720,68 +830,71 @@
         }
 
         .footer-links li {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
             transition: var(--transition-fast);
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             display: inline-flex;
             align-items: center;
+            word-wrap: break-word;
         }
 
         .footer-links a:hover {
             color: var(--light);
-            padding-left: 10px;
+            padding-left: 8px;
         }
 
         .footer-links a i {
-            margin-right: 12px;
-            width: 20px;
+            margin-right: 10px;
+            width: 18px;
             text-align: center;
             color: var(--accent);
         }
 
         .social-links {
             display: flex;
-            gap: 16px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: var(--light);
             text-decoration: none;
             transition: var(--transition-fast);
-            font-size: 20px;
+            font-size: 18px;
             position: relative;
             overflow: hidden;
         }
 
         .social-links a:hover {
             background: var(--gradient-accent);
-            transform: translateY(-5px) rotate(5deg);
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 50px;
-            margin-top: 50px;
+            padding-top: 30px;
+            margin-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: rgba(255, 255, 255, 0.5);
-            font-size: 15px;
+            font-size: 14px;
             position: relative;
             z-index: 1;
+            width: 100%;
         }
 
         /* АНИМАЦИИ */
@@ -790,7 +903,7 @@
                 transform: translateY(0) rotate(0deg);
             }
             50% {
-                transform: translateY(-20px) rotate(5deg);
+                transform: translateY(-15px) rotate(3deg);
             }
         }
 
@@ -799,14 +912,14 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-15px);
+                transform: translateY(-10px);
             }
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(60px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -816,7 +929,7 @@
 
         .fade-in {
             opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         .delay-1 {
@@ -824,234 +937,204 @@
         }
 
         .delay-2 {
-            animation-delay: 0.4s;
+            animation-delay: 0.3s;
         }
 
         .delay-3 {
-            animation-delay: 0.6s;
+            animation-delay: 0.4s;
         }
 
         .delay-4 {
-            animation-delay: 0.8s;
+            animation-delay: 0.5s;
         }
 
         .delay-5 {
-            animation-delay: 1.0s;
+            animation-delay: 0.6s;
         }
 
-        /* АДАПТИВНОСТЬ */
-        @media (max-width: 1200px) {
+        /* ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 360px) */
+        @media (max-width: 360px) {
             .container {
-                padding: 0 32px;
+                padding: 0 15px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .logo i {
+                font-size: 22px;
+                margin-right: 8px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+            
+            .course-hero {
+                padding: 140px 0 60px;
+                margin-top: 70px;
             }
             
             .course-hero h1 {
-                font-size: 58px;
+                font-size: 30px;
+            }
+            
+            .course-hero p {
+                font-size: 16px;
             }
             
             .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .module-card {
+                padding: 25px 15px;
+            }
+            
+            .module-card h3 {
+                font-size: 20px;
+            }
+            
+            .mobile-nav {
+                width: 90%;
+            }
+        }
+
+        /* МОБИЛЬНЫЕ УСТРОЙСТВА (до 768px) */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .desktop-nav,
+            .header-buttons {
+                display: none !important;
+            }
+            
+            .header-content {
+                padding: 0;
+            }
+            
+            .logo {
+                font-size: 26px;
+                max-width: 75%;
+            }
+            
+            .course-hero h1 {
+                font-size: 34px;
+                padding: 0 10px;
+            }
+            
+            .course-hero p {
+                font-size: 17px;
+                padding: 0 10px;
+            }
+            
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        /* ПЛАНШЕТЫ И МАЛЕНЬКИЕ НОУТБУКИ (769px - 992px) */
+        @media (min-width: 769px) and (max-width: 992px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            nav ul {
+                gap: 25px;
+            }
+            
+            .logo {
+                font-size: 30px;
+            }
+            
+            .course-hero h1 {
                 font-size: 48px;
             }
             
             .modules-container {
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .mobile-menu-btn,
+            .mobile-nav,
+            .mobile-nav-overlay {
+                display: none !important;
+            }
+            
+            .desktop-nav,
+            .header-buttons {
+                display: flex !important;
+            }
         }
 
-        @media (max-width: 992px) {
-            nav ul {
-                gap: 25px;
+        /* ДЕСКТОП (от 993px) */
+        @media (min-width: 993px) {
+            .container {
+                padding: 0 40px;
             }
             
             .course-hero h1 {
-                font-size: 48px;
-            }
-            
-            .course-hero p {
-                font-size: 20px;
-            }
-            
-            .section-header h2 {
-                font-size: 40px;
+                font-size: 52px;
             }
             
             .modules-container {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 25px;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1.5fr repeat(3, 1fr);
+            }
+            
+            .mobile-menu-btn,
+            .mobile-nav,
+            .mobile-nav-overlay {
+                display: none !important;
+            }
+            
+            .desktop-nav,
+            .header-buttons {
+                display: flex !important;
             }
         }
 
-        @media (max-width: 768px) {
-        header {
-            padding: 20px 0;
+        /* БОЛЬШИЕ ЭКРАНЫ (от 1200px) */
+        @media (min-width: 1200px) {
+            .course-hero h1 {
+                font-size: 60px;
+            }
+            
+            .modules-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .section-header h2 {
+                font-size: 42px;
+            }
         }
-        
-        .header-content {
-            flex-direction: row;
-            justify-content: space-between;
-            gap: 0;
-        }
-        
-        .mobile-menu-btn {
-            display: flex;
-        }
-        
-        nav {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: var(--transition-smooth);
-            padding: 100px 20px 40px;
-            overflow-y: auto;
-        }
-        
-        nav.active {
-            left: 0;
-        }
-        
-        nav ul {
-            flex-direction: column;
-            gap: 25px;
-            margin-bottom: 40px;
-            text-align: center;
-            width: 100%;
-            max-width: 1400px; /* Добавлено: выравнивание по ширине контейнера */
-            padding: 0 20px; /* Добавлено: отступы как у .container */
-        }
-        
-        nav ul li a {
-            font-size: 20px;
-            padding: 10px 0;
-            display: block;
-            width: 100%;
-        }
-        
-        .header-buttons {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--light);
-            padding: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
-            flex-direction: column;
-            gap: 15px;
-            z-index: 999;
-            transform: translateY(-10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-fast);
-        }
-        
-        .header-buttons.active {
-            display: flex;
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .mobile-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 20px;
-            padding: 0 20px; /* Добавлено: выравнивание отступов */
-        }
-        
-        .mobile-buttons .btn {
-            width: 100%;
-            justify-content: center;
-            max-width: 100%; /* Добавлено: чтобы кнопки не выходили за границы */
-        }
-        
-        .course-hero {
-            padding: 150px 0 80px;
-            margin-top: 80px;
-        }
-        
-        .course-hero h1 {
-            font-size: 40px;
-        }
-        
-        .section-header h2 {
-            font-size: 34px;
-        }
-        
-        .modules-container {
-            grid-template-columns: 1fr;
-        }
-        
-        .module-card {
-            padding: 40px 30px;
-        }
-        
-        /* Добавьте этот стиль для выравнивания логотипа и кнопки меню: */
-        .header-content > .logo {
-            flex: 1;
-            margin-right: 20px;
-        }
-        
-        .mobile-menu-btn {
-            margin-left: auto;
-        }
-    }
 
-
-        @media (max-width: 576px) {
-        .container {
-            padding: 0 20px;
-        }
-        
-        /* Добавьте это для выравнивания ширины меню: */
-        nav ul,
-        .mobile-buttons {
-            padding: 0 20px;
-        }
-        
-        .course-hero h1 {
-            font-size: 36px;
-        }
-        
-        .course-hero p {
-            font-size: 18px;
-        }
-        
-        .section-header h2 {
-            font-size: 30px;
-        }
-        
-        .section-header p {
-            font-size: 18px;
-        }
-        
-        .module-card h3 {
-            font-size: 24px;
-        }
-        
-        .footer-content {
-            grid-template-columns: 1fr;
-        }
-    }
-
-        @media (min-width: 769px) {
-            .mobile-buttons {
-                display: none;
+        /* ОСОБЫЕ СТИЛИ ДЛЯ ОЧЕНЬ ВЫСОКИХ ЭКРАНОВ */
+        @media (min-width: 1400px) {
+            .course-hero h1 {
+                font-size: 68px;
             }
         }
     </style>
@@ -1071,26 +1154,47 @@
                     <span></span>
                     <span></span>
                 </button>
-                <nav id="mainNav">
-                <div class="container" style="display: flex; flex-direction: column; height: 100%;">
+                
+                <nav class="desktop-nav">
                     <ul>
                         <li><a href="https://guruerudit.ru/">Главная</a></li>
                         <li><a href="https://guruerudit.ru/#courses">Курсы</a></li>
                         <li><a href="#modules" class="active">Модули</a></li>
                         <li><a href="#contact">Контакты</a></li>
                     </ul>
-                    
-                    <!-- Кнопки для мобильной версии -->
-                    <div class="mobile-buttons">
-                        <a href="pages/login.html" class="btn btn-secondary" id="mobileLoginBtn">Вход</a>
-                        <a href="pages/register.html" class="btn btn-primary" id="mobileRegisterBtn">Регистрация</a>
-                    </div>
-                </div>
-            </nav>
+                </nav>
                 
+                <div class="header-buttons">
+                    <a href="pages/login.html" class="btn btn-secondary" id="loginBtn">Вход</a>
+                    <a href="pages/register.html" class="btn btn-primary" id="registerBtn">Регистрация</a>
+                </div>
             </div>
         </div>
     </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <a href="index.html" class="logo" style="color: var(--primary);">
+                <i class="fas fa-crown"></i>
+                GURUERUDIT<span>.</span>
+            </a>
+        </div>
+        <div class="mobile-nav-content">
+            <ul>
+                <li><a href="https://guruerudit.ru/">Главная</a></li>
+                <li><a href="https://guruerudit.ru/#courses">Курсы</a></li>
+                <li><a href="#modules" class="active">Модули</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            
+            <div class="mobile-nav-buttons">
+                <a href="pages/login.html" class="btn btn-secondary" id="mobileLoginBtn">Вход</a>
+                <a href="pages/register.html" class="btn btn-primary" id="mobileRegisterBtn">Регистрация</a>
+            </div>
+        </div>
+    </div>
 
     <!-- ГЕРОЙ КУРСА -->
     <section class="course-hero">
@@ -1104,11 +1208,11 @@
             </div>
             <h1 class="fade-in delay-1">Полный курс по <span class="highlight">JavaScript FullStack</span> разработке</h1>
             <p class="fade-in delay-2">Освойте полный цикл создания современных веб-приложений: от базового JavaScript и React на фронтенде до Node.js, баз данных и деплоя на бэкенде. Станьте востребованным FullStack разработчиком.</p>
-            <div class="fade-in delay-3" style="margin-top: 50px;">
-                <a href="#modules" class="btn btn-accent" style="margin-right: 20px; padding: 18px 42px;">
+            <div class="fade-in delay-3 hero-buttons">
+                <a href="#modules" class="btn btn-accent">
                     <i class="fas fa-play-circle"></i> Начать обучение
                 </a>
-                <a href="#contact" class="btn btn-secondary" style="padding: 18px 42px;">
+                <a href="#contact" class="btn btn-secondary">
                     Задать вопрос
                 </a>
             </div>
@@ -1205,11 +1309,11 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 80px;" class="fade-in delay-5">
-                <a href="zaglyhka_plat_js.html" class="btn btn-accent" style="padding: 18px 48px; font-size: 17px;">
+            <div style="text-align: center; margin-top: 50px;" class="fade-in delay-5">
+                <a href="zaglyhka_plat_js.html" class="btn btn-accent" style="padding: 16px 32px; font-size: 16px; margin-bottom: 15px; display: inline-block;">
                     <i class="fas fa-graduation-cap"></i> Записаться на полный курс
                 </a>
-                <p style="color: var(--gray); margin-top: 20px; font-size: 16px;">Доступ ко всем модулям, поддержка ментора и сертификат</p>
+                <p style="color: var(--gray); font-size: 15px;">Доступ ко всем модулям, поддержка ментора и сертификат</p>
             </div>
         </div>
     </section>
@@ -1224,11 +1328,11 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <div class="logo" style="color: white; margin-bottom: 32px; justify-content: flex-start;">
+                    <div class="logo" style="color: white; margin-bottom: 25px; justify-content: flex-start;">
                         <i class="fas fa-crown"></i>
                         GURUERUDIT<span style="color: var(--accent);">.</span>
                     </div>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 24px; font-size: 16px; line-height: 1.6;">Ведущая образовательная платформа, которая помогает профессионалам достигать новых высот в карьере через премиальное обучение и экспертизу мирового уровня.</p>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; font-size: 15px; line-height: 1.6;">Ведущая образовательная платформа, которая помогает профессионалам достигать новых высот в карьере через премиальное обучение и экспертизу мирового уровня.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-vk"></i></a>
                         <a href="#"><i class="fab fa-telegram"></i></a>
@@ -1266,7 +1370,7 @@
                         <li><a href="mailto:info@guruerudit.ru"><i class="far fa-envelope"></i> info@guruerudit.ru</a></li>
                         <li><a href="tel:+78001234567"><i class="fas fa-phone"></i> 8 (800) 123-45-67</a></li>
                         <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Премиум, 15</a></li>
-                        <li style="margin-top: 20px; color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+                        <li style="margin-top: 15px; color: rgba(255, 255, 255, 0.5); font-size: 14px;">
                             Работаем с 2015 года
                         </li>
                     </ul>
@@ -1283,7 +1387,7 @@
         // Фиксация хедера
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) {
+            if (window.scrollY > 30) {
                 header.classList.add('header-scrolled');
             } else {
                 header.classList.remove('header-scrolled');
@@ -1293,39 +1397,55 @@
         // Управление мобильным меню
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mainNav = document.getElementById('mainNav');
-            const headerButtons = document.getElementById('headerButtons');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
             const mobileLoginBtn = document.getElementById('mobileLoginBtn');
             const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
             const loginBtn = document.getElementById('loginBtn');
             const registerBtn = document.getElementById('registerBtn');
             
-            // Переключение мобильного меню
-            mobileMenuBtn.addEventListener('click', function() {
-                this.classList.toggle('active');
-                mainNav.classList.toggle('active');
-                headerButtons.classList.toggle('active');
-                
-                // Блокируем прокрутку тела при открытом меню
-                if (mainNav.classList.contains('active')) {
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    document.body.style.overflow = 'auto';
-                }
-            });
+            // Открытие/закрытие мобильного меню
+            function toggleMobileMenu() {
+                mobileMenuBtn.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                mobileNavOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+            }
             
-            // Закрытие меню при клике на ссылку
-            document.querySelectorAll('#mainNav a').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenuBtn.classList.remove('active');
-                    mainNav.classList.remove('active');
-                    headerButtons.classList.remove('active');
-                    document.body.style.overflow = 'auto';
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileNavOverlay.addEventListener('click', toggleMobileMenu);
+            
+            // Закрытие меню при клике на ссылку в мобильном меню
+            document.querySelectorAll('.mobile-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            // Закрываем меню
+                            toggleMobileMenu();
+                            
+                            // Плавная прокрутка
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 80,
+                                    behavior: 'smooth'
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        // Для внешних ссылок просто закрываем меню
+                        setTimeout(() => {
+                            toggleMobileMenu();
+                        }, 100);
+                    }
                 });
             });
             
-            // Плавная прокрутка
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            // Плавная прокрутка для десктопных ссылок
+            document.querySelectorAll('.desktop-nav a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     
@@ -1335,25 +1455,24 @@
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
-                            top: targetElement.offsetTop - 100,
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
-                        
-                        // Закрываем меню на мобильных устройствах
-                        if (window.innerWidth <= 768) {
-                            mobileMenuBtn.classList.remove('active');
-                            mainNav.classList.remove('active');
-                            headerButtons.classList.remove('active');
-                            document.body.style.overflow = 'auto';
-                        }
                     }
                 });
             });
             
+            // Закрытие меню при изменении размера окна
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+            
             // Анимация появления элементов при скролле
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.05,
+                rootMargin: '0px 0px -30px 0px'
             };
             
             const observer = new IntersectionObserver((entries) => {
@@ -1369,7 +1488,7 @@
             // Наблюдаем за всеми элементами с классом fade-in
             document.querySelectorAll('.fade-in').forEach(element => {
                 element.style.opacity = '0';
-                element.style.transform = 'translateY(20px)';
+                element.style.transform = 'translateY(15px)';
                 element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(element);
             });
@@ -1377,11 +1496,24 @@
             // Интерактивность для карточек модулей
             document.querySelectorAll('.module-card').forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.zIndex = '10';
+                    if (window.innerWidth > 768) {
+                        this.style.zIndex = '10';
+                    }
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    this.style.zIndex = '1';
+                    if (window.innerWidth > 768) {
+                        this.style.zIndex = '1';
+                    }
+                });
+                
+                // Для мобильных устройств - тап эффект
+                card.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                card.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
                 });
             });
             
@@ -1421,10 +1553,7 @@
                         
                         // Закрываем меню на мобильных
                         if (window.innerWidth <= 768) {
-                            mobileMenuBtn.classList.remove('active');
-                            mainNav.classList.remove('active');
-                            headerButtons.classList.remove('active');
-                            document.body.style.overflow = 'auto';
+                            toggleMobileMenu();
                         }
                     };
                 } else {
@@ -1459,15 +1588,15 @@
             // Проверяем состояние авторизации при загрузке
             setTimeout(updateAuthState, 500);
             
-            // Закрытие меню при изменении размера окна на десктоп
-            window.addEventListener('resize', function() {
-                if (window.innerWidth > 768) {
-                    mobileMenuBtn.classList.remove('active');
-                    mainNav.classList.remove('active');
-                    headerButtons.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
+            // Оптимизация для мобильных устройств
+            if ('ontouchstart' in window) {
+                document.body.classList.add('touch-device');
+                
+                // Улучшаем отклик кнопок на тач-устройствах
+                document.querySelectorAll('.btn, .module-btn').forEach(btn => {
+                    btn.style.cursor = 'pointer';
+                });
+            }
         });
     </script>
 </body>

@@ -13,16 +13,14 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #0f172a;
             color: #e2e8f0;
-            /* УБРАНО: height: 100vh; overflow: hidden; */
             min-height: 100vh;
         }
 
         #app {
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Изменено с height на min-height */
+            min-height: 100vh;
             padding: 0;
-            /* УБРАНО: overflow: hidden; */
             transition: all 0.3s ease;
         }
 
@@ -33,7 +31,7 @@
             padding: 12px 16px;
             background: #1e293b;
             border-bottom: 1px solid #334155;
-            position: relative; /* Изменено с sticky на relative */
+            position: relative;
             top: 0;
             z-index: 1000;
             transition: opacity 0.4s ease, transform 0.4s ease;
@@ -139,7 +137,7 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            min-height: 300px; /* Добавил минимальную высоту */
+            min-height: 300px;
         }
 
         .editor-header {
@@ -199,7 +197,6 @@
             background: linear-gradient(135deg, #16a34a, #15803d);
         }
 
-        /* НОВАЯ КНОПКА ДЛЯ ПОКАЗА РЕШЕНИЯ */
         .btn-solution {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
@@ -226,7 +223,7 @@
 
         .code-editor-wrapper {
             flex: 1;
-            min-height: 200px; /* Добавил минимальную высоту */
+            min-height: 200px;
             overflow: hidden;
             transition: height 0.4s ease;
         }
@@ -495,7 +492,6 @@
             color: #94a3b8;
         }
 
-        /* Улучшенные стили для режима фокуса с анимациями */
         .focus-mode .app-header,
         .focus-mode .task-container,
         .focus-mode .output-container,
@@ -535,7 +531,6 @@
             height: 100%;
         }
 
-        /* Кнопка полноэкранного режима в редакторе */
         .focus-btn {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
@@ -561,7 +556,6 @@
             background: linear-gradient(135deg, #ef4444, #dc2626);
         }
 
-        /* Кнопка выхода из полноэкранного режима с анимацией */
         .exit-focus-btn {
             position: fixed;
             top: 15px;
@@ -594,7 +588,6 @@
             transform: scale(1.1);
         }
 
-        /* Анимация для модального окна */
         .modal-overlay.show {
             opacity: 1;
         }
@@ -604,7 +597,6 @@
             opacity: 1;
         }
 
-        /* Улучшения для мобильных в обычном режиме */
         @media (max-width: 768px) {
             .editor-container {
                 margin: 10px;
@@ -651,7 +643,6 @@
             }
         }
 
-        /* Стили для вывода в режиме фокуса */
         #focusOutput {
             position: fixed;
             bottom: 0;
@@ -693,7 +684,6 @@
             }
         }
 
-        /* Загрузочный экран */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -754,7 +744,6 @@
             background: #f8fafc;
         }
 
-        /* Кнопка автоматического перехода к следующему заданию */
         .auto-next-btn {
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
@@ -782,7 +771,6 @@
             opacity: 0.8;
         }
 
-        /* Статистика прогресса */
         .progress-stats {
             display: flex;
             justify-content: space-between;
@@ -822,7 +810,6 @@
             color: #eab308;
         }
 
-        /* Кнопка сброса прогресса */
         .reset-progress-btn {
             background: #ef4444;
             color: white;
@@ -841,7 +828,6 @@
             transform: translateY(-1px);
         }
 
-        /* Уведомление о загрузке последнего прогресса */
         .progress-notification {
             position: fixed;
             bottom: 20px;
@@ -867,7 +853,6 @@
             }
         }
 
-        /* Адаптация для мобильных */
         @media (max-width: 768px) {
             .editor-container {
                 margin: 10px;
@@ -888,7 +873,6 @@
             }
         }
 
-        /* Стили для автодополнения */
         .CodeMirror-hints {
             background: #252526;
             border: 1px solid #3e3e42;
@@ -927,23 +911,25 @@
         }
 
         .nav-back {
-            color: #ffffff; /* Белый цвет текста и иконки */
-            text-decoration: none; /* Убираем подчеркивание */
-            /* Добавляем плавный переход для эффекта hover */
+            color: #ffffff;
+            text-decoration: none;
             transition: opacity 0.2s ease;
             text-indent: 20px;
         }
 
-        /* Эффект при наведении (например, легкое затемнение) */
         .nav-back--white:hover {
             opacity: 0.8;
         }
 
+        .console-info p {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
 
-         <header id="header">
+    <header id="header">
         <div class="container">
             <div class="header-content">
                 <nav>
@@ -954,7 +940,6 @@
             </div>
         </div>
     </header>
-
 
     <!-- Загрузочный экран -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -995,7 +980,6 @@
                     <button class="focus-btn" id="focusBtn">
                         Фокус
                     </button>
-                    <!-- НОВАЯ КНОПКА ДЛЯ ПОКАЗА РЕШЕНИЯ -->
                     <button class="btn btn-solution" id="solutionBtn">
                         Решение
                     </button>
@@ -1083,6 +1067,30 @@
     <script src="questions.js"></script>
     
     <script>
+        // Полифилл для JSON.stringify с поддержкой BigInt
+        if (!JSON.stringifyWithBigInt) {
+            const originalStringify = JSON.stringify;
+            JSON.stringify = function(value, replacer, space) {
+                const bigIntReplacer = (key, val) => {
+                    if (typeof val === 'bigint') {
+                        return val.toString() + 'n';
+                    }
+                    return val;
+                };
+                
+                if (replacer) {
+                    const originalReplacer = replacer;
+                    replacer = (key, val) => {
+                        return originalReplacer(key, bigIntReplacer(key, val));
+                    };
+                } else {
+                    replacer = bigIntReplacer;
+                }
+                
+                return originalStringify(value, replacer, space);
+            };
+        }
+
         // Состояние приложения
         const AppState = {
             currentTaskIndex: 0,
@@ -1126,19 +1134,18 @@
                         // Если файл не загрузился, используем демо-данные
                         console.warn('Файл questions.js не загружен, использую демо-данные');
                         this.tasks = [{
-                            "id": 3,
-                            "title": "Определение типов данных",
+                            "id": 1,
+                            "title": "Первое знакомство с BigInt",
                             "difficulty": "easy",
-                            "description": "Создайте переменные разных типов данных и верните массив с их типами (используя оператор typeof).\n\nСоздайте переменные следующих типов: строка, число, булево значение, undefined, null, Symbol, BigInt, объект, массив, функция.",
-                            "initialCode": "function checkTypes() {\n // Создайте переменные разных типов данных\n // Верните массив с их типами через typeof\n \n}",
-                            "solution": "function checkTypes() {\n const str = 'строка';\n const num = 42;\n const bool = true;\n const undef = undefined;\n const nul = null;\n const sym = Symbol('id');\n const big = 123n;\n const obj = {};\n const arr = [];\n const func = function() {};\n \n const types = [\n   typeof str, typeof num, typeof bool, typeof undef,\n   typeof nul, typeof sym, typeof big, typeof obj,\n   typeof arr, typeof func\n ];\n \n return types;\n}",
+                            "description": "BigInt нужен для работы с очень большими числами. Создайте функцию, которая возвращает сумму двух BigInt чисел: 1000000000000000000n и 2000000000000000000n.",
+                            "initialCode": "function sumBigInt() {\n // Создайте два BigInt числа\n // Верните их сумму\n \n}",
+                            "solution": "function sumBigInt() {\n const num1 = 1000000000000000000n;\n const num2 = 2000000000000000000n;\n return num1 + num2;\n}",
                             "hints": [
-                                "Используйте typeof для определения типа",
-                                "Обратите внимание: typeof null возвращает 'object'",
-                                "Массивы и функции - тоже объекты"
+                                "Используйте суффикс n для создания BigInt",
+                                "Складывайте как обычные числа"
                             ],
                             "tests": [
-                                { "code": "checkTypes()", "expected": ['string', 'number', 'boolean', 'undefined', 'object', 'symbol', 'bigint', 'object', 'object', 'function'] }
+                                { "code": "sumBigInt()", "expected": 3000000000000000000n }
                             ],
                             "chapter": "Часть 1: Фундамент"
                         }];
@@ -1411,35 +1418,7 @@
             createSolutionWithComments(task) {
                 // Базовая реализация - добавляем комментарии к решению
                 if (task.solution) {
-                    // Для разных типов заданий можно сделать разные обработчики
-                    if (task.id === 3) {
-                        // Для задания №3 - создаем подробное решение
-                        return `function checkTypes() {
- // Создайте переменные разных типов данных
- const str = 'строка'; // Пример строки
- const num = 42; // Пример числа
- const bool = true; // Пример булева значения
- const undef = undefined; // Пример undefined
- const nul = null; // Пример null (будет 'object' через typeof)
- const sym = Symbol('id'); // Пример Symbol
- const big = 123n; // Пример BigInt
- const obj = {}; // Пример объекта
- const arr = []; // Пример массива (будет 'object' через typeof)
- const func = function() {}; // Пример функции
- 
- // Верните массив с их типами через typeof
- const types = [
-   typeof str, typeof num, typeof bool, typeof undef,
-   typeof nul, typeof sym, typeof big, typeof obj,
-   typeof arr, typeof func
- ];
- 
- return types;
-}`;
-                    } else {
-                        // Для других заданий - просто добавляем общий комментарий
-                        return task.solution + "\n\n// Это решение. Изучите его, затем закройте и попробуйте решить самостоятельно.";
-                    }
+                    return task.solution + "\n\n// Это решение. Изучите его, затем закройте и попробуйте решить самостоятельно.";
                 }
                 
                 return task.initialCode;
@@ -1468,6 +1447,63 @@
                     this.currentTaskIndex++;
                     this.updateUI();
                 }
+            },
+
+            // Глубокое сравнение с поддержкой BigInt
+            deepEqualWithBigInt(a, b) {
+                // Если это один и тот же объект
+                if (a === b) return true;
+                
+                // Если один из них BigInt
+                if (typeof a === 'bigint' || typeof b === 'bigint') {
+                    return String(a) === String(b);
+                }
+                
+                // Если это массивы
+                if (Array.isArray(a) && Array.isArray(b)) {
+                    if (a.length !== b.length) return false;
+                    for (let i = 0; i < a.length; i++) {
+                        if (!this.deepEqualWithBigInt(a[i], b[i])) return false;
+                    }
+                    return true;
+                }
+                
+                // Если это объекты
+                if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+                    const keysA = Object.keys(a);
+                    const keysB = Object.keys(b);
+                    if (keysA.length !== keysB.length) return false;
+                    for (let key of keysA) {
+                        if (!this.deepEqualWithBigInt(a[key], b[key])) return false;
+                    }
+                    return true;
+                }
+                
+                // Для всего остального
+                return a === b;
+            },
+
+            // Сериализация для отображения
+            serializeForDisplay(value) {
+                if (value === null || value === undefined) return value;
+                
+                if (typeof value === 'bigint') {
+                    return value.toString() + 'n';
+                }
+                
+                if (Array.isArray(value)) {
+                    return value.map(item => this.serializeForDisplay(item));
+                }
+                
+                if (typeof value === 'object') {
+                    const result = {};
+                    for (let key in value) {
+                        result[key] = this.serializeForDisplay(value[key]);
+                    }
+                    return result;
+                }
+                
+                return value;
             },
             
             runCode() {
@@ -1527,7 +1563,19 @@
                     for (const test of task.tests) {
                         try {
                             const result = eval(test.code);
-                            const isPassed = JSON.stringify(result) === JSON.stringify(test.expected);
+                            
+                            // Специальная обработка для BigInt
+                            let isPassed;
+                            if (typeof result === 'bigint' || typeof test.expected === 'bigint' || 
+                                (Array.isArray(result) && result.some(item => typeof item === 'bigint')) ||
+                                (Array.isArray(test.expected) && test.expected.some(item => typeof item === 'bigint'))) {
+                                
+                                // Кастомное сравнение для BigInt
+                                isPassed = this.deepEqualWithBigInt(result, test.expected);
+                            } else {
+                                // Обычное сравнение для всех остальных случаев
+                                isPassed = JSON.stringify(result) === JSON.stringify(test.expected);
+                            }
                             
                             if (!isPassed) {
                                 allTestsPassed = false;
@@ -1535,8 +1583,8 @@
                             
                             testResults.push({
                                 test: test.code,
-                                result,
-                                expected: test.expected,
+                                result: this.serializeForDisplay(result),
+                                expected: this.serializeForDisplay(test.expected),
                                 passed: isPassed
                             });
                         } catch (error) {
@@ -1788,13 +1836,17 @@
                 const task = this.tasks[this.currentTaskIndex];
                 const outputElement = isFocus ? document.getElementById('focusOutput') : document.getElementById('output');
                 
+                // Убираем лишние отступы, формируем чистый HTML
+                const hintsHTML = task.hints.map((hint, index) => 
+                    `<div style="margin: 5px 0;">${index + 1}. ${hint}</div>`
+                ).join('');
+                
                 outputElement.innerHTML = `
-                    <div class="console-info">
-                        <strong>Подсказки для задания "${task.title}":</strong>
-                        <br><br>
-                        ${task.hints.map((hint, index) => 
-                            `${index + 1}. ${hint}`
-                        ).join('<br>')}
+                    <div class="console-info" style="padding: 10px;">
+                        <strong style="font-size: 16px; display: block; margin-bottom: 10px;">Подсказки для задания "${task.title}":</strong>
+                        <div style="margin-left: 0; padding-left: 0;">
+                            ${hintsHTML}
+                        </div>
                     </div>
                 `;
                 
@@ -1907,32 +1959,22 @@
                 const percent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
                 
                 outputElement.innerHTML = `
-                    <div class="console-info">
-                        <strong>Помощь по использованию тренажера:</strong>
-                        <br><br>
-                        1. <strong>Задания:</strong> Решайте задачи по порядку или выбирайте в меню
-                        <br><br>
-                        2. <strong>Редактор:</strong> Пишите код JavaScript, используйте Tab для отступов
-                        <br><br>
-                        3. <strong>Режим фокуса:</strong> Нажмите кнопку "Фокус" для полноэкранного редактирования
-                        <br><br>
-                        4. <strong>Показать решение:</strong> Нажмите "Показать решение" чтобы увидеть код с комментариями
-                        <br><br>
-                        5. <strong>Выполнение:</strong> Нажмите "Выполнить" чтобы проверить решение
-                        <br><br>
-                        6. <strong>Тесты:</strong> Решение считается правильным, если проходят все тесты
-                        <br><br>
-                        7. <strong>Прогресс:</strong> Выполненные задания сохраняются в браузере. При следующем входе вы автоматически попадете на последнее пройденное задание.
-                        <br><br>
-                        8. <strong>Подсказки:</strong> Используйте кнопку "Подсказка" если возникли трудности
-                        <br><br>
-                        9. <strong>Автопереход:</strong> После успешного выполнения задания появится кнопка для перехода к следующему (автоматически через 5 секунд)
-                        <br><br>
-                        10. <strong>Ваш прогресс:</strong> Выполнено ${completedCount} из ${totalCount} заданий (${percent}%)
-                        <br><br>
-                        <em>Совет:</em> Для выхода из режима фокуса нажмите крестик в правом верхнем углу или клавишу Escape.
-                        <br><br>
-                        <em>Горячие клавиши:</em> Ctrl+Enter - выполнить код, Ctrl+H - показать/скрыть решение
+                    <div class="console-info" style="padding: 10px;">
+                        <strong style="font-size: 16px; display: block; margin-bottom: 10px;">Помощь по использованию тренажера:</strong>
+                        <div style="margin-left: 0;">
+                            <p style="margin: 5px 0;"><strong>1.</strong> Задания: Решайте задачи по порядку или выбирайте в меню</p>
+                            <p style="margin: 5px 0;"><strong>2.</strong> Редактор: Пишите код JavaScript, используйте Tab для отступов</p>
+                            <p style="margin: 5px 0;"><strong>3.</strong> Режим фокуса: Нажмите кнопку "Фокус" для полноэкранного редактирования</p>
+                            <p style="margin: 5px 0;"><strong>4.</strong> Показать решение: Нажмите "Показать решение" чтобы увидеть код с комментариями</p>
+                            <p style="margin: 5px 0;"><strong>5.</strong> Выполнение: Нажмите "Выполнить" чтобы проверить решение</p>
+                            <p style="margin: 5px 0;"><strong>6.</strong> Тесты: Решение считается правильным, если проходят все тесты</p>
+                            <p style="margin: 5px 0;"><strong>7.</strong> Прогресс: Выполненные задания сохраняются в браузере. При следующем входе вы автоматически попадете на последнее пройденное задание.</p>
+                            <p style="margin: 5px 0;"><strong>8.</strong> Подсказки: Используйте кнопку "Подсказка" если возникли трудности</p>
+                            <p style="margin: 5px 0;"><strong>9.</strong> Автопереход: После успешного выполнения задания появится кнопка для перехода к следующему (автоматически через 5 секунд)</p>
+                            <p style="margin: 5px 0;"><strong>10.</strong> Ваш прогресс: Выполнено ${completedCount} из ${totalCount} заданий (${percent}%)</p>
+                            <p style="margin: 10px 0 5px;"><em>Совет:</em> Для выхода из режима фокуса нажмите крестик в правом верхнем углу или клавишу Escape.</p>
+                            <p style="margin: 5px 0;"><em>Горячие клавиши:</em> Ctrl+Enter - выполнить код, Ctrl+H - показать/скрыть решение</p>
+                        </div>
                     </div>
                 `;
                 

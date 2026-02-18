@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Runner - С автодополнением</title>
+    <title>JS Runner - С автодополнением и историей</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css">
@@ -32,10 +32,11 @@
             background: #252526;
             padding: 8px 16px;
             display: flex;
-            gap: 12px;
+            gap: 8px;
             align-items: center;
             border-bottom: 1px solid #3e3e42;
             flex-shrink: 0;
+            flex-wrap: wrap;
         }
 
         .controls button {
@@ -58,6 +59,12 @@
 
         .controls button:active {
             background: #0c5285;
+        }
+
+        .controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #3e3e42;
         }
 
         .controls button.run {
@@ -83,6 +90,27 @@
 
         .controls button.clear:hover {
             background: #7c7c7c;
+        }
+
+        .controls button.nav-btn {
+            background: #4a4a4a;
+            padding: 6px 10px;
+        }
+
+        .controls button.nav-btn:hover:not(:disabled) {
+            background: #5a5a5a;
+        }
+
+        .controls button.copy-btn {
+            background: #4a4a4a;
+        }
+
+        .controls button.copy-btn:hover {
+            background: #5a5a5a;
+        }
+
+        .controls button.copy-btn.copied {
+            background: #388a34;
         }
 
         .controls .spacer {
@@ -225,6 +253,21 @@
         .error {
             color: #f48771;
             margin-bottom: 4px;
+            border-left: 3px solid #f48771;
+            padding-left: 8px;
+        }
+
+        .error-line {
+            color: #ff6b6b;
+            font-weight: bold;
+            background: rgba(244, 135, 113, 0.1);
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .error-name {
+            color: #ff9e9e;
+            font-weight: bold;
         }
 
         .warn {
@@ -328,20 +371,15 @@
         }
 
         .nav-back {
-            color: #ffffff; /* Белый цвет текста и иконки */
-            text-decoration: none; /* Убираем подчеркивание */
-            /* Добавляем плавный переход для эффекта hover */
+            color: #ffffff;
+            text-decoration: none;
             transition: opacity 0.2s ease;
             text-indent: 20px;
         }
 
-        /* Эффект при наведении (например, легкое затемнение) */
         .nav-back--white:hover {
             opacity: 0.8;
         }
-
-
-
 
         .hint-type.string { color: #ce9178; }
         .hint-type.number { color: #b5cea8; }
@@ -351,6 +389,43 @@
         .hint-type.array { color: #9cdcfe; }
         .hint-type.undefined { color: #808080; }
         .hint-type.null { color: #808080; }
+
+        /* Индикатор позиции в истории */
+        .history-indicator {
+            font-size: 11px;
+            color: #888;
+            margin-left: 10px;
+            padding: 2px 6px;
+            background: #3e3e42;
+            border-radius: 3px;
+        }
+
+        /* Подсветка строки с ошибкой */
+        .error-line-bg {
+            background-color: rgba(244, 135, 113, 0.2) !important;
+        }
+
+        /* Уведомление о копировании */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #388a34;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 10000;
+            animation: fadeInOut 2s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, 20px); }
+            15% { opacity: 1; transform: translate(-50%, 0); }
+            85% { opacity: 1; transform: translate(-50%, 0); }
+            100% { opacity: 0; transform: translate(-50%, -20px); }
+        }
     </style>
 </head>
 <body>
@@ -370,9 +445,18 @@
         <div class="controls">
             <button class="run" onclick="runCode()">▶ Выполнить (F5)</button>
             <button class="stop" onclick="stopExecution()">⏹️ Остановить</button>
-            <button onclick="clearConsole()">🗑️ Очистить</button>
+            
+            <!-- Кнопки навигации по истории -->
+            <button class="nav-btn" onclick="historyBack()" id="historyBackBtn" disabled title="Назад (Ctrl+Z)">← Назад</button>
+            <button class="nav-btn" onclick="historyForward()" id="historyForwardBtn" disabled title="Вперед (Ctrl+Shift+Z)">→ Вперед</button>
+            
+            <!-- Кнопка копирования -->
+            <button class="copy-btn" onclick="copyCode()" id="copyBtn" title="Копировать код (Ctrl+C)">📋 Копировать</button>
+            
+            <button onclick="clearEditor()" class="clear">✏️ Очистить редактор</button>
             <button onclick="toggleConsole()">📋 Консоль</button>
             <div class="spacer"></div>
+            <span class="history-indicator" id="historyIndicator"></span>
             <div class="status" id="status">Готов. Нажмите Ctrl+Space для автодополнения</div>
         </div>
 
@@ -386,7 +470,7 @@
             <div class="console-wrapper" id="consoleWrapper">
                 <div class="console-header">
                     <div class="console-title">Консоль</div>
-                    <button onclick="clearConsole()">Очистить</button>
+                    <button onclick="clearConsole()">Очистить консоль</button>
                 </div>
                 <div class="console-content" id="consoleOutput"></div>
             </div>
@@ -419,6 +503,16 @@
         let consoleWrapper = document.getElementById('consoleWrapper');
         let stopButton = document.querySelector('.controls .stop');
         let runButton = document.querySelector('.controls .run');
+        let copyBtn = document.getElementById('copyBtn');
+        
+        // Переменные для истории
+        let historyStack = [];
+        let currentHistoryIndex = -1;
+        const maxHistorySize = 50;
+        let ignoreNextChange = false;
+        let historyBackBtn = document.getElementById('historyBackBtn');
+        let historyForwardBtn = document.getElementById('historyForwardBtn');
+        let historyIndicator = document.getElementById('historyIndicator');
 
         // Инициализация редактора
         let editor = CodeMirror.fromTextArea(document.getElementById('codeEditor'), {
@@ -431,6 +525,7 @@
             indentUnit: 4,
             tabSize: 4,
             indentWithTabs: false,
+            gutters: ["CodeMirror-linenumbers"],
             extraKeys: {
                 'F5': runCode,
                 'Ctrl-Enter': runCode,
@@ -444,9 +539,289 @@
                 },
                 'Cmd-Space': function(cm) {
                     showObjectHints(cm);
+                },
+                'Ctrl-Z': function(cm) {
+                    historyBack();
+                },
+                'Ctrl-Y': function(cm) {
+                    historyForward();
+                },
+                'Ctrl-Shift-Z': function(cm) {
+                    historyForward();
+                },
+                'Ctrl-C': function(cm) {
+                    // Перехватываем Ctrl+C для копирования
+                    if (cm.somethingSelected()) {
+                        // Если есть выделение, используем стандартное копирование
+                        return CodeMirror.Pass;
+                    } else {
+                        // Если нет выделения, копируем весь код
+                        copyCode();
+                    }
                 }
             }
         });
+
+        // Функция для копирования кода в буфер обмена
+        function copyCode() {
+            const code = editor.getValue();
+            
+            // Используем современный API clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showCopyNotification('Код скопирован в буфер обмена!');
+                    copyBtn.classList.add('copied');
+                    copyBtn.textContent = '✓ Скопировано';
+                    status.textContent = 'Код скопирован';
+                    
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.textContent = '📋 Копировать';
+                        status.textContent = 'Готов';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Ошибка копирования:', err);
+                    fallbackCopyCode(code);
+                });
+            } else {
+                // Fallback для старых браузеров
+                fallbackCopyCode(code);
+            }
+        }
+
+        // Функция для копирования через textarea (fallback)
+        function fallbackCopyCode(code) {
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyNotification('Код скопирован в буфер обмена!');
+                    copyBtn.classList.add('copied');
+                    copyBtn.textContent = '✓ Скопировано';
+                    status.textContent = 'Код скопирован';
+                    
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.textContent = '📋 Копировать';
+                        status.textContent = 'Готов';
+                    }, 2000);
+                } else {
+                    throw new Error('Копирование не удалось');
+                }
+            } catch (err) {
+                console.error('Ошибка копирования:', err);
+                status.textContent = 'Ошибка копирования';
+                alert('Не удалось скопировать код. Попробуйте выделить и скопировать вручную (Ctrl+C)');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Функция для показа уведомления о копировании
+        function showCopyNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'copy-notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 2000);
+        }
+
+        // Функция для извлечения реального номера строки из ошибки
+        function extractLineNumber(error, userCode) {
+            // Разбиваем пользовательский код на строки
+            const userLines = userCode.split('\n');
+            const userLineCount = userLines.length;
+            
+            if (error.stack) {
+                const stackLines = error.stack.split('\n');
+                
+                // Ищем строку с номером в stack trace
+                for (let line of stackLines) {
+                    // Пробуем разные паттерны для номера строки
+                    const patterns = [
+                        /:(\d+):(\d+)/,           // :line:column
+                        /at .*:(\d+):(\d+)/,       // at file:line:column
+                        /at .* \(.*:(\d+):(\d+)\)/, // at file (file:line:column)
+                        /line (\d+)/i,               // line X
+                        /<anonymous>:(\d+):(\d+)/,    // <anonymous>:line:column
+                        /at eval \(<anonymous>:(\d+):(\d+)\)/ // at eval (<anonymous>:line:column)
+                    ];
+                    
+                    for (let pattern of patterns) {
+                        const match = line.match(pattern);
+                        if (match) {
+                            let lineNum = parseInt(match[1]);
+                            
+                            // Проверяем, что номер строки в пределах пользовательского кода
+                            // и не относится к внутреннему коду раннера
+                            if (lineNum > 0 && lineNum <= userLineCount) {
+                                return {
+                                    line: lineNum,
+                                    column: match[2] ? parseInt(match[2]) : null
+                                };
+                            }
+                            
+                            // Если номер строки больше количества строк пользовательского кода,
+                            // возможно это ошибка в последней строке
+                            if (lineNum > userLineCount && lineNum <= userLineCount + 5) {
+                                return {
+                                    line: userLineCount,
+                                    column: match[2] ? parseInt(match[2]) : null
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Если не нашли в stack trace, пробуем извлечь из сообщения ошибки
+            const messageMatch = error.message.match(/line (\d+)/i);
+            if (messageMatch) {
+                const lineNum = parseInt(messageMatch[1]);
+                if (lineNum > 0 && lineNum <= userLineCount) {
+                    return { line: lineNum, column: null };
+                }
+            }
+            
+            // Для ReferenceError часто номер строки не указывается
+            // Попробуем найти строку, где встречается неопределенная переменная
+            if (error.name === 'ReferenceError') {
+                const varMatch = error.message.match(/'([^']+)'|([a-zA-Z_$][a-zA-Z0-9_$]*)/);
+                if (varMatch) {
+                    const varName = varMatch[1] || varMatch[2];
+                    
+                    // Ищем строку, где используется эта переменная
+                    for (let i = 0; i < userLines.length; i++) {
+                        if (userLines[i].includes(varName) && 
+                            !userLines[i].trim().startsWith('//') &&
+                            !userLines[i].includes('var ' + varName) &&
+                            !userLines[i].includes('let ' + varName) &&
+                            !userLines[i].includes('const ' + varName)) {
+                            return { line: i + 1, column: userLines[i].indexOf(varName) + 1 };
+                        }
+                    }
+                }
+            }
+            
+            // Для SyntaxError пытаемся найти по контексту
+            if (error.name === 'SyntaxError') {
+                // Возвращаем последнюю строку как наиболее вероятную
+                return { line: userLineCount, column: null };
+            }
+            
+            return null;
+        }
+
+        // Функция для форматирования ошибки с правильным номером строки
+        function formatError(error, userCode) {
+            const lines = userCode.split('\n');
+            const errorInfo = extractLineNumber(error, userCode);
+            
+            let formattedMessage = `❌ ${error.name || 'Ошибка'}`;
+            
+            if (errorInfo && errorInfo.line) {
+                formattedMessage += ` на строке ${errorInfo.line}`;
+                if (errorInfo.column) {
+                    formattedMessage += `, позиция ${errorInfo.column}`;
+                }
+            }
+            
+            formattedMessage += `: ${error.message}`;
+            
+            // Добавляем контекст кода с указанием строки ошибки
+            if (errorInfo && errorInfo.line && errorInfo.line <= lines.length) {
+                const errorLine = errorInfo.line;
+                const startLine = Math.max(1, errorLine - 2);
+                const endLine = Math.min(lines.length, errorLine + 2);
+                
+                let codeContext = '\n\n';
+                for (let i = startLine; i <= endLine; i++) {
+                    const prefix = i === errorLine ? '→ ' : '  ';
+                    const lineContent = lines[i - 1];
+                    codeContext += `${prefix}${i}: ${lineContent}\n`;
+                    
+                    // Добавляем указатель на колонку для строки с ошибкой
+                    if (i === errorLine && errorInfo.column) {
+                        // Вычисляем отступ для указателя
+                        const lineNumberLength = String(i).length;
+                        const pointerOffset = errorInfo.column + lineNumberLength + 3; // +3 для "→ " или "  "
+                        codeContext += ' '.repeat(pointerOffset) + '^\n';
+                    }
+                }
+                
+                formattedMessage += codeContext;
+            } else if (lines.length > 0) {
+                // Если не удалось определить строку, показываем последнюю строку кода
+                formattedMessage += '\n\nПоследняя строка кода:\n';
+                formattedMessage += `  ${lines[lines.length - 1]}`;
+            }
+            
+            return formattedMessage;
+        }
+
+        // Функции для работы с историей
+        function addToHistory(newCode) {
+            if (ignoreNextChange) {
+                ignoreNextChange = false;
+                return;
+            }
+
+            // Удаляем все состояния после текущего индекса
+            if (currentHistoryIndex < historyStack.length - 1) {
+                historyStack = historyStack.slice(0, currentHistoryIndex + 1);
+            }
+
+            // Добавляем новое состояние
+            historyStack.push(newCode);
+            
+            // Ограничиваем размер истории
+            if (historyStack.length > maxHistorySize) {
+                historyStack.shift();
+            }
+            
+            currentHistoryIndex = historyStack.length - 1;
+            updateHistoryButtons();
+        }
+
+        function historyBack() {
+            if (currentHistoryIndex > 0) {
+                currentHistoryIndex--;
+                ignoreNextChange = true;
+                editor.setValue(historyStack[currentHistoryIndex]);
+                updateHistoryButtons();
+                status.textContent = `История: шаг назад (${currentHistoryIndex + 1}/${historyStack.length})`;
+            }
+        }
+
+        function historyForward() {
+            if (currentHistoryIndex < historyStack.length - 1) {
+                currentHistoryIndex++;
+                ignoreNextChange = true;
+                editor.setValue(historyStack[currentHistoryIndex]);
+                updateHistoryButtons();
+                status.textContent = `История: шаг вперед (${currentHistoryIndex + 1}/${historyStack.length})`;
+            }
+        }
+
+        function updateHistoryButtons() {
+            historyBackBtn.disabled = currentHistoryIndex <= 0;
+            historyForwardBtn.disabled = currentHistoryIndex >= historyStack.length - 1;
+            
+            if (historyStack.length > 0) {
+                historyIndicator.textContent = `${currentHistoryIndex + 1}/${historyStack.length}`;
+            } else {
+                historyIndicator.textContent = '';
+            }
+        }
 
         // Функция для получения типа значения
         function getType(value) {
@@ -752,7 +1127,9 @@
                 if (typeof arg === 'object' && arg !== null) {
                     try {
                         if (arg instanceof Error) {
-                            return `${arg.message}\n${arg.stack}`;
+                            // Для ошибок используем специальное форматирование
+                            const code = editor.getValue();
+                            return formatError(arg, code);
                         }
                         return JSON.stringify(arg, null, 2);
                     } catch {
@@ -762,8 +1139,20 @@
                 return String(arg);
             }).join(' ');
             
-            const textNode = document.createTextNode(text);
-            div.appendChild(textNode);
+            // Разбиваем текст на строки для лучшего форматирования
+            const lines = text.split('\n');
+            lines.forEach((line, index) => {
+                if (index > 0) {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.style.marginLeft = '20px';
+                    lineDiv.style.whiteSpace = 'pre';
+                    lineDiv.textContent = line;
+                    div.appendChild(lineDiv);
+                } else {
+                    const textNode = document.createTextNode(line);
+                    div.appendChild(textNode);
+                }
+            });
             
             consoleOutput.appendChild(div);
             consoleOutput.scrollTop = consoleOutput.scrollHeight;
@@ -776,7 +1165,7 @@
                 return;
             }
 
-            const code = editor.getValue();
+            const userCode = editor.getValue();
             
             isRunning = true;
             stopButton.style.display = 'flex';
@@ -795,16 +1184,19 @@
             console.log('🚀 Запуск кода...');
             
             try {
-                const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-                const executeCode = new AsyncFunction(`
+                // Используем eval для выполнения кода
+                // Оборачиваем в try-catch для捕获 ошибок
+                const executeCode = new Function(`
                     try {
-                        ${code}
+                        ${userCode}
                     } catch (error) {
-                        console.error('Ошибка выполнения:', error);
+                        throw error;
                     }
                 `);
                 
-                const executionPromise = executeCode();
+                // Запускаем код
+                const executionPromise = Promise.resolve().then(() => executeCode());
+                
                 const timeoutPromise = new Promise((_, reject) => {
                     const timeoutId = setTimeout(() => {
                         reject(new Error('Таймаут: выполнение заняло более 30 секунд'));
@@ -822,10 +1214,36 @@
                 }, 100);
                 
             } catch (error) {
-                console.error('❌ Ошибка выполнения:', error.message);
+                // Форматируем и выводим ошибку
+                const formattedError = formatError(error, userCode);
+                console.error(formattedError);
                 status.textContent = 'Ошибка выполнения';
+                
+                // Подсвечиваем строку с ошибкой в редакторе
+                const errorInfo = extractLineNumber(error, userCode);
+                if (errorInfo && errorInfo.line) {
+                    const lineNumber = errorInfo.line - 1; // CodeMirror uses 0-based lines
+                    if (lineNumber >= 0 && lineNumber < editor.lineCount()) {
+                        editor.setCursor(lineNumber, 0);
+                        editor.focus();
+                        
+                        // Убираем предыдущую подсветку
+                        for (let i = 0; i < editor.lineCount(); i++) {
+                            editor.removeLineClass(i, 'background', 'error-line-bg');
+                        }
+                        
+                        // Подсвечиваем строку с ошибкой
+                        editor.addLineClass(lineNumber, 'background', 'error-line-bg');
+                        
+                        // Убираем подсветку через 3 секунды
+                        setTimeout(() => {
+                            editor.removeLineClass(lineNumber, 'background', 'error-line-bg');
+                        }, 3000);
+                    }
+                }
             } finally {
                 loader.classList.remove('active');
+                // Не сбрасываем isRunning, так как таймеры могут продолжаться
             }
         }
 
@@ -842,6 +1260,12 @@
             stopButton.style.display = 'none';
             runButton.style.display = 'flex';
             status.textContent = 'Остановлено пользователем';
+        }
+
+        // Очистка редактора
+        function clearEditor() {
+            editor.setValue('');
+            status.textContent = 'Редактор очищен';
         }
 
         // Очистка консоли
@@ -903,18 +1327,32 @@
                 clearConsole();
             }
             
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                // Не перехватываем, если есть выделение
+                if (!editor.somethingSelected()) {
+                    e.preventDefault();
+                    copyCode();
+                }
+            }
+            
             if (e.key === 'Escape' && isRunning) {
                 stopExecution();
             }
         });
 
-        // Автосохранение
+        // Автосохранение и история
         let saveTimeout;
         editor.on('change', () => {
+            const currentCode = editor.getValue();
+            
+            // Добавляем в историю
+            addToHistory(currentCode);
+            
+            // Автосохранение
             clearTimeout(saveTimeout);
             saveTimeout = setTimeout(() => {
                 try {
-                    localStorage.setItem('js_code', editor.getValue());
+                    localStorage.setItem('js_code', currentCode);
                 } catch (e) {}
             }, 1000);
         });
@@ -925,14 +1363,30 @@
                 const savedCode = localStorage.getItem('js_code');
                 if (savedCode) {
                     editor.setValue(savedCode);
+                    // Добавляем начальное состояние в историю
+                    addToHistory(savedCode);
+                } else {
+                    // Добавляем пустое состояние в историю
+                    addToHistory('');
                 }
-            } catch (e) {}
+            } catch (e) {
+                addToHistory('');
+            }
             
             editor.focus();
             
             if (window.innerWidth <= 768) {
                 hideConsole();
             }
+            
+            // Добавляем стиль для подсветки ошибки
+            const style = document.createElement('style');
+            style.textContent = `
+                .error-line-bg {
+                    background-color: rgba(244, 135, 113, 0.2) !important;
+                }
+            `;
+            document.head.appendChild(style);
         });
 
         // Обновление при изменении размера

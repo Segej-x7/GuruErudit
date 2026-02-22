@@ -291,6 +291,33 @@
             margin-right: 8px;
         }
 
+        /* Стили для таблиц */
+        .console-table {
+            border-collapse: collapse;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+
+        .console-table th {
+            background: #2d2d2d;
+            color: #569cd6;
+            padding: 4px 8px;
+            border: 1px solid #3e3e42;
+        }
+
+        .console-table td {
+            padding: 4px 8px;
+            border: 1px solid #3e3e42;
+        }
+
+        .console-table tr:nth-child(even) {
+            background: #252526;
+        }
+
+        .console-table tr:nth-child(odd) {
+            background: #1e1e1e;
+        }
+
         .loader {
             position: absolute;
             top: 0;
@@ -1055,7 +1082,16 @@
                 debug: console.debug,
                 clear: console.clear,
                 time: console.time,
-                timeEnd: console.timeEnd
+                timeEnd: console.timeEnd,
+                table: console.table,
+                group: console.group,
+                groupEnd: console.groupEnd,
+                groupCollapsed: console.groupCollapsed,
+                count: console.count,
+                countReset: console.countReset,
+                trace: console.trace,
+                assert: console.assert,
+                dir: console.dir
             };
         }
 
@@ -1091,18 +1127,174 @@
                 clearConsole();
             };
             
+            console.table = function(data, columns) {
+                originalConsole.table(data, columns);
+                addTableToConsole(data, columns);
+            };
+            
+            console.group = function(label) {
+                originalConsole.group(label);
+                addToConsole('group', [label || 'Group']);
+            };
+            
+            console.groupEnd = function() {
+                originalConsole.groupEnd();
+                // Можно добавить логику для сворачивания групп
+            };
+            
+            console.groupCollapsed = function(label) {
+                originalConsole.groupCollapsed(label);
+                addToConsole('group', [label || 'Group (collapsed)']);
+            };
+            
+            console.count = function(label) {
+                originalConsole.count(label);
+                addToConsole('info', [`count: ${label || 'default'}`]);
+            };
+            
+            console.countReset = function(label) {
+                originalConsole.countReset(label);
+                addToConsole('info', [`count reset: ${label || 'default'}`]);
+            };
+            
+            console.trace = function(...args) {
+                originalConsole.trace(...args);
+                addToConsole('log', ['Trace:', ...args]);
+            };
+            
+            console.assert = function(condition, ...args) {
+                originalConsole.assert(condition, ...args);
+                if (!condition) {
+                    addToConsole('error', ['Assertion failed:', ...args]);
+                }
+            };
+            
+            console.dir = function(obj, options) {
+                originalConsole.dir(obj, options);
+                addToConsole('log', [obj], true);
+            };
+            
             const timers = {};
             console.time = function(label = 'default') {
+                originalConsole.time(label);
                 timers[label] = Date.now();
             };
             
             console.timeEnd = function(label = 'default') {
                 if (timers[label]) {
                     const duration = Date.now() - timers[label];
+                    originalConsole.timeEnd(label);
                     console.log(`${label}: ${duration}ms`);
                     delete timers[label];
                 }
             };
+            
+            console.timeLog = function(label = 'default', ...args) {
+                if (timers[label]) {
+                    const duration = Date.now() - timers[label];
+                    originalConsole.timeLog(label, ...args);
+                    console.log(`${label}: ${duration}ms`, ...args);
+                }
+            };
+        }
+
+        // Функция для отображения таблиц
+        function addTableToConsole(data, columns) {
+            const div = document.createElement('div');
+            div.className = 'log';
+            
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'timestamp';
+            timeSpan.textContent = new Date().toLocaleTimeString();
+            div.appendChild(timeSpan);
+            
+            if (!data) {
+                div.appendChild(document.createTextNode('console.table: No data'));
+                consoleOutput.appendChild(div);
+                return;
+            }
+            
+            // Создаем таблицу
+            const table = document.createElement('table');
+            table.className = 'console-table';
+            
+            let rows = [];
+            let headers = [];
+            
+            if (Array.isArray(data)) {
+                // Для массивов
+                if (data.length > 0 && typeof data[0] === 'object' && data[0] !== null) {
+                    headers = columns || Object.keys(data[0]);
+                    rows = data;
+                } else {
+                    headers = ['Index', 'Value'];
+                    rows = data.map((value, index) => ({ Index: index, Value: value }));
+                }
+            } else if (typeof data === 'object' && data !== null) {
+                // Для объектов
+                headers = columns || ['Key', 'Value'];
+                rows = Object.entries(data).map(([key, value]) => ({
+                    Key: key,
+                    Value: value
+                }));
+            } else {
+                div.appendChild(document.createTextNode(String(data)));
+                consoleOutput.appendChild(div);
+                return;
+            }
+            
+            // Создаем заголовок
+            if (headers.length > 0) {
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+            }
+            
+            // Создаем тело таблицы
+            const tbody = document.createElement('tbody');
+            rows.forEach((row, index) => {
+                const tr = document.createElement('tr');
+                
+                if (Array.isArray(data)) {
+                    if (typeof row === 'object' && row !== null) {
+                        headers.forEach(header => {
+                            const td = document.createElement('td');
+                            const value = row[header];
+                            td.textContent = value !== undefined ? JSON.stringify(value) : 'undefined';
+                            tr.appendChild(td);
+                        });
+                    } else {
+                        const td1 = document.createElement('td');
+                        td1.textContent = index;
+                        tr.appendChild(td1);
+                        
+                        const td2 = document.createElement('td');
+                        td2.textContent = JSON.stringify(row);
+                        tr.appendChild(td2);
+                    }
+                } else if (typeof data === 'object' && data !== null) {
+                    const td1 = document.createElement('td');
+                    td1.textContent = row.Key;
+                    tr.appendChild(td1);
+                    
+                    const td2 = document.createElement('td');
+                    td2.textContent = JSON.stringify(row.Value);
+                    tr.appendChild(td2);
+                }
+                
+                tbody.appendChild(tr);
+            });
+            
+            table.appendChild(tbody);
+            div.appendChild(table);
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
         }
 
         // Восстанавливаем консоль
@@ -1114,7 +1306,7 @@
         }
 
         // Добавляем сообщение в консоль
-        function addToConsole(type, args) {
+        function addToConsole(type, args, isDir = false) {
             const div = document.createElement('div');
             div.className = type;
             
@@ -1130,6 +1322,13 @@
                             // Для ошибок используем специальное форматирование
                             const code = editor.getValue();
                             return formatError(arg, code);
+                        }
+                        if (isDir) {
+                            // Для console.dir показываем структуру объекта
+                            return JSON.stringify(arg, (key, value) => {
+                                if (typeof value === 'function') return 'ƒ ' + value.name + '()';
+                                return value;
+                            }, 2);
                         }
                         return JSON.stringify(arg, null, 2);
                     } catch {
@@ -1158,6 +1357,42 @@
             consoleOutput.scrollTop = consoleOutput.scrollHeight;
         }
 
+        // Функция для проверки наличия "use strict" в коде
+        function extractUseStrict(code) {
+            const lines = code.split('\n');
+            let useStrictIndex = -1;
+            let hasUseStrict = false;
+            
+            // Ищем "use strict" в первых нескольких строках (игнорируя комментарии)
+            for (let i = 0; i < Math.min(10, lines.length); i++) {
+                const trimmedLine = lines[i].trim();
+                // Пропускаем пустые строки и комментарии
+                if (trimmedLine === '' || trimmedLine.startsWith('//') || trimmedLine.startsWith('/*')) {
+                    continue;
+                }
+                
+                if (trimmedLine.includes('"use strict"') || trimmedLine.includes("'use strict'")) {
+                    hasUseStrict = true;
+                    useStrictIndex = i;
+                    break;
+                }
+                
+                // Если дошли до кода, а "use strict" не найден, прекращаем поиск
+                if (!trimmedLine.startsWith('//') && !trimmedLine.startsWith('/*')) {
+                    break;
+                }
+            }
+            
+            // Удаляем строку с "use strict" если она найдена
+            let cleanCode = code;
+            if (hasUseStrict && useStrictIndex !== -1) {
+                lines.splice(useStrictIndex, 1);
+                cleanCode = lines.join('\n');
+            }
+            
+            return { hasUseStrict, cleanCode };
+        }
+
         // Основная функция выполнения кода
         async function runCode() {
             if (isRunning) {
@@ -1184,15 +1419,16 @@
             console.log('🚀 Запуск кода...');
             
             try {
-                // Используем eval для выполнения кода
-                // Оборачиваем в try-catch для捕获 ошибок
-                const executeCode = new Function(`
-                    try {
-                        ${userCode}
-                    } catch (error) {
-                        throw error;
-                    }
-                `);
+                // Проверяем наличие "use strict"
+                const { hasUseStrict, cleanCode } = extractUseStrict(userCode);
+                
+                // Формируем финальный код с правильным расположением "use strict"
+                const finalCode = hasUseStrict 
+                    ? `"use strict";\n${cleanCode}`  // Строгий режим ПРЯМО перед кодом
+                    : cleanCode;
+                
+                // Создаем функцию без try-catch обертки для сохранения позиции "use strict"
+                const executeCode = new Function(finalCode);
                 
                 // Запускаем код
                 const executionPromise = Promise.resolve().then(() => executeCode());

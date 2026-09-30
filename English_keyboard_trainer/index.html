@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Лови буквы</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="game-wrapper">
+    <header>
+      <h1>⌨️ Лови буквы</h1>
+      <div class="hud">
+        <div>Очки: <span id="score">0</span></div>
+        <div>Жизни: <span id="lives">3</span></div>
+        <div>Время: <span id="time">60</span>с</div>
+        <div>Комбо: <span id="combo">0</span></div>
+        <div>Букв: <span id="onScreen">0</span>/<span id="limit">4</span></div>
+      </div>
+    </header>
+
+    <main id="game" class="game-area">
+      <div id="overlay" class="overlay">
+        <h2>Готовы?</h2>
+        <p>Нажимайте клавиши с буквами, которые падают.</p>
+        <button id="startBtn">▶ Старт</button>
+      </div>
+    </main>
+
+    <section class="settings">
+      <h2>⚙️ Настройки</h2>
+
+      <div class="setting-row">
+        <label>Раскладка клавиатуры:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="layout" value="ru" checked> Только русская</label>
+          <label><input type="radio" name="layout" value="en"> Только английская</label>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <label for="speedRange">
+          Скорость падения:
+          <span id="speedValue">1.5</span>x
+        </label>
+        <input id="speedRange" type="range" min="0.5" max="4" step="0.1" value="1.5">
+      </div>
+
+      <div class="setting-row">
+        <label for="spawnRange">
+          Частота появления:
+          <span id="spawnValue">1200</span> мс
+        </label>
+        <input id="spawnRange" type="range" min="400" max="2500" step="100" value="1200">
+      </div>
+
+      <div class="setting-row">
+        <label for="limitRange">
+          Максимум букв на экране: <span id="limitValue">4</span>
+        </label>
+        <input id="limitRange" type="range" min="1" max="8" step="1" value="4">
+      </div>
+
+      <div class="setting-row">
+        <label for="livesRange">
+          Жизни: <span id="livesValue">3</span>
+        </label>
+        <input id="livesRange" type="range" min="1" max="10" step="1" value="3">
+      </div>
+
+      <div class="setting-row">
+        <label for="timeRange">
+          Длительность: <span id="timeValue">60</span>с
+        </label>
+        <input id="timeRange" type="range" min="15" max="180" step="5" value="60">
+      </div>
+    </section>
+
+    <section class="stats">
+      <h2>📊 Статистика</h2>
+      <table>
+        <tr><td>Поймано букв</td><td id="caughtTotal">0</td></tr>
+        <tr><td>Пропущено букв</td><td id="missedTotal">0</td></tr>
+        <tr><td>Ошибочных нажатий</td><td id="wrongTotal">0</td></tr>
+        <tr><td>Точность</td><td id="accuracy">—</td></tr>
+        <tr><td>Лучший результат</td><td id="bestScore">0</td></tr>
+        <tr><td>Макс. комбо</td><td id="bestCombo">0</td></tr>
+        <tr><td>Игр сыграно</td><td id="gamesPlayed">0</td></tr>
+      </table>
+
+      <h3>Пойманные буквы</h3>
+      <div id="lettersList" class="letters"></div>
+
+      <button id="resetBtn" class="danger">🗑 Сбросить статистику</button>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

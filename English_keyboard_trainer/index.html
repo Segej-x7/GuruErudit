@@ -1,99 +1,1945 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Лови буквы</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Английский язык | Guruerudit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-dark: #0A1429;
+            --primary-light: #1E293B;
+            --secondary: #7C3AED;
+            --secondary-dark: #6D28D9;
+            --secondary-light: #8B5CF6;
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --accent-light: #FBBF24;
+            --light: #FFFFFF;
+            --dark: #0F172A;
+            --gray-dark: #334155;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --gray-bg: #F8FAFC;
+            --gradient-primary: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            --gradient-accent: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FCD34D 100%);
+            --gradient-secondary: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A78BFA 100%);
+            --gradient-js: linear-gradient(135deg, #1e25f7 0%, #f04fb0 50%, #f60000 100%);
+            --gradient-react: linear-gradient(135deg, #61DAFB 0%, #7BD5F5 50%, #9AE0F7 100%);
+            --gradient-node: linear-gradient(135deg, #339933 0%, #5CB85C 50%, #7CCD7C 100%);
+            --border-radius-xl: 24px;
+            --border-radius-lg: 20px;
+            --border-radius-md: 16px;
+            --border-radius-sm: 12px;
+            --box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --box-shadow-lg: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+            --box-shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            width: 100%;
+            min-width: 320px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--dark);
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Хедер */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            transition: var(--transition-smooth);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header-scrolled {
+            padding: 15px 0;
+            box-shadow: var(--box-shadow-sm);
+            background: rgba(255, 255, 255, 0.99);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: 'Manrope', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            letter-spacing: -0.5px;
+            position: relative;
+            text-decoration: none;
+            z-index: 1001;
+            white-space: nowrap;
+            max-width: 70%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logo span {
+            color: var(--secondary);
+            position: relative;
+            margin-left: 2px;
+        }
+
+        .logo span::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 26px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 6px 0;
+            letter-spacing: 0.2px;
+            white-space: nowrap;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: var(--transition-fast);
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: var(--transition-fast);
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            white-space: nowrap;
+            min-height: 48px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-secondary);
+            color: var(--light);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(15, 23, 42, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: var(--primary);
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Мобильное меню */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Мобильная навигация */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--light);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            background: var(--light);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+
+        .mobile-nav-content {
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .mobile-nav ul li a {
+            display: block;
+            padding: 14px 0;
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 600;
+            font-size: 17px;
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition-fast);
+            width: 100%;
+        }
+
+        .mobile-nav ul li a:hover,
+        .mobile-nav ul li a.active {
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        .mobile-nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .mobile-nav-buttons .btn {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+
+        /* ГЕРОЙ КУРСА */
+        .course-hero {
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
+            margin-top: 80px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .course-hero-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.1;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .course-hero-circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--gradient-js);
+            top: -150px;
+            left: -50px;
+        }
+
+        .course-hero-circle-2 {
+            width: 250px;
+            height: 250px;
+            background: var(--gradient-react);
+            bottom: -125px;
+            right: -50px;
+            animation-delay: 1s;
+        }
+
+        .course-hero-circle-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--gradient-node);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.05;
+            animation-delay: 2s;
+        }
+
+        .course-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow-sm);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            animation: float-uniform 3s ease-in-out infinite;
+            z-index: 1;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .course-badge i {
+            margin-right: 8px;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .course-hero h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .course-hero .highlight {
+            background: var(--gradient-js);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline;
+        }
+
+        .course-hero .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gradient-js);
+            opacity: 0.2;
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .course-hero p {
+            font-size: 18px;
+            color: var(--gray-dark);
+            margin-bottom: 40px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            word-wrap: break-word;
+        }
+
+        /* СЕКЦИЯ ТРЕНАЖЁРА — СВЕТЛЫЙ ФОН, КАК БЫЛО */
+        .trainer-section {
+            padding: 80px 0;
+            position: relative;
+            background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .trainer-section::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 300px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            top: -150px;
+            left: -50%;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            word-wrap: break-word;
+            padding: 0 10px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            max-width: 100%;
+            margin: 30px auto 0;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+
+        /* ===== ТРЕНАЖЁР ПО ЛОВЛЕ БУКВ ===== */
+        .game-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .game-header {
+            flex-shrink: 0;
+        }
+
+        .game-header h2 {
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        /* ===== ТАБЛО (HUD) — БЕЛЫЙ ФОН, ТЁМНЫЙ ТЕКСТ, ЗОЛОТЫЕ ЗНАЧЕНИЯ ===== */
+        .hud {
+            display: flex;
+            justify-content: space-around;
+            background: #6d28d982;
+            color: var(--primary);
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--gray-light);
+        }
+
+        .hud span {
+            color: #F59E0B;
+            font-weight: 800;
+        }
+
+        /* ===== Игровое поле — ПРИЯТНЫЙ СИНИЙ ГРАДИЕНТ ===== */
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            min-height: 500px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .game-area::after {
+            content: '';
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 12px #ffd700;
+            pointer-events: none;
+        }
+
+        /* ===== Падающая буква ===== */
+        .letter {
+            position: absolute;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.12);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            text-shadow: 0 0 8px #ff0;
+            user-select: none;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .letter.danger {
+            border-color: #ff5252;
+            color: #ff5252;
+            background: rgba(255, 82, 82, 0.15);
+            text-shadow: 0 0 8px #f00;
+            box-shadow: 0 0 20px rgba(255, 82, 82, 0.3);
+        }
+
+        .letter.hit {
+            animation: pop 0.25s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes pop {
+            0%   { transform: scale(1);   background: #ffd700; color: #1e3c72; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+
+        /* ===== Оверлей ===== */
+        .overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay.hidden { display: none; }
+        .overlay h2 { font-size: 32px; color: var(--light); }
+        .overlay p  { font-size: 16px; opacity: 0.85; color: var(--light); }
+
+        /* ===== Кнопки тренажёра ===== */
+        .game-wrapper button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: #ffd700;
+            color: #1e3c72;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .game-wrapper button:hover { transform: scale(1.05); }
+        .game-wrapper button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .game-wrapper button.danger {
+            background: #ff5252;
+            color: #fff;
+            width: 100%;
+            margin-top: 14px;
+        }
+
+        /* ===== Настройки и статистика — СВЕТЛЫЙ ФОН ===== */
+        .settings, .stats {
+            background: #FFFFFF;
+            padding: 18px 22px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            border: 1px solid var(--gray-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .settings h2, .stats h2 {
+            font-size: 20px;
+            margin-bottom: 14px;
+            color: var(--primary);
+        }
+
+        .setting-row {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            align-items: center;
+            gap: 14px;
+            padding: 8px 0;
+        }
+
+        .setting-row label {
+            font-size: 15px;
+            color: var(--gray-dark);
+        }
+
+        .setting-row input[type="range"] {
+            width: 100%;
+            accent-color: #F59E0B;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--gray-dark);
+        }
+
+        .radio-group input[type="radio"] {
+            accent-color: #F59E0B;
+            cursor: pointer;
+        }
+
+        /* ===== Статистика ===== */
+        .stats table { width: 100%; border-collapse: collapse; }
+
+        .stats td {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 15px;
+            color: var(--gray-dark);
+        }
+
+        .stats td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .stats h3 {
+            color: var(--primary);
+            margin-top: 14px;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .letters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .letters span {
+            background: var(--gradient-accent);
+            color: #0F172A;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ===== Вспышки ===== */
+        .game-area.wrong-flash { animation: wrongFlash 0.2s; }
+        @keyframes wrongFlash {
+            0%, 100% { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+            50%      { background: linear-gradient(135deg, #8b1e1e, #b83030); }
+        }
+
+        .game-area.correct-flash { animation: correctFlash 0.15s; }
+        @keyframes correctFlash {
+            0%, 100% { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+            50%      { background: linear-gradient(135deg, #1e5c3a, #2a8a52); }
+        }
+
+        /* ФУТЕР */
+        footer {
+            background: var(--gradient-primary);
+            color: var(--light);
+            padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .footer-circles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .footer-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            opacity: 0.05;
+            filter: blur(40px);
+        }
+
+        .footer-circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+        }
+
+        .footer-circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -50px;
+            background: var(--gradient-secondary);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--light);
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: 15px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            word-wrap: break-word;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+            padding-left: 8px;
+        }
+
+        .footer-links a i {
+            margin-right: 10px;
+            width: 18px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a:hover {
+            background: var(--gradient-accent);
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        /* АНИМАЦИИ */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(3deg);
+            }
+        }
+
+        @keyframes float-uniform {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.4s; }
+        .delay-4 { animation-delay: 0.5s; }
+        .delay-5 { animation-delay: 0.6s; }
+
+        /* ОЧЕНЬ МАЛЕНЬКИЕ ЭКРАНЫ (до 360px) */
+        @media (max-width: 360px) {
+            .container { padding: 0 15px; }
+            .logo { font-size: 24px; }
+            .logo i { font-size: 22px; margin-right: 8px; }
+            .btn { padding: 12px 20px; font-size: 14px; min-height: 44px; }
+            .course-hero { padding: 60px 0 60px; margin-top: 70px; }
+            .course-hero h1 { font-size: 30px; }
+            .course-hero p { font-size: 16px; }
+            .section-header h2 { font-size: 28px; }
+            .mobile-nav { width: 90%; }
+            .game-area { height: 60vh; min-height: 350px; }
+            .letter { width: 44px; height: 44px; font-size: 24px; }
+        }
+
+        /* МОБИЛЬНЫЕ УСТРОЙСТВА (до 768px) */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: flex; }
+            .desktop-nav, .header-buttons { display: none !important; }
+            .header-content { padding: 0; }
+            .logo { font-size: 26px; max-width: 75%; }
+            .course-hero h1 { font-size: 34px; padding: 0 10px; }
+            .course-hero p { font-size: 17px; padding: 0 10px; }
+            .hero-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+                padding: 0 20px;
+            }
+            .hero-buttons .btn { width: 100%; max-width: 300px; margin: 0 auto; }
+            .setting-row { grid-template-columns: 1fr; gap: 6px; }
+            .game-area { height: 60vh; min-height: 400px; }
+            .letter { width: 44px; height: 44px; font-size: 24px; }
+            .hud { font-size: 15px; padding: 10px 12px; gap: 8px; }
+            .settings h2, .stats h2 { font-size: 18px; }
+        }
+
+        /* ПЛАНШЕТЫ И МАЛЕНЬКИЕ НОУТБУКИ (769px - 992px) */
+        @media (min-width: 769px) and (max-width: 992px) {
+            .container { padding: 0 30px; }
+            nav ul { gap: 25px; }
+            .logo { font-size: 30px; }
+            .course-hero h1 { font-size: 48px; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+            .mobile-menu-btn, .mobile-nav, .mobile-nav-overlay { display: none !important; }
+            .desktop-nav, .header-buttons { display: flex !important; }
+            .game-area { height: 80vh; min-height: 500px; }
+        }
+
+        /* ДЕСКТОП (от 993px) */
+        @media (min-width: 993px) {
+            .container { padding: 0 40px; }
+            .course-hero h1 { font-size: 52px; }
+            .footer-content { grid-template-columns: 1.5fr repeat(3, 1fr); }
+            .mobile-menu-btn, .mobile-nav, .mobile-nav-overlay { display: none !important; }
+            .desktop-nav, .header-buttons { display: flex !important; }
+            .game-area { height: 85vh; min-height: 500px; }
+        }
+
+        /* БОЛЬШИЕ ЭКРАНЫ (от 1200px) */
+        @media (min-width: 1200px) {
+            .course-hero h1 { font-size: 60px; }
+            .section-header h2 { font-size: 42px; }
+        }
+
+        /* ОСОБЫЕ СТИЛИ ДЛЯ ОЧЕНЬ ВЫСОКИХ ЭКРАНОВ */
+        @media (min-width: 1400px) {
+            .course-hero h1 { font-size: 68px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="game-wrapper">
-    <header>
-      <h1>⌨️ Лови буквы</h1>
-      <div class="hud">
-        <div>Очки: <span id="score">0</span></div>
-        <div>Жизни: <span id="lives">3</span></div>
-        <div>Время: <span id="time">60</span>с</div>
-        <div>Комбо: <span id="combo">0</span></div>
-        <div>Букв: <span id="onScreen">0</span>/<span id="limit">4</span></div>
-      </div>
+    <!-- Хедер -->
+    <header id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="https://guruerudit.ru/" class="logo">
+                    <i class="fas fa-crown"></i>
+                    GURUERUDIT<span>.</span>
+                </a>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <nav class="desktop-nav">
+                    <ul>
+                        <li><a href="https://guruerudit.ru/">Главная</a></li>
+                        <li><a href="https://guruerudit.ru/#courses">Курсы</a></li>
+                        <li><a href="#trainer" class="active">Тренажёр</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-buttons">
+                    <a href="pages/login.html" class="btn btn-secondary" id="loginBtn">Вход</a>
+                    <a href="pages/register.html" class="btn btn-primary" id="registerBtn">Регистрация</a>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main id="game" class="game-area">
-      <div id="overlay" class="overlay">
-        <h2>Готовы?</h2>
-        <p>Нажимайте клавиши с буквами, которые падают.</p>
-        <button id="startBtn">▶ Старт</button>
-      </div>
-    </main>
-
-    <section class="settings">
-      <h2>⚙️ Настройки</h2>
-
-      <div class="setting-row">
-        <label>Раскладка клавиатуры:</label>
-        <div class="radio-group">
-          <label><input type="radio" name="layout" value="ru" checked> Только русская</label>
-          <label><input type="radio" name="layout" value="en"> Только английская</label>
+    <!-- Мобильное меню -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <a href="https://guruerudit.ru/" class="logo" style="color: var(--primary);">
+                <i class="fas fa-crown"></i>
+                GURUERUDIT<span>.</span>
+            </a>
         </div>
-      </div>
+        <div class="mobile-nav-content">
+            <ul>
+                <li><a href="https://guruerudit.ru/">Главная</a></li>
+                <li><a href="https://guruerudit.ru/#courses">Курсы</a></li>
+                <li><a href="#trainer" class="active">Тренажёр</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            
+            <div class="mobile-nav-buttons">
+                <a href="pages/login.html" class="btn btn-secondary" id="mobileLoginBtn">Вход</a>
+                <a href="pages/register.html" class="btn btn-primary" id="mobileRegisterBtn">Регистрация</a>
+            </div>
+        </div>
+    </div>
 
-      <div class="setting-row">
-        <label for="speedRange">
-          Скорость падения:
-          <span id="speedValue">1.5</span>x
-        </label>
-        <input id="speedRange" type="range" min="0.5" max="4" step="0.1" value="1.5">
-      </div>
-
-      <div class="setting-row">
-        <label for="spawnRange">
-          Частота появления:
-          <span id="spawnValue">1200</span> мс
-        </label>
-        <input id="spawnRange" type="range" min="400" max="2500" step="100" value="1200">
-      </div>
-
-      <div class="setting-row">
-        <label for="limitRange">
-          Максимум букв на экране: <span id="limitValue">4</span>
-        </label>
-        <input id="limitRange" type="range" min="1" max="8" step="1" value="4">
-      </div>
-
-      <div class="setting-row">
-        <label for="livesRange">
-          Жизни: <span id="livesValue">3</span>
-        </label>
-        <input id="livesRange" type="range" min="1" max="10" step="1" value="3">
-      </div>
-
-      <div class="setting-row">
-        <label for="timeRange">
-          Длительность: <span id="timeValue">60</span>с
-        </label>
-        <input id="timeRange" type="range" min="15" max="180" step="5" value="60">
-      </div>
+    <!-- ГЕРОЙ КУРСА -->
+    <section class="course-hero">
+        <div class="course-hero-circle course-hero-circle-1"></div>
+        <div class="course-hero-circle course-hero-circle-2"></div>
+        <div class="course-hero-circle course-hero-circle-3"></div>
+        
+        <div class="container">
+            <div class="course-badge fade-in">
+                <i class="fas fa-keyboard"></i> ТРЕНАЖЁР ПО АНГЛИЙСКОМУ ЯЗЫКУ
+            </div>
+            <h1 class="fade-in delay-1">Ловите буквы — учите <span class="highlight">английский</span> играя</h1>
+            <p class="fade-in delay-2">Развивайте скорость реакции и запоминайте буквы английского алфавита в интерактивной игре. Выбирайте раскладку, настраивайте скорость и побивайте свои рекорды!</p>
+            <div class="fade-in delay-3 hero-buttons">
+                <a href="#trainer" class="btn btn-accent">
+                    <i class="fas fa-play-circle"></i> Начать тренировку
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    Задать вопрос
+                </a>
+            </div>
+        </div>
     </section>
 
-    <section class="stats">
-      <h2>📊 Статистика</h2>
-      <table>
-        <tr><td>Поймано букв</td><td id="caughtTotal">0</td></tr>
-        <tr><td>Пропущено букв</td><td id="missedTotal">0</td></tr>
-        <tr><td>Ошибочных нажатий</td><td id="wrongTotal">0</td></tr>
-        <tr><td>Точность</td><td id="accuracy">—</td></tr>
-        <tr><td>Лучший результат</td><td id="bestScore">0</td></tr>
-        <tr><td>Макс. комбо</td><td id="bestCombo">0</td></tr>
-        <tr><td>Игр сыграно</td><td id="gamesPlayed">0</td></tr>
-      </table>
+    <!-- СЕКЦИЯ ТРЕНАЖЁРА -->
+    <section class="trainer-section" id="trainer">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Тренажёр «Лови буквы»</h2>
+                <p>Нажимайте клавиши с буквами, которые падают вниз. Успейте поймать все буквы, пока они не достигли земли!</p>
+            </div>
 
-      <h3>Пойманные буквы</h3>
-      <div id="lettersList" class="letters"></div>
+            <div class="game-wrapper fade-in delay-1">
+                <header class="game-header">
+                    <div class="hud">
+                        <div>Очки: <span id="score">0</span></div>
+                        <div>Жизни: <span id="lives">3</span></div>
+                        <div>Время: <span id="time">60</span>с</div>
+                        <div>Комбо: <span id="combo">0</span></div>
+                        <div>Букв: <span id="onScreen">0</span>/<span id="limit">4</span></div>
+                    </div>
+                </header>
 
-      <button id="resetBtn" class="danger">🗑 Сбросить статистику</button>
+                <main id="game" class="game-area">
+                    <div id="overlay" class="overlay">
+                        <h2>Готовы?</h2>
+                        <p>Нажимайте клавиши с буквами, которые падают.</p>
+                        <button id="startBtn">▶ Старт</button>
+                    </div>
+                </main>
+
+                <section class="settings">
+                    <h2>⚙️ Настройки</h2>
+
+                    <div class="setting-row">
+                        <label>Раскладка клавиатуры:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="layout" value="ru" checked> Только русская</label>
+                            <label><input type="radio" name="layout" value="en"> Только английская</label>
+                        </div>
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="speedRange">
+                            Скорость падения:
+                            <span id="speedValue">1.5</span>x
+                        </label>
+                        <input id="speedRange" type="range" min="0.5" max="4" step="0.1" value="1.5">
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="spawnRange">
+                            Частота появления:
+                            <span id="spawnValue">1200</span> мс
+                        </label>
+                        <input id="spawnRange" type="range" min="400" max="2500" step="100" value="1200">
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="limitRange">
+                            Максимум букв на экране: <span id="limitValue">4</span>
+                        </label>
+                        <input id="limitRange" type="range" min="1" max="8" step="1" value="4">
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="livesRange">
+                            Жизни: <span id="livesValue">3</span>
+                        </label>
+                        <input id="livesRange" type="range" min="1" max="10" step="1" value="3">
+                    </div>
+
+                    <div class="setting-row">
+                        <label for="timeRange">
+                            Длительность: <span id="timeValue">60</span>с
+                        </label>
+                        <input id="timeRange" type="range" min="15" max="180" step="5" value="60">
+                    </div>
+                </section>
+
+                <section class="stats">
+                    <h2>📊 Статистика</h2>
+                    <table>
+                        <tr><td>Поймано букв</td><td id="caughtTotal">0</td></tr>
+                        <tr><td>Пропущено букв</td><td id="missedTotal">0</td></tr>
+                        <tr><td>Ошибочных нажатий</td><td id="wrongTotal">0</td></tr>
+                        <tr><td>Точность</td><td id="accuracy">—</td></tr>
+                        <tr><td>Лучший результат</td><td id="bestScore">0</td></tr>
+                        <tr><td>Макс. комбо</td><td id="bestCombo">0</td></tr>
+                        <tr><td>Игр сыграно</td><td id="gamesPlayed">0</td></tr>
+                    </table>
+
+                    <h3>Пойманные буквы</h3>
+                    <div id="lettersList" class="letters"></div>
+
+                    <button id="resetBtn" class="danger">🗑 Сбросить статистику</button>
+                </section>
+            </div>
+        </div>
     </section>
-  </div>
 
-  <script src="script.js"></script>
+    <!-- ФУТЕР -->
+    <footer id="contact">
+        <div class="footer-circles">
+            <div class="footer-circle footer-circle-1"></div>
+            <div class="footer-circle footer-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo" style="color: white; margin-bottom: 25px; justify-content: flex-start;">
+                        <i class="fas fa-crown"></i>
+                        GURUERUDIT<span style="color: var(--accent);">.</span>
+                    </div>
+                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; font-size: 15px; line-height: 1.6;">Ведущая образовательная платформа, которая помогает профессионалам достигать новых высот в карьере через премиальное обучение и экспертизу мирового уровня.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Направления</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Дизайн</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Разработка</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Аналитика</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Маркетинг</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Бизнес</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Закупки</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Курсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> FullStack JavaScript</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Python для анализа данных</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> UX/UI Дизайн PRO</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> iOS разработка</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Android разработка</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@guruerudit.ru"><i class="far fa-envelope"></i> info@guruerudit.ru</a></li>
+                        <li><a href="tel:+78001234567"><i class="fas fa-phone"></i> 8 (800) 123-45-67</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Москва, ул. Премиум, 15</a></li>
+                        <li style="margin-top: 15px; color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+                            Работаем с 2015 года
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2023 Guruerudit Premium Education. Все права защищены. | <a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: underline;">Политика конфиденциальности</a> | <a href="#" style="color: rgba(255, 255, 255, 0.7); text-decoration: underline;">Условия использования</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Фиксация хедера
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 30) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Управление мобильным меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+            const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+            const mobileRegisterBtn = document.getElementById('mobileRegisterBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            
+            function toggleMobileMenu() {
+                mobileMenuBtn.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                mobileNavOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : 'auto';
+            }
+            
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            mobileNavOverlay.addEventListener('click', toggleMobileMenu);
+            
+            document.querySelectorAll('.mobile-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        
+                        if (targetElement) {
+                            toggleMobileMenu();
+                            
+                            setTimeout(() => {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 80,
+                                    behavior: 'smooth'
+                                });
+                            }, 300);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            toggleMobileMenu();
+                        }, 100);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.desktop-nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+            
+            const observerOptions = {
+                threshold: 0.05,
+                rootMargin: '0px 0px -30px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in').forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(15px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(element);
+            });
+            
+            function updateAuthState() {
+                const token = localStorage.getItem('auth_token') || localStorage.getItem('authToken');
+                
+                if (token) {
+                    loginBtn.textContent = 'Личный кабинет';
+                    loginBtn.href = 'pages/course.html';
+                    loginBtn.classList.remove('btn-secondary');
+                    loginBtn.classList.add('btn-primary');
+                    
+                    registerBtn.textContent = 'Выйти';
+                    registerBtn.href = '#';
+                    registerBtn.onclick = function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('auth_token');
+                        localStorage.removeItem('authToken');
+                        updateAuthState();
+                    };
+                    
+                    mobileLoginBtn.textContent = 'Личный кабинет';
+                    mobileLoginBtn.href = 'pages/course.html';
+                    mobileLoginBtn.classList.remove('btn-secondary');
+                    mobileLoginBtn.classList.add('btn-primary');
+                    
+                    mobileRegisterBtn.textContent = 'Выйти';
+                    mobileRegisterBtn.href = '#';
+                    mobileRegisterBtn.onclick = function(e) {
+                        e.preventDefault();
+                        localStorage.removeItem('auth_token');
+                        localStorage.removeItem('authToken');
+                        updateAuthState();
+                        
+                        if (window.innerWidth <= 768) {
+                            toggleMobileMenu();
+                        }
+                    };
+                } else {
+                    loginBtn.textContent = 'Вход';
+                    loginBtn.href = 'pages/login.html';
+                    loginBtn.classList.remove('btn-primary');
+                    loginBtn.classList.add('btn-secondary');
+                    loginBtn.onclick = null;
+                    
+                    registerBtn.textContent = 'Регистрация';
+                    registerBtn.href = 'pages/register.html';
+                    registerBtn.classList.remove('btn-secondary');
+                    registerBtn.classList.add('btn-primary');
+                    registerBtn.onclick = null;
+                    
+                    mobileLoginBtn.textContent = 'Вход';
+                    mobileLoginBtn.href = 'pages/login.html';
+                    mobileLoginBtn.classList.remove('btn-primary');
+                    mobileLoginBtn.classList.add('btn-secondary');
+                    mobileLoginBtn.onclick = null;
+                    
+                    mobileRegisterBtn.textContent = 'Регистрация';
+                    mobileRegisterBtn.href = 'pages/register.html';
+                    mobileRegisterBtn.classList.remove('btn-secondary');
+                    mobileRegisterBtn.classList.add('btn-primary');
+                    mobileRegisterBtn.onclick = null;
+                }
+            }
+            
+            setTimeout(updateAuthState, 500);
+            
+            if ('ontouchstart' in window) {
+                document.body.classList.add('touch-device');
+                
+                document.querySelectorAll('.btn, .module-btn').forEach(btn => {
+                    btn.style.cursor = 'pointer';
+                });
+            }
+        });
+
+        // ===== Элементы тренажёра =====
+        const gameArea   = document.getElementById('game');
+        const overlay    = document.getElementById('overlay');
+        const scoreEl    = document.getElementById('score');
+        const livesEl    = document.getElementById('lives');
+        const timeEl     = document.getElementById('time');
+        const comboEl    = document.getElementById('combo');
+        const onScreenEl = document.getElementById('onScreen');
+        const limitEl    = document.getElementById('limit');
+        const startBtn   = document.getElementById('startBtn');
+        const resetBtn   = document.getElementById('resetBtn');
+
+        const speedRange = document.getElementById('speedRange');
+        const speedValue = document.getElementById('speedValue');
+        const spawnRange = document.getElementById('spawnRange');
+        const spawnValue = document.getElementById('spawnValue');
+        const limitRange = document.getElementById('limitRange');
+        const limitValue = document.getElementById('limitValue');
+        const livesRange = document.getElementById('livesRange');
+        const livesValue = document.getElementById('livesValue');
+        const timeRange  = document.getElementById('timeRange');
+        const timeValue  = document.getElementById('timeValue');
+
+        const caughtTotalEl = document.getElementById('caughtTotal');
+        const missedTotalEl = document.getElementById('missedTotal');
+        const wrongTotalEl  = document.getElementById('wrongTotal');
+        const accuracyEl    = document.getElementById('accuracy');
+        const bestScoreEl   = document.getElementById('bestScore');
+        const bestComboEl   = document.getElementById('bestCombo');
+        const gamesPlayedEl = document.getElementById('gamesPlayed');
+        const lettersListEl = document.getElementById('lettersList');
+
+        // ===== Наборы букв =====
+        const RU_LETTERS = 'АБВГДЕЖЗИКЛМНОПРСТУФХЦШЫЭЮЯ'.split('');
+        const EN_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+        // ===== Настройки =====
+        const SETTINGS_KEY = 'letterCatchSettings_v5';
+
+        function loadSettings() {
+            const defaults = {
+                layout: 'ru',
+                speed: 1.5,
+                spawn: 1200,
+                maxLetters: 4,
+                lives: 3,
+                time: 60
+            };
+
+            const saved = localStorage.getItem(SETTINGS_KEY);
+            if (!saved) return defaults;
+
+            const parsed = JSON.parse(saved);
+
+            if (parsed.layout !== 'ru' && parsed.layout !== 'en') {
+                parsed.layout = 'ru';
+            }
+
+            return { ...defaults, ...parsed };
+        }
+
+        function saveSettings() {
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+        }
+
+        let settings = loadSettings();
+
+        function applySettingsToUI() {
+            const radio = document.querySelector(`input[name="layout"][value="${settings.layout}"]`);
+            if (radio) radio.checked = true;
+
+            speedRange.value = settings.speed;
+            speedValue.textContent = Number(settings.speed).toFixed(1);
+
+            spawnRange.value = settings.spawn;
+            spawnValue.textContent = settings.spawn;
+
+            limitRange.value = settings.maxLetters;
+            limitValue.textContent = settings.maxLetters;
+
+            livesRange.value = settings.lives;
+            livesValue.textContent = settings.lives;
+
+            timeRange.value = settings.time;
+            timeValue.textContent = settings.time;
+
+            scoreEl.textContent = 0;
+            livesEl.textContent = settings.lives;
+            timeEl.textContent = settings.time;
+            updateOnScreen();
+        }
+
+        function getLetterPool() {
+            return settings.layout === 'en' ? EN_LETTERS : RU_LETTERS;
+        }
+
+        function updateOnScreen() {
+            if (!onScreenEl || !limitEl) return;
+            onScreenEl.textContent = fallingLetters.length;
+            limitEl.textContent = settings.maxLetters;
+        }
+
+        // ===== Обработчики настроек =====
+        speedRange.addEventListener('input', () => {
+            settings.speed = parseFloat(speedRange.value);
+            speedValue.textContent = settings.speed.toFixed(1);
+            saveSettings();
+        });
+
+        spawnRange.addEventListener('input', () => {
+            settings.spawn = parseInt(spawnRange.value, 10);
+            spawnValue.textContent = settings.spawn;
+            saveSettings();
+
+            if (running && spawnTimer) {
+                clearTimeout(spawnTimer);
+                scheduleSpawn();
+            }
+        });
+
+        limitRange.addEventListener('input', () => {
+            settings.maxLetters = parseInt(limitRange.value, 10);
+            limitValue.textContent = settings.maxLetters;
+            saveSettings();
+            updateOnScreen();
+        });
+
+        livesRange.addEventListener('input', () => {
+            settings.lives = parseInt(livesRange.value, 10);
+            livesValue.textContent = settings.lives;
+            saveSettings();
+        });
+
+        timeRange.addEventListener('input', () => {
+            settings.time = parseInt(timeRange.value, 10);
+            timeValue.textContent = settings.time;
+            saveSettings();
+        });
+
+        document.querySelectorAll('input[name="layout"]').forEach(el => {
+            el.addEventListener('change', () => {
+                settings.layout = el.value;
+                saveSettings();
+            });
+        });
+
+        // ===== Статистика =====
+        const STATS_KEY = 'letterCatchStatsKeyboard_v4';
+
+        function loadStats() {
+            const saved = localStorage.getItem(STATS_KEY);
+            return saved ? JSON.parse(saved) : {
+                caught: 0, missed: 0, wrong: 0,
+                bestScore: 0, bestCombo: 0, games: 0,
+                letters: {}
+            };
+        }
+
+        function saveStats() {
+            localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+        }
+
+        let stats = loadStats();
+
+        function renderStats() {
+            caughtTotalEl.textContent = stats.caught;
+            missedTotalEl.textContent = stats.missed;
+            wrongTotalEl.textContent  = stats.wrong;
+            gamesPlayedEl.textContent = stats.games;
+            bestScoreEl.textContent   = stats.bestScore;
+            bestComboEl.textContent   = stats.bestCombo;
+
+            const totalPresses = stats.caught + stats.wrong;
+            accuracyEl.textContent = totalPresses
+                ? Math.round((stats.caught / totalPresses) * 100) + '%'
+                : '—';
+
+            lettersListEl.innerHTML = '';
+            Object.entries(stats.letters)
+                .sort((a, b) => b[1] - a[1])
+                .forEach(([letter, count]) => {
+                    const span = document.createElement('span');
+                    span.textContent = `${letter}: ${count}`;
+                    lettersListEl.appendChild(span);
+                });
+        }
+
+        // ===== Игровое состояние =====
+        let score = 0;
+        let lives = 3;
+        let timeLeft = 60;
+        let combo = 0;
+        let maxCombo = 0;
+        let running = false;
+        let fallingLetters = [];
+        let spawnTimer = null;
+        let gameTimer = null;
+        let rafId = null;
+
+        function startGame() {
+            if (running) return;
+            running = true;
+
+            score = 0;
+            lives = settings.lives;
+            timeLeft = settings.time;
+            combo = 0;
+            maxCombo = 0;
+
+            fallingLetters.forEach(l => l.el.remove());
+            fallingLetters = [];
+
+            updateHud();
+            updateOnScreen();
+            overlay.classList.add('hidden');
+
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                timeEl.textContent = timeLeft;
+                if (timeLeft <= 0) endGame();
+            }, 1000);
+
+            spawnLetter();
+            scheduleSpawn();
+            loop();
+        }
+
+        function updateHud() {
+            scoreEl.textContent = score;
+            livesEl.textContent = lives;
+            timeEl.textContent = timeLeft;
+            comboEl.textContent = combo;
+        }
+
+        function scheduleSpawn() {
+            if (!running) return;
+            spawnTimer = setTimeout(() => {
+                if (!running) return;
+                spawnLetter();
+                scheduleSpawn();
+            }, settings.spawn);
+        }
+
+        function spawnLetter() {
+            if (!running) return;
+
+            if (fallingLetters.length >= settings.maxLetters) return;
+
+            const pool = getLetterPool();
+            const active = new Set(fallingLetters.map(l => l.letter));
+            const available = pool.filter(l => !active.has(l));
+            if (!available.length) return;
+
+            const letter = available[Math.floor(Math.random() * available.length)];
+            const el = document.createElement('div');
+            el.className = 'letter';
+            el.textContent = letter;
+
+            const W = 56;
+            const areaW = gameArea.clientWidth;
+            let x, tries = 0;
+            do {
+                x = Math.random() * (areaW - W);
+                tries++;
+            } while (tries < 20 && fallingLetters.some(l => Math.abs(l.x - x) < W + 10));
+
+            el.style.left = x + 'px';
+            el.style.top = '-60px';
+            gameArea.appendChild(el);
+
+            fallingLetters.push({
+                el, x, y: -60,
+                speed: (1.2 + Math.random() * 1.2) * settings.speed,
+                letter
+            });
+
+            updateOnScreen();
+        }
+
+        function loop() {
+            if (!running) return;
+            const areaH = gameArea.clientHeight;
+
+            for (let i = fallingLetters.length - 1; i >= 0; i--) {
+                const l = fallingLetters[i];
+                l.y += l.speed;
+                l.el.style.top = l.y + 'px';
+
+                if (l.y > areaH - 120) l.el.classList.add('danger');
+                if (l.y > areaH) missLetter(i);
+            }
+
+            rafId = requestAnimationFrame(loop);
+        }
+
+        function missLetter(index) {
+            const l = fallingLetters[index];
+            l.el.remove();
+            fallingLetters.splice(index, 1);
+
+            lives--;
+            combo = 0;
+            updateHud();
+            updateOnScreen();
+
+            stats.missed++;
+            saveStats();
+            renderStats();
+
+            if (lives <= 0) endGame();
+        }
+
+        // ===== Клавиатура =====
+        document.addEventListener('keydown', (e) => {
+            if (!running) return;
+            if (e.key.length !== 1) return;
+
+            const pressed = e.key.toLowerCase();
+
+            let foundIndex = -1;
+            for (let i = 0; i < fallingLetters.length; i++) {
+                if (fallingLetters[i].letter.toLowerCase() === pressed) {
+                    foundIndex = i;
+                    break;
+                }
+            }
+
+            if (foundIndex !== -1) {
+                catchLetter(foundIndex);
+            } else {
+                stats.wrong++;
+                combo = 0;
+                updateHud();
+                saveStats();
+                renderStats();
+
+                gameArea.classList.add('wrong-flash');
+                setTimeout(() => gameArea.classList.remove('wrong-flash'), 200);
+            }
+        });
+
+        function catchLetter(index) {
+            const l = fallingLetters[index];
+            l.el.classList.add('hit');
+            const el = l.el;
+            setTimeout(() => el.remove(), 250);
+            fallingLetters.splice(index, 1);
+
+            combo++;
+            if (combo > maxCombo) maxCombo = combo;
+
+            const gain = 1 + Math.floor(combo / 5);
+            score += gain;
+            updateHud();
+            updateOnScreen();
+
+            gameArea.classList.add('correct-flash');
+            setTimeout(() => gameArea.classList.remove('correct-flash'), 150);
+
+            stats.caught++;
+            stats.letters[l.letter] = (stats.letters[l.letter] || 0) + 1;
+            saveStats();
+            renderStats();
+        }
+
+        function endGame() {
+            running = false;
+            clearTimeout(spawnTimer);
+            clearInterval(gameTimer);
+            cancelAnimationFrame(rafId);
+            spawnTimer = null;
+            gameTimer = null;
+
+            fallingLetters.forEach(l => l.el.remove());
+            fallingLetters = [];
+            updateOnScreen();
+
+            stats.games++;
+            if (score > stats.bestScore) stats.bestScore = score;
+            if (maxCombo > stats.bestCombo) stats.bestCombo = maxCombo;
+            saveStats();
+            renderStats();
+
+            overlay.querySelector('h2').textContent = 'Игра окончена!';
+            overlay.querySelector('p').innerHTML =
+                `Очки: <b>${score}</b> · Поймано: <b>${stats.caught}</b> · Макс. комбо: <b>${maxCombo}</b>`;
+            startBtn.textContent = '▶ Играть снова';
+            overlay.classList.remove('hidden');
+        }
+
+        function resetStats() {
+            if (!confirm('Сбросить всю статистику?')) return;
+            stats = {
+                caught: 0, missed: 0, wrong: 0,
+                bestScore: 0, bestCombo: 0, games: 0,
+                letters: {}
+            };
+            saveStats();
+            renderStats();
+        }
+
+        startBtn.addEventListener('click', startGame);
+        resetBtn.addEventListener('click', resetStats);
+
+        // ===== Инициализация =====
+        applySettingsToUI();
+        renderStats();
+    </script>
 </body>
 </html>

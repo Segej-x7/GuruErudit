@@ -1,0 +1,24 @@
+{
+    "id": "articles",
+    "category": "grammar",
+    "title": "Артикли (Articles)",
+    "description": "Выберите правильный артикль.",
+    "questions": [
+        {
+            "id": 1,
+            "type": "single",
+            "question": "I am ___ student.",
+            "options": ["a", "an", "the", "—"],
+            "correct": [0],
+            "explanation": "Перед гласным звуком используется 'an'."
+        },
+        {
+            "id": 2,
+            "type": "single",
+            "question": "She is ___ student.",
+            "options": ["a", "an", "the", "—"],
+            "correct": [0],
+            "explanation": "Перед гласным звуком используется 'an'."
+        }
+    ]
+}

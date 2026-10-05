@@ -754,6 +754,328 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
+        /* ====== СТИЛИ ДЛЯ ТЕСТОВ ====== */
+        .tests-section {
+            margin-top: 60px;
+            width: 100%;
+        }
+
+        .tests-section h2 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .tests-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-accent);
+            border-radius: 2px;
+        }
+
+        .tests-section > p {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 40px;
+            font-size: 17px;
+        }
+
+        /* Экран меню тестов */
+        #menu-screen-tests {
+            background: var(--gray-bg);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--box-shadow-sm);
+            border: 1px solid var(--gray-light);
+            margin-bottom: 30px;
+        }
+
+        .category-section {
+            margin-bottom: 15px;
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+            background: var(--light);
+        }
+
+        .category-section:first-of-type {
+            margin-top: 85px;
+        }
+
+        .category-header {
+            width: 100%;
+            background: var(--light);
+            border: none;
+            padding: 18px 24px;
+            font-family: 'Manrope', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-fast);
+            text-align: left;
+        }
+
+        .category-header:hover {
+            background: var(--gray-bg);
+        }
+
+        .category-header .arrow {
+            font-size: 14px;
+            transition: transform 0.3s ease;
+            color: var(--accent);
+            width: 20px;
+            text-align: center;
+        }
+
+        .category-header.active .arrow {
+            transform: rotate(90deg);
+        }
+
+        .topic-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0 24px 20px 24px;
+            background: var(--light);
+        }
+
+        .topic-list.collapsed {
+            display: none;
+        }
+
+        .topic-btn {
+            background: var(--gray-bg);
+            border: 1px solid var(--gray-light);
+            border-radius: var(--border-radius-sm);
+            padding: 14px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-dark);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-align: left;
+            width: 100%;
+        }
+
+        .topic-btn:hover {
+            background: var(--secondary);
+            color: var(--light);
+            border-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        /* Экран теста */
+        #quiz-screen-tests {
+            background: var(--light);
+            border-radius: var(--border-radius-lg);
+            padding: 30px;
+            box-shadow: var(--box-shadow-sm);
+            border: 1px solid var(--gray-light);
+            margin-bottom: 30px;
+        }
+
+        #quiz-screen-tests.hidden {
+            display: none;
+        }
+
+        #quiz-screen-tests header {
+            position: static;
+            background: transparent;
+            backdrop-filter: none;
+            border-bottom: none;
+            padding: 0 0 20px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--gray-light);
+            box-shadow: none;
+        }
+
+        #quiz-screen-tests header h1 {
+            font-size: 24px;
+            margin-top: 10px;
+            color: var(--primary);
+        }
+
+        #quiz-screen-tests header p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 8px 0;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition-fast);
+        }
+
+        .back-btn:hover {
+            color: var(--secondary-dark);
+            transform: translateX(-3px);
+        }
+
+        .question-block {
+            background: var(--gray-bg);
+            border-radius: var(--border-radius-sm);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .question-block .question-text {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            margin-bottom: 5px;
+            background: var(--light);
+            border: 1px solid var(--gray-light);
+            font-size: 15px;
+        }
+
+        .option-label:hover {
+            background: #EDE9FE;
+            border-color: var(--secondary-light);
+        }
+
+        .option-label input[type="radio"],
+        .option-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--secondary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .actions button {
+            padding: 14px 28px;
+            border-radius: var(--border-radius-sm);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            min-height: 48px;
+        }
+
+        #check-btn {
+            background: var(--gradient-secondary);
+            color: var(--light);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2);
+        }
+
+        #check-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(124, 58, 237, 0.3);
+        }
+
+        #reset-btn {
+            background: var(--gradient-accent);
+            color: var(--primary);
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
+        }
+
+        #reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(245, 158, 11, 0.3);
+        }
+
+        #result-container {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--gray-bg);
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--gray-light);
+        }
+
+        #result-container h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        #score-display {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .detailed-item {
+            padding: 15px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 10px;
+            background: var(--light);
+            border-left: 4px solid var(--gray-light);
+        }
+
+        .detailed-item.correct {
+            border-left-color: #10B981;
+        }
+
+        .detailed-item.incorrect {
+            border-left-color: #EF4444;
+        }
+
+        .detailed-item .q-text {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .detailed-item .answer-info {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .detailed-item .correct-answer {
+            color: #10B981;
+            font-weight: 600;
+        }
+
+        .detailed-item .your-answer {
+            color: #EF4444;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         /* ФУТЕР */
         footer {
             background: var(--gradient-primary);
@@ -1001,6 +1323,33 @@
             .mobile-nav {
                 width: 90%;
             }
+
+            #menu-screen-tests {
+                padding: 20px 15px;
+            }
+
+            .category-header {
+                padding: 14px 18px;
+                font-size: 16px;
+            }
+
+            .topic-btn {
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+
+            #quiz-screen-tests {
+                padding: 20px 15px;
+            }
+
+            .question-block {
+                padding: 15px;
+            }
+
+            .actions button {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         /* МОБИЛЬНЫЕ УСТРОЙСТВА (до 768px) */
@@ -1045,6 +1394,26 @@
                 width: 100%;
                 max-width: 300px;
                 margin: 0 auto;
+            }
+
+            .tests-section h2 {
+                font-size: 28px;
+            }
+
+            #menu-screen-tests {
+                padding: 20px;
+            }
+
+            #quiz-screen-tests {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .actions button {
+                width: 100%;
             }
         }
 
@@ -1219,109 +1588,49 @@
         </div>
     </section>
 
-    <!-- МОДУЛИ КУРСА -->
+    <!-- МОДУЛИ КУРСА + ТЕСТЫ -->
     <section class="course-modules" id="modules">
         <div class="container">
             <div class="section-header fade-in">
-                <h2>Модули курса по английскому языку</h2>
-                <p>Каждый модуль представляет собой полноценный учебный блок с теорией, практикой и реальными проектами</p>
+                <h2>Тесты по первой теме основ грамматики английского языка</h2>
+                <p>Проходи тесты и проверяй свои знания</p>
             </div>
-            
-            <div class="modules-container">
-                
-                <!-- Модуль 1: Тренажер букв -->
-                <div class="module-card js-module fade-in delay-1">
-                    <div class="module-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Тренажер развития скорости печати на английском</h3>
-                    <p>Практикуйте набор английских букв на скорость, тренируйте память и реакцию, готовьтесь уверенно печатать на английской раскладке без ошибок.</p>
-                    <a href="English_keyboard_trainer/index.html" class="module-btn">Начать тренировку</a>
+
+            <!-- ====== БЛОК С ТЕСТАМИ (загружается из JSON) ====== -->
+            <div class="tests-section fade-in delay-1">
+                <!-- ЭКРАН 1: ГЛАВНОЕ МЕНЮ ТЕСТОВ (категории рендерятся JS) -->
+                <div id="menu-screen-tests">
+                    <header>
+                        <h1>😺 Тренажёр английского</h1>
+                        <p>Выберите категорию и тему для прохождения теста</p>
+                    </header>
+                    <!-- .category-section добавляются динамически из manifest.json -->
                 </div>
 
-                <div class="module-card js-module fade-in">
-                    <div class="module-icon">
-                        <i class="fas fa-book-open"></i>
+                <!-- ЭКРАН 2: ТЕСТ -->
+                <div id="quiz-screen-tests" class="hidden">
+                    <header>
+                        <button id="back-btn" class="back-btn">← Назад к темам</button>
+                        <h1 id="quiz-title"></h1>
+                        <p id="test-description"></p>
+                    </header>
+
+                    <main id="quiz-container"></main>
+
+                    <div class="actions">
+                        <button id="check-btn">Проверить ответы</button>
+                        <button id="reset-btn" style="display:none;">Пройти заново</button>
                     </div>
-                    <h3>Основы грамматики английского языка</h3>
-                    <p>Полное погружение в грамматику: времена глаголов, построение предложений, артикли, предлоги, модальные глаголы и практика разговорной речи.</p>
-                    <a href="English_basics/index_basics.html" class="module-btn">Открыть раздел</a>
-                </div>
-                
-                
-                <!-- Модуль 3: Редактор кода -->
-                 <!--
-                <div class="module-card js-module fade-in delay-2">
-                    <div class="module-icon">
-                        <i class="fas fa-code"></i>
+
+                    <div id="result-container" class="hidden">
+                        <h2>Результат</h2>
+                        <div id="score-display"></div>
+                        <div id="detailed-results"></div>
                     </div>
-                    <h3>Онлайн редактор кода JavaScript</h3>
-                    <p>Интерактивная среда для написания и тестирования JavaScript кода прямо в браузере. Поддержка современных библиотек и фреймворков.</p>
-                    <a href="redaktor.html" class="module-btn">Открыть редактор</a>
-                </div>
-                -->
-                
-                <!-- Модуль 4: Фронтенд фреймворк -->
-                 <!--
-                <div class="module-card react-module fade-in delay-1">
-                    <div class="module-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                    <h3>Создание своего фронтенд фреймворка</h3>
-                    <p>Поймите, как работают современные фреймворки изнутри, создав свою собственную реализацию с виртуальным DOM, реактивностью и компонентным подходом.</p>
-                    <a href="zaglyhka_plat_js.html" class="module-btn">Изучить создание фреймворка</a>
-                </div>
-                -->
-                
-                <!-- Модуль 5: React -->
-                 <!--
-                <div class="module-card react-module fade-in delay-2">
-                    <div class="module-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <h3>React: современный фронтенд</h3>
-                    <p>Освойте React 18+ с хуками, React Router, управлением состоянием (Redux/Context), тестированием и оптимизацией производительности.</p>
-                    <a href="zaglyhka_plat_js.html" class="module-btn">Изучить React</a>
-                </div>
-                -->
-                
-                <!-- Модуль 6: Node.js -->
-                 <!--
-                <div class="module-card node-module fade-in delay-3">
-                    <div class="module-icon">
-                        <i class="fab fa-node-js"></i>
-                    </div>
-                    <h3>Node.js: серверный JavaScript</h3>
-                    <p>Научитесь создавать RESTful API, работать с Express.js, Middleware, аутентификацией, файловой системой и асинхронными операциями на сервере.</p>
-                    <a href="zaglyhka_plat_js.html" class="module-btn">Изучить Node.js</a>
-                </div>
-                -->
-                
-                <!-- Модуль 7: PostgreSQL -->
-                 <!--
-                <div class="module-card db-module fade-in delay-4">
-                    <div class="module-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>PostgreSQL: базы данных</h3>
-                    <p>Работа с реляционными базами данных: проектирование схем, сложные запросы, индексы, транзакции, миграции и интеграция с Node.js.</p>
-                    <a href="zaglyhka_plat_js.html" class="module-btn">Изучить PostgreSQL</a>
-                </div>
-               -->
-                
-                <!-- Модуль 8: Деплой -->
-            <!--
-                <div class="module-card db-module fade-in delay-5">
-                    <div class="module-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Деплой и DevOps основы</h3>
-                    <p>Настройка серверов, Docker, CI/CD, облачные платформы (AWS, Vercel, Heroku), мониторинг и обеспечение отказоустойчивости приложений.</p>
-                    <a href="zaglyhka_plat_js.html" class="module-btn">Изучить деплой</a>
                 </div>
             </div>
-            -->
-            
+            <!-- ====== КОНЕЦ БЛОКА С ТЕСТАМИ ====== -->
+
             <div style="text-align: center; margin-top: 50px;" class="fade-in delay-5">
                 <a href="zaglyhka_plat_js.html" class="btn btn-accent" style="padding: 16px 32px; font-size: 16px; margin-bottom: 15px; display: inline-block;">
                     <i class="fas fa-graduation-cap"></i> Записаться на полный курс
@@ -1396,8 +1705,12 @@
         </div>
     </footer>
 
+    <!-- ============================================ -->
+    <!-- СКРИПТЫ                                      -->
+    <!-- ============================================ -->
+
     <script>
-        // Фиксация хедера
+        // ==================== ФИКСАЦИЯ ХЕДЕРА ====================
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             if (window.scrollY > 30) {
@@ -1407,7 +1720,7 @@
             }
         });
 
-        // Управление мобильным меню
+        // ==================== МОБИЛЬНОЕ МЕНЮ + АВТОРИЗАЦИЯ ====================
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileNav = document.getElementById('mobileNav');
@@ -1417,7 +1730,6 @@
             const loginBtn = document.getElementById('loginBtn');
             const registerBtn = document.getElementById('registerBtn');
             
-            // Открытие/закрытие мобильного меню
             function toggleMobileMenu() {
                 mobileMenuBtn.classList.toggle('active');
                 mobileNav.classList.toggle('active');
@@ -1428,19 +1740,14 @@
             mobileMenuBtn.addEventListener('click', toggleMobileMenu);
             mobileNavOverlay.addEventListener('click', toggleMobileMenu);
             
-            // Закрытие меню при клике на ссылку в мобильном меню
             document.querySelectorAll('.mobile-nav a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     if (this.getAttribute('href').startsWith('#')) {
                         e.preventDefault();
                         const targetId = this.getAttribute('href');
                         const targetElement = document.querySelector(targetId);
-                        
                         if (targetElement) {
-                            // Закрываем меню
                             toggleMobileMenu();
-                            
-                            // Плавная прокрутка
                             setTimeout(() => {
                                 window.scrollTo({
                                     top: targetElement.offsetTop - 80,
@@ -1449,7 +1756,6 @@
                             }, 300);
                         }
                     } else {
-                        // Для внешних ссылок просто закрываем меню
                         setTimeout(() => {
                             toggleMobileMenu();
                         }, 100);
@@ -1457,14 +1763,11 @@
                 });
             });
             
-            // Плавная прокрутка для десктопных ссылок
             document.querySelectorAll('.desktop-nav a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
-                    
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
@@ -1475,14 +1778,13 @@
                 });
             });
             
-            // Закрытие меню при изменении размера окна
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768 && mobileNav.classList.contains('active')) {
                     toggleMobileMenu();
                 }
             });
             
-            // Анимация появления элементов при скролле
+            // Анимация появления
             const observerOptions = {
                 threshold: 0.05,
                 rootMargin: '0px 0px -30px 0px'
@@ -1498,7 +1800,6 @@
                 });
             }, observerOptions);
             
-            // Наблюдаем за всеми элементами с классом fade-in
             document.querySelectorAll('.fade-in').forEach(element => {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(15px)';
@@ -1506,41 +1807,14 @@
                 observer.observe(element);
             });
             
-            // Интерактивность для карточек модулей
-            document.querySelectorAll('.module-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    if (window.innerWidth > 768) {
-                        this.style.zIndex = '10';
-                    }
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    if (window.innerWidth > 768) {
-                        this.style.zIndex = '1';
-                    }
-                });
-                
-                // Для мобильных устройств - тап эффект
-                card.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-                
-                card.addEventListener('touchend', function() {
-                    this.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Имитация загрузки состояния пользователя
+            // Авторизация
             function updateAuthState() {
                 const token = localStorage.getItem('auth_token') || localStorage.getItem('authToken');
-                
                 if (token) {
-                    // Если пользователь авторизован, меняем кнопки
                     loginBtn.textContent = 'Личный кабинет';
                     loginBtn.href = 'pages/course.html';
                     loginBtn.classList.remove('btn-secondary');
                     loginBtn.classList.add('btn-primary');
-                    
                     registerBtn.textContent = 'Выйти';
                     registerBtn.href = '#';
                     registerBtn.onclick = function(e) {
@@ -1549,13 +1823,10 @@
                         localStorage.removeItem('authToken');
                         updateAuthState();
                     };
-                    
-                    // Обновляем мобильные кнопки
                     mobileLoginBtn.textContent = 'Личный кабинет';
                     mobileLoginBtn.href = 'pages/course.html';
                     mobileLoginBtn.classList.remove('btn-secondary');
                     mobileLoginBtn.classList.add('btn-primary');
-                    
                     mobileRegisterBtn.textContent = 'Выйти';
                     mobileRegisterBtn.href = '#';
                     mobileRegisterBtn.onclick = function(e) {
@@ -1563,33 +1834,24 @@
                         localStorage.removeItem('auth_token');
                         localStorage.removeItem('authToken');
                         updateAuthState();
-                        
-                        // Закрываем меню на мобильных
-                        if (window.innerWidth <= 768) {
-                            toggleMobileMenu();
-                        }
+                        if (window.innerWidth <= 768) toggleMobileMenu();
                     };
                 } else {
-                    // Если пользователь не авторизован
                     loginBtn.textContent = 'Вход';
                     loginBtn.href = 'pages/login.html';
                     loginBtn.classList.remove('btn-primary');
                     loginBtn.classList.add('btn-secondary');
                     loginBtn.onclick = null;
-                    
                     registerBtn.textContent = 'Регистрация';
                     registerBtn.href = 'pages/register.html';
                     registerBtn.classList.remove('btn-secondary');
                     registerBtn.classList.add('btn-primary');
                     registerBtn.onclick = null;
-                    
-                    // Обновляем мобильные кнопки
                     mobileLoginBtn.textContent = 'Вход';
                     mobileLoginBtn.href = 'pages/login.html';
                     mobileLoginBtn.classList.remove('btn-primary');
                     mobileLoginBtn.classList.add('btn-secondary');
                     mobileLoginBtn.onclick = null;
-                    
                     mobileRegisterBtn.textContent = 'Регистрация';
                     mobileRegisterBtn.href = 'pages/register.html';
                     mobileRegisterBtn.classList.remove('btn-secondary');
@@ -1597,20 +1859,245 @@
                     mobileRegisterBtn.onclick = null;
                 }
             }
-            
-            // Проверяем состояние авторизации при загрузке
             setTimeout(updateAuthState, 500);
-            
-            // Оптимизация для мобильных устройств
-            if ('ontouchstart' in window) {
-                document.body.classList.add('touch-device');
-                
-                // Улучшаем отклик кнопок на тач-устройствах
-                document.querySelectorAll('.btn, .module-btn').forEach(btn => {
-                    btn.style.cursor = 'pointer';
-                });
-            }
         });
+
+        // ==================== ТЕСТЫ (загрузка из JSON) ====================
+        (function() {
+            // ============ КОНФИГ ============
+            const MANIFEST_URL = 'tests/manifest.json';
+            const TESTS_BASE   = 'tests/';
+
+            // ============ DOM ============
+            const menuScreen      = document.getElementById('menu-screen-tests');
+            const quizScreen      = document.getElementById('quiz-screen-tests');
+            const quizTitle       = document.getElementById('quiz-title');
+            const testDescription = document.getElementById('test-description');
+            const quizContainer   = document.getElementById('quiz-container');
+            const checkBtn        = document.getElementById('check-btn');
+            const resetBtn        = document.getElementById('reset-btn');
+            const backBtn         = document.getElementById('back-btn');
+            const resultContainer = document.getElementById('result-container');
+            const scoreDisplay    = document.getElementById('score-display');
+            const detailedResults = document.getElementById('detailed-results');
+
+            let currentTest = null;
+
+            // ============ ЗАГРУЗКА МАНИФЕСТА ============
+            async function loadManifest() {
+                try {
+                    const res = await fetch(MANIFEST_URL, { cache: 'no-cache' });
+                    if (!res.ok) throw new Error('Манифест не найден: ' + res.status);
+                    return await res.json();
+                } catch (e) {
+                    console.error('Ошибка загрузки манифеста:', e);
+                    return null;
+                }
+            }
+
+            // ============ ОТРИСОВКА КАТЕГОРИЙ И ТЕМ ============
+            function renderManifest(manifest) {
+                // Удаляем старые .category-section (на случай повторного рендера)
+                menuScreen.querySelectorAll('.category-section').forEach(el => el.remove());
+
+                manifest.categories.forEach(cat => {
+                    const section = document.createElement('div');
+                    section.className = 'category-section';
+
+                    const header = document.createElement('button');
+                    header.className = 'category-header';
+                    header.dataset.target = 'cat-' + cat.id;
+                    header.innerHTML = `
+                        <span class="arrow">▶</span>
+                        <span>${cat.title}</span>
+                    `;
+                    section.appendChild(header);
+
+                    const list = document.createElement('div');
+                    list.className = 'topic-list collapsed';
+                    list.id = 'cat-' + cat.id;
+
+                    cat.tests.forEach(test => {
+                        const btn = document.createElement('button');
+                        btn.className = 'topic-btn';
+                        btn.textContent = test.title;
+                        btn.dataset.testId = test.id;
+                        btn.dataset.testFile = test.file;
+                        btn.addEventListener('click', () => {
+                            startTest(test.id, test.title, test.file);
+                        });
+                        list.appendChild(btn);
+                    });
+
+                    section.appendChild(list);
+                    menuScreen.appendChild(section);
+
+                    header.addEventListener('click', () => {
+                        header.classList.toggle('active');
+                        list.classList.toggle('collapsed');
+                    });
+                });
+
+                // Открываем первую категорию
+                /*const firstHeader = menuScreen.querySelector('.category-header');
+                if (firstHeader) {
+                    firstHeader.classList.add('active');
+                    const firstList = document.getElementById(firstHeader.dataset.target);
+                    if (firstList) firstList.classList.remove('collapsed');
+                }*/
+            }
+
+            // ============ СТАРТ ТЕСТА ============
+            async function startTest(testId, testTitle, testFile) {
+                try {
+                    const res = await fetch(TESTS_BASE + testFile, { cache: 'no-cache' });
+                    if (!res.ok) throw new Error('Файл теста не найден: ' + res.status);
+                    const data = await res.json();
+
+                    currentTest = {
+                        id: data.id || testId,
+                        title: data.title || testTitle,
+                        description: data.description || 'Выберите правильный вариант ответа',
+                        questions: (data.questions || []).map(q => ({
+                            id: q.id,
+                            type: q.type || 'single',
+                            question: q.question,
+                            options: q.options || [],
+                            correct: Array.isArray(q.correct) ? q.correct : [q.correct],
+                            explanation: q.explanation || ''
+                        }))
+                    };
+
+                    // Показываем экран теста
+                    menuScreen.classList.add('hidden');
+                    quizScreen.classList.remove('hidden');
+                    resultContainer.classList.add('hidden');
+                    resetBtn.style.display = 'none';
+                    checkBtn.style.display = 'block';
+
+                    quizTitle.textContent = currentTest.title;
+                    testDescription.textContent = currentTest.description;
+
+                    // Рендер вопросов
+                    quizContainer.innerHTML = '';
+                    currentTest.questions.forEach((q, index) => {
+                        const block = document.createElement('div');
+                        block.className = 'question-block';
+
+                        const inputType = q.type === 'multiple' ? 'checkbox' : 'radio';
+                        const nameAttr  = 'q' + index;
+
+                        block.innerHTML = `
+                            <div class="question-text">
+                                ${index + 1}. ${q.question}
+                                ${q.type === 'multiple' ? '<em style="font-weight:400;color:var(--gray);"> (выберите все подходящие)</em>' : ''}
+                            </div>
+                            ${q.options.map((opt, optIndex) => `
+                                <label class="option-label">
+                                    <input type="${inputType}" name="${nameAttr}" value="${optIndex}">
+                                    <span>${opt}</span>
+                                </label>
+                            `).join('')}
+                        `;
+                        quizContainer.appendChild(block);
+                    });
+
+                    quizScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } catch (e) {
+                    console.error('Ошибка загрузки теста:', e);
+                    alert('Не удалось загрузить тест. Проверьте, что файл ' + testFile + ' существует.');
+                }
+            }
+
+            // ============ ПРОВЕРКА ============
+            checkBtn.addEventListener('click', function() {
+                if (!currentTest) return;
+
+                let correctCount = 0;
+                const results = [];
+
+                currentTest.questions.forEach((q, index) => {
+                    const inputs = document.querySelectorAll(`input[name="q${index}"]`);
+                    let selected = [];
+                    inputs.forEach(inp => { if (inp.checked) selected.push(parseInt(inp.value)); });
+
+                    const correctSorted  = [...q.correct].sort((a,b) => a-b);
+                    const selectedSorted = [...selected].sort((a,b) => a-b);
+                    const isCorrect = correctSorted.length === selectedSorted.length &&
+                                      correctSorted.every((v,i) => v === selectedSorted[i]);
+
+                    if (isCorrect) correctCount++;
+
+                    results.push({
+                        question: q.question,
+                        options: q.options,
+                        correct: q.correct,
+                        selected,
+                        isCorrect,
+                        explanation: q.explanation
+                    });
+                });
+
+                resultContainer.classList.remove('hidden');
+                scoreDisplay.textContent = `Правильных ответов: ${correctCount} из ${currentTest.questions.length}`;
+
+                detailedResults.innerHTML = results.map((r, i) => {
+                    const correctText  = r.correct.map(idx => r.options[idx]).join(', ');
+                    const selectedText = r.selected.length
+                        ? r.selected.map(idx => r.options[idx]).join(', ')
+                        : 'Не выбран';
+
+                    return `
+                        <div class="detailed-item ${r.isCorrect ? 'correct' : 'incorrect'}">
+                            <div class="q-text">${i + 1}. ${r.question}</div>
+                            <div class="answer-info">
+                                ${r.isCorrect
+                                    ? `<span class="correct-answer">✓ Правильно: ${correctText}</span>`
+                                    : `<span class="your-answer">✗ Ваш ответ: ${selectedText}</span><br>
+                                       <span class="correct-answer">✓ Правильный ответ: ${correctText}</span>`
+                                }
+                                ${r.explanation ? `<div style="margin-top:8px;font-size:13px;color:var(--gray);"><strong>Пояснение:</strong> ${r.explanation}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                checkBtn.style.display = 'none';
+                resetBtn.style.display = 'block';
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            // ============ СБРОС ============
+            resetBtn.addEventListener('click', function() {
+                if (!currentTest) return;
+                document.querySelectorAll('#quiz-container input').forEach(inp => inp.checked = false);
+                resultContainer.classList.add('hidden');
+                resetBtn.style.display = 'none';
+                checkBtn.style.display = 'block';
+                window.scrollTo({ top: quizScreen.offsetTop - 80, behavior: 'smooth' });
+            });
+
+            // ============ НАЗАД ============
+            backBtn.addEventListener('click', function() {
+                quizScreen.classList.add('hidden');
+                menuScreen.classList.remove('hidden');
+                currentTest = null;
+                window.scrollTo({ top: menuScreen.offsetTop - 80, behavior: 'smooth' });
+            });
+
+            // ============ ИНИЦИАЛИЗАЦИЯ ============
+            document.addEventListener('DOMContentLoaded', async () => {
+                const manifest = await loadManifest();
+                if (manifest) {
+                    renderManifest(manifest);
+                } else {
+                    menuScreen.innerHTML += `
+                        <p style="color:#EF4444;padding:20px;text-align:center;">
+                            ⚠ Не удалось загрузить список тестов. Проверьте наличие файла <code>tests/manifest.json</code>.
+                        </p>`;
+                }
+            });
+        })();
     </script>
 </body>
 </html>

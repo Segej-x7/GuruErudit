@@ -1,0 +1,35 @@
+{
+  "categories": [
+    {
+      "id": "grammar",
+      "title": "Grammar",
+      "tests": [
+        { "id": "articles", "title": "Артикли (Articles)", "file": "articles.json" },
+        { "id": "prepositions", "title": "Предлоги (Prepositions)", "file": "prepositions.json" },
+        { "id": "pronouns", "title": "Местоимения (Pronouns)", "file": "pronouns.json" }
+      ]
+    },
+    {
+      "id": "basics_a0",
+      "title": "База (уровень А0)",
+      "tests": [
+        { "id": "alphabet", "title": "Английский алфавит: буквы и их произношение", "file": "alphabet.json" },
+        { "id": "letter_sounds", "title": "Базовые соответствия буква - звук", "file": "letter_sounds.json"},
+        { "id": "vowels_consonants", "title": "Гласные и согласные звуки: как их различать и произносить", "file": "vowels_consonants.json"},
+        { "id": "english_sounds_and_reading_rules", "title": "Звуки английского языка и правила чтения", "file": "reading_rules.json"},
+        { "id": "basic_spelling_and_reading", "title": "Произношение и чтение простых слов по буквам", "file": "basic_spelling.json"}
+      
+      ]
+    },
+    {
+        "id": "basics_practice_A0",
+        "title": "Практическая часть: алфавит. Буквы, звуки, их сочетания и произношение",
+        "tests": [
+            { "id": "find_a_pair", "title": "Сопоставь строчную и заглавную буквы", "file": "lowercase_uppercase_letters.json"},
+            { "id": "letter_sound", "title": "Какой звук может давать буква на экране", "file": "pronunciation.json"},
+            { "id": "spelling", "title": "Собери слово", "file": "words_for_spelling.json"}
+
+        ]
+    }
+  ]
+}
